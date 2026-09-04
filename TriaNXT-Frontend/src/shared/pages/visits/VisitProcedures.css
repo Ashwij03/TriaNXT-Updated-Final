@@ -1,0 +1,154 @@
+/* =============================== */
+/* LAYOUT */
+/* =============================== */
+.visit-procedures-wrapper {
+  display: flex;
+  border: 1px solid #ddd;
+  margin-top: var(--tnxt-space-md);
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+/* =============================== */
+/* LEFT BLUE COLUMN */
+/* =============================== */
+.procedures-left {
+  width: 16.25rem;
+  background: #3f5f7f;
+  color: #fff;
+}
+
+.procedure-item {
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-base);
+  font-size: var(--tnxt-font-size-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.procedure-item.active {
+  background: #2f4f6f;
+  font-weight: 600;
+}
+
+/* ICON STATES */
+.procedure-item.complete .icon {
+  color: #2ecc71;
+}
+
+.procedure-item.partial .icon {
+  color: #f1c40f;
+  font-weight: bold;
+}
+
+/* =============================== */
+/* RIGHT PANEL */
+/* =============================== */
+.procedures-right {
+  flex: 1;
+  background: #fff;
+}
+/* =============================== */
+/* PROCEDURE HEADER (ORANGE BAR) */
+/* =============================== */
+.procedure-header {
+  background: #f6b26b;
+  padding: var(--tnxt-space-md) var(--tnxt-space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.external-icon {
+  font-size: var(--tnxt-font-size-base);
+  cursor: pointer;
+}
+
+/* =============================== */
+/* BODY */
+/* =============================== */
+.procedure-body {
+  padding: var(--tnxt-space-lg);
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.instructions {
+  font-weight: 600;
+  margin-bottom: 0.625rem;
+}
+
+/* =============================== */
+/* QUESTION ROWS */
+/* =============================== */
+.question-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--tnxt-space-md) var(--tnxt-space-lg);
+  background: #f7f7f7;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.answer-yes {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-right: var(--tnxt-space-sm);
+}
+
+.meta {
+  color: #777;
+  font-size: var(--tnxt-font-size-xs);
+}
+
+/* =============================== */
+/* ANSWER TOTALS (EXACT CRIO) */
+/* =============================== */
+.answer-totals {
+  margin-top: var(--tnxt-space-lg);
+  background: #f3f6f9;
+  padding: var(--tnxt-font-size-base);
+  border-radius: var(--tnxt-space-xs);
+}
+
+.totals-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: var(--tnxt-space-md);
+  color: #6b7280;
+  letter-spacing: 0.var(--tnxt-space-xs);
+}
+
+.totals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+}
+
+.totals-grid .label {
+  font-size: var(--tnxt-space-md);
+  color: #555;
+}
+
+.totals-grid .value {
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+}
+.question-label.error {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.answer {
+  font-weight: 700;
+}
+
+.meta {
+  font-size: var(--tnxt-font-size-xs);
+  color: #777;
+}
+
+.empty {
+  color: #999;
+}

@@ -1,0 +1,58 @@
+.doc-viewer {
+  background: white;
+  padding: var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-sm);
+  margin-top: var(--tnxt-space-xl);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* HEADER */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-header h2 {
+  color: #f57c00;
+}
+
+/* ACTIONS */
+.doc-actions span {
+  margin-left: var(--tnxt-space-xl);
+  cursor: pointer;
+  color: #007bff;
+}
+
+/* LOCATION */
+.location {
+  margin: 0.9375rem 0;
+  color: #555;
+}
+
+/* DETAILS */
+.doc-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--tnxt-space-xl);
+}
+
+.doc-details p {
+  margin: 0.625rem 0;
+}
+
+/* DOWNLOAD BUTTON */
+.download-box {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.875rem;
+}
+
+.download-btn {
+  background: #3b5b7a;
+  color: white;
+  border: none;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: var(--tnxt-radius-sm);
+  cursor: pointer;
+}

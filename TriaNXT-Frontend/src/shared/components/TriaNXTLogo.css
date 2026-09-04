@@ -1,0 +1,67 @@
+.trianxt-logo {
+  background: none;
+  box-shadow: none;
+  border: none;
+
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.trianxt-logo[role="button"] {
+  cursor: pointer;
+}
+
+.trianxt-logo-img {
+  display: block;
+  height: auto;
+}
+
+/* Sidebar Logo */
+.trianxt-logo--sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+
+  margin: var(--tnxt-space-md) 0;
+  padding: 0.25rem 0;
+}
+
+.trianxt-logo--sidebar .trianxt-logo-img {
+  width: 12.5rem;
+  height: 4.0rem;
+}
+
+/* Navbar logo — shown between the hamburger toggle and the welcome text
+   only while the sidebar is collapsed/closed (see EnterpriseNavbarBase). */
+.trianxt-logo--navbar {
+  display: flex;
+  align-items: center;
+
+  margin: 0;
+  padding: 0 0.125rem;
+  flex-shrink: 0;
+}
+
+.trianxt-logo--navbar .trianxt-logo-img {
+  width: 5.5rem;
+  height: auto;
+}
+
+.trianxt-logo--auth {
+  margin: 0 auto 0.9375rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.trianxt-logo--auth .trianxt-logo-img {
+  width: 9rem;
+  height: auto;
+}
+
+.trianxt-logo--auth[role="button"] {
+  cursor: pointer;
+}

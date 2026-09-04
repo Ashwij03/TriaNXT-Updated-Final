@@ -1,0 +1,97 @@
+.next-visit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 1rem;
+}
+
+.next-visit-modal {
+  width: min(100%, 3rem);
+  background: #fff;
+  border-radius: var(--tnxt-space-lg);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+  padding: 1.5rem;
+}
+
+.next-visit-modal-header h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.25rem;
+  color: #0f172a;
+}
+
+.next-visit-modal-header p {
+  margin: 0 0 1rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.next-visit-modal-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.next-visit-modal-form label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.next-visit-modal-form input,
+.next-visit-modal-form select {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.625rem;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+}
+
+.next-visit-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.next-visit-modal-actions button {
+  border: none;
+  border-radius: 0.625rem;
+  padding: 0.65rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.next-visit-modal-actions button.secondary {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.next-visit-modal-actions button[type="submit"] {
+  background: #2563eb;
+  color: #fff;
+}
+
+.next-visit-error {
+  margin: 0;
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  .next-visit-modal {
+    padding: 1rem;
+  }
+
+  .next-visit-modal-actions {
+    flex-direction: column;
+  }
+
+  .next-visit-modal-actions button {
+    width: 100%;
+  }
+}

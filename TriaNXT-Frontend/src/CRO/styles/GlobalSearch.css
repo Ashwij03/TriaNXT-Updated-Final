@@ -1,0 +1,102 @@
+.cro-global-search {
+  position: relative;
+  flex: 1;
+  max-width: 22.5rem;
+  min-width: 11.25rem;
+}
+
+.cro-global-search-icon {
+  position: absolute;
+  left: var(--tnxt-space-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 0.875rem;
+  pointer-events: none;
+}
+
+.cro-global-search-input {
+  width: 100%;
+  padding: 0.625rem var(--tnxt-space-md) 0.625rem 2.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--tnxt-space-sm);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.cro-global-search-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.cro-global-search-dropdown {
+  position: absolute;
+  top: calc(100% + var(--tnxt-radius-sm));
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  list-style: none;
+  margin: 0;
+  padding: var(--tnxt-radius-sm);
+  max-height: 2rem;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.cro-global-search-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0.625rem var(--tnxt-space-md);
+  border: none;
+  background: none;
+  border-radius: var(--tnxt-space-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.cro-global-search-item:hover {
+  background: #f1f5f9;
+}
+
+.cro-global-search-type {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #2563eb;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.125rem;
+}
+
+.cro-global-search-label {
+  font-size: 0.875rem;
+  color: #334155;
+}
+
+.cro-global-search-empty {
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-md);
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.cro-global-search-sublabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 0.125rem;
+}
+
+@media (max-width: 768px) {
+  .cro-global-search {
+    max-width: 100%;
+    order: 10;
+    width: 100%;
+  }
+}

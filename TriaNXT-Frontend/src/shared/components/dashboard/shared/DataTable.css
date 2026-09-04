@@ -1,0 +1,364 @@
+.ctms-table-card {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius-lg);
+  padding: var(--tnxt-space-lg);
+  box-shadow: var(--tnxt-shadow-card);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 12.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ctms-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+.ctms-table-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--tnxt-text);
+}
+
+.ctms-table-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: var(--tnxt-space-md, 14px);
+
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: var(--tnxt-space-md, 0.875rem);
+}
+
+.ctms-table-search,
+.ctms-table-filter select,
+.ctms-table-pagination select {
+  border: 1px solid var(--tnxt-border, #d9dee7);
+  border-radius: 8px;
+  padding: 9px 11px;
+  font-size: 13px;
+
+  border-radius: 0.5rem;
+  padding: 0.5625rem 0.6875rem;
+  font-size: 0.8125rem;
+  background: #fff;
+  color: var(--tnxt-text, #0f172a);
+}
+
+.ctms-table-search {
+  min-width: 240px;
+  flex: 1 1 260px;
+
+  min-width: 15rem;
+  flex: 1 1 16.25rem;
+}
+
+.ctms-table-filters {
+  display: flex;
+  gap: 10px;
+
+  gap: 0.625rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ctms-table-filter,
+.ctms-table-pagination label {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--tnxt-text-secondary, #64748b);
+}
+
+.ctms-table-wrapper {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+/* Consolidated base table: single source of truth (Stage 7D-B). */
+.ctms-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 1px solid #d9dee7;
+}
+
+.ctms-table thead {
+  background: var(--tnxt-bg-alt);
+}
+
+.ctms-table th {
+  padding: 0.75rem;
+  text-align: left;
+  background: #0b2f45;
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid #d9dee7;
+  text-transform: uppercase;
+  letter-spacing: 0.01875rem;
+  font-size: 0.6875rem;
+}
+
+.ctms-table th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.ctms-table th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+.ctms-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.ctms-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.ctms-table th,
+.ctms-table td {
+  white-space: nowrap;
+  word-break: normal;
+  overflow-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+/* Row actions must never be truncated/hidden — visible actions is an
+   explicit BUG-4 requirement, so any cell hosting action buttons opts
+   out of the ellipsis truncation used for ordinary text columns. */
+.ctms-table td:has(.table-actions),
+.ctms-table td:has(button) {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.ctms-table td {
+  padding: 0.75rem;
+  font-size: var(--tnxt-font-size-sm);
+  color: var(--tnxt-text);
+  background: #fff;
+  border: 1px solid #d9dee7;
+}
+
+.ctms-table tbody tr:hover {
+  background: var(--tnxt-bg-alt);
+}
+
+.ctms-table tbody tr:hover {
+  background: var(--tnxt-bg-alt);
+}
+
+.empty-row {
+  text-align: center;
+  padding: 0.75rem;
+  color: var(--tnxt-text-secondary);
+}
+
+.empty-row-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.125rem;
+  padding: 0.5rem 0;
+}
+
+.ctms-table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.875rem;
+  color: var(--tnxt-text-secondary, #64748b);
+  font-size: 0.8125rem;
+}
+
+.ctms-table-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.ctms-table-pagination button {
+  border: 1px solid var(--tnxt-border, #d9dee7);
+  background: #fff;
+  color: var(--tnxt-text, #0f172a);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+
+.ctms-table-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.ctms-table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  color: var(--tnxt-text-secondary, #64748b);
+  font-size: 13px;
+}
+
+.ctms-table-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ctms-table-pagination button {
+  border: 1px solid var(--tnxt-border, #d9dee7);
+  background: #fff;
+  color: var(--tnxt-text, #0f172a);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.ctms-table-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.ctms-table-wrapper .ctms-table {
+  height: 100%;
+}
+
+/* Scoped variant: upcoming visits table */
+.upcoming-visits-table.ctms-table-card {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.upcoming-visits-table .ctms-table-wrapper {
+  display: block;
+  flex: 1 1 auto;
+  min-height: auto;
+  max-height: 15.625rem;
+  overflow-y: auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.upcoming-visits-table .ctms-table-wrapper .ctms-table {
+  height: auto;
+}
+
+.upcoming-visits-table .ctms-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.upcoming-visits-table .ctms-table {
+  display: table;
+  height: auto;
+  table-layout: fixed;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.upcoming-visits-table .ctms-table tbody tr {
+  height: auto;
+}
+
+.upcoming-visits-table .ctms-table th,
+.upcoming-visits-table .ctms-table td {
+  height: auto;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.upcoming-visits-table .ctms-table th:nth-child(2),
+.upcoming-visits-table .ctms-table td:nth-child(2) {
+  max-width: 8.75rem;
+  width: 18%;
+}
+
+.upcoming-visits-table .ctms-table th:nth-child(6),
+.upcoming-visits-table .ctms-table td:nth-child(6) {
+  min-width: 4.5rem;
+  width: 14%;
+}
+
+.upcoming-visits-table tbody tr {
+  height: auto !important;
+}
+
+.upcoming-visits-table tbody td.empty-row {
+  padding: 12px !important;
+
+  height: auto;
+}
+
+.upcoming-visits-table tbody td.empty-row {
+  padding: var(--tnxt-space-md);
+}
+
+/* Scoped variant: upcoming visits full-width layout */
+.upcoming-visits-full-width .ctms-table-header {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.upcoming-visits-full-width .ctms-table-card {
+  border: none !important;
+  box-shadow: none !important;
+  padding-top: 0 !important;
+
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.upcoming-visits-full-width .ctms-table-card {
+  border: none;
+  box-shadow: none;
+  padding-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .ctms-table-card {
+    padding: var(--tnxt-font-size-base);
+  min-height: 13.75rem;
+}
+
+  .ctms-table th,
+  .ctms-table td {
+    padding: 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .ctms-table {
+    min-width: 32.5rem;
+  }
+}

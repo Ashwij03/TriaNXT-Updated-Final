@@ -1,0 +1,243 @@
+/* newly added */
+
+/* ==========================================
+   VISIT DETAILS PAGE
+========================================== */
+
+.visit-details-page {
+  padding: var(--tnxt-space-2xl);
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.visit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--tnxt-space-2xl);
+}
+
+.back-btn {
+  background: #0f3b66;
+  color: white;
+  border: none;
+  border-radius: 0.625rem;
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-xl);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+
+.back-btn:hover {
+  background: #0b2d4d;
+  transform: translateY(-0.125rem);
+}
+
+.visit-status {
+  background: #dcfce7;
+  color: #166534;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.visit-title {
+  margin-bottom: var(--tnxt-space-2xl);
+}
+
+.visit-title h1 {
+  font-size: 2.625rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: var(--tnxt-space-sm);
+}
+
+.visit-title p {
+  color: #64748b;
+  font-size: var(--tnxt-space-lg);
+}
+
+/* ==========================================
+   KPI CARDS
+========================================== */
+
+.visit-kpis {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: var(--tnxt-space-xl);
+  margin-bottom: 1.75rem;
+}
+
+.visit-kpi-card {
+  background: white;
+  border-radius: var(--tnxt-space-lg);
+  padding: var(--tnxt-space-2xl);
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  transition: all .25s ease;
+}
+
+.visit-kpi-card:hover {
+  transform: translateY(-var(--tnxt-space-xs));
+}
+
+.visit-kpi-card h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: var(--tnxt-space-sm);
+}
+
+.visit-kpi-card p {
+  color: #64748b;
+}
+
+/* ==========================================
+   TABS
+========================================== */
+
+.visit-tabs {
+  display: flex;
+  gap: var(--tnxt-space-md);
+  margin-bottom: var(--tnxt-space-2xl);
+  flex-wrap: wrap;
+}
+
+.visit-tabs button {
+  border: none;
+  background: white;
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-xl);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+
+.visit-tabs button:hover {
+  transform: translateY(-0.125rem);
+}
+
+.visit-tabs button.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* ==========================================
+   CONTENT CARD
+========================================== */
+
+.visit-card {
+  background: white;
+  border-radius: var(--tnxt-font-size-xl);
+  padding: 1.75rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+.visit-card h2 {
+  font-size: 1.75rem;
+  margin-bottom: var(--tnxt-space-2xl);
+  color: #0f172a;
+}
+
+/* ==========================================
+   GRID
+========================================== */
+
+.visit-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: var(--tnxt-space-xl);
+}
+
+.visit-grid div {
+  background: #f8fafc;
+  padding: var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-md);
+  border: 1px solid #e2e8f0;
+}
+
+.visit-grid label {
+  display: block;
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  margin-bottom: 0.625rem;
+  text-transform: uppercase;
+}
+
+.visit-grid p {
+  color: #0f172a;
+  font-size: var(--tnxt-font-size-xl);
+  font-weight: 600;
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.visit-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.visit-card thead {
+  background: #042c40;
+}
+
+.visit-card th {
+  color: white;
+  padding: var(--tnxt-space-lg);
+  text-align: left;
+}
+
+.visit-card td {
+  padding: var(--tnxt-space-lg);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.visit-card tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1024px) {
+
+  .visit-kpis {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:768px) {
+
+  .visit-header {
+    flex-direction: column;
+    gap: 0.9375rem;
+    align-items: flex-start;
+  }
+
+  .visit-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .visit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visit-title h1 {
+    font-size: 1.875rem;
+  }
+
+  .visit-tabs {
+    flex-direction: column;
+  }
+
+}

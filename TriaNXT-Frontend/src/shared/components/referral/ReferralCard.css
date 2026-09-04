@@ -1,0 +1,157 @@
+/* NEW FILE — Task 6 (Ashwij): Referral & Limited Free License Model.
+   Uses the existing --tnxt-* design tokens defined globally in
+   src/shared/styles/design-system.css — no new variables introduced. */
+
+.referral-card .referral-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-lg, 1rem);
+}
+
+.referral-code-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-xs, 0.25rem);
+}
+
+.referral-code-label {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs, 0.25rem);
+  font-size: var(--tnxt-font-size-sm, 0.9375rem);
+  font-weight: 600;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.referral-code-value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm, 0.5rem);
+  flex-wrap: wrap;
+}
+
+.referral-code-value {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: var(--tnxt-font-size-lg, 1.0625rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--tnxt-primary, #2563eb);
+  background: var(--tnxt-primary-light, #dbeafe);
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+.referral-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  background: var(--tnxt-card, #ffffff);
+  color: var(--tnxt-text, #111827);
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--tnxt-font-size-xs, 0.75rem);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.referral-copy-btn:hover:not(:disabled) {
+  background: var(--tnxt-bg-alt, #f8f9fa);
+}
+
+.referral-copy-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.referral-usage-line {
+  margin: 0;
+  font-size: var(--tnxt-font-size-xs, 0.75rem);
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.referral-cap-reached {
+  color: var(--tnxt-danger, #dc2626);
+  font-weight: 600;
+}
+
+.referral-status-block p {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  font-size: var(--tnxt-font-size-sm, 0.9375rem);
+  font-weight: 600;
+}
+
+.referral-status-active {
+  color: var(--tnxt-success, #16a34a);
+}
+
+.referral-status-inactive {
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.referral-redeem-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-xs, 0.25rem);
+  padding-top: var(--tnxt-space-sm, 0.5rem);
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+.referral-redeem-form label {
+  font-size: var(--tnxt-font-size-xs, 0.75rem);
+  font-weight: 600;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.referral-redeem-row {
+  display: flex;
+  gap: var(--tnxt-space-sm, 0.5rem);
+}
+
+.referral-redeem-row input {
+  flex: 1;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: 0.375rem;
+  font-size: var(--tnxt-font-size-sm, 0.9375rem);
+}
+
+.referral-redeem-btn {
+  border: none;
+  background: var(--tnxt-primary, #2563eb);
+  color: var(--tnxt-text-inverse, #ffffff);
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: var(--tnxt-font-size-sm, 0.9375rem);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.referral-redeem-btn:hover {
+  background: var(--tnxt-primary-hover, #1d4ed8);
+}
+
+.referral-redeem-message {
+  margin: 0;
+  font-size: var(--tnxt-font-size-xs, 0.75rem);
+  font-weight: 600;
+}
+
+.referral-redeem-message.success {
+  color: var(--tnxt-success, #16a34a);
+}
+
+.referral-redeem-message.error {
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.referral-already-redeemed-note {
+  margin: 0;
+  padding-top: var(--tnxt-space-sm, 0.5rem);
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+  font-size: var(--tnxt-font-size-xs, 0.75rem);
+  color: var(--tnxt-text-muted, #9ca3af);
+}

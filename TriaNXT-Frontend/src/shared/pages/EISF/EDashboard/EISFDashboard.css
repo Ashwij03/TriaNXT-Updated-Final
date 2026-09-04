@@ -1,0 +1,298 @@
+.eisf-layout {
+  display: flex;
+  min-height: calc(100vh - 4.5rem);
+  height: calc(100vh - 4.5rem);
+  background: #f6f8fb;
+  overflow: hidden;
+}
+
+.eisf-sidebar {
+  width: 18.75rem;
+  flex: 0 0 18.75rem;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 4.5rem);
+  min-height: 0;
+  background: #fff;
+  border-right: 1px solid #e5eaf2;
+  overflow: hidden;
+}
+
+.eisf-sidebar-title {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 1.0625rem var(--tnxt-space-xl);
+  font-size: var(--tnxt-space-lg);
+  font-weight: 800;
+  border-bottom: 1px solid #e5eaf2;
+  background: #fff;
+  color: #0f172a;
+}
+
+.eisf-sidebar-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.625rem 0;
+}
+
+.eisf-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 2.875rem;
+  border-bottom: 1px solid #f1f4f8;
+}
+
+.eisf-menu-item:hover {
+  background: #f5f8fc;
+}
+
+.eisf-menu-item.active {
+  background: #eaf3ff;
+  color: #1c6ed4;
+  font-weight: 600;
+}
+
+/* Task 1: the label button now covers the full row so a click anywhere on the
+   module toggles its sub-modules. The +/- glyph lives inside it as a passive
+   indicator. */
+.eisf-menu-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-sm);
+  flex: 1;
+  width: 100%;
+  min-height: 2.875rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: var(--tnxt-space-md) 0.625rem var(--tnxt-space-md) var(--tnxt-font-size-xl);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.eisf-menu-text {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tnxt-space-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.eisf-module-number {
+  flex: 0 0 auto;
+  color: currentColor;
+  font-weight: 800;
+}
+
+/* Expand/collapse indicator only — not a separate click target. */
+.eisf-expand-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.625rem;
+  height: 1.625rem;
+  color: #0f172a;
+  font-size: 1.0625rem;
+  font-weight: 800;
+  pointer-events: none;
+  user-select: none;
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+.eisf-menu-item.active .eisf-expand-indicator {
+  color: #1c6ed4;
+}
+
+.eisf-menu-item.expanded .eisf-expand-indicator {
+  transform: scale(1.1);
+}
+
+.eisf-child-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-sm);
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid #f6f8fb;
+  background: #fbfdff;
+  padding: 0.5625rem var(--tnxt-font-size-xl) 0.5625rem 3.375rem;
+  font-size: var(--tnxt-space-md);
+  line-height: 1.35;
+  cursor: pointer;
+  color: #475569;
+  text-align: left;
+}
+
+.eisf-child-item:hover {
+  background: #f5f7fb;
+}
+
+/* Sub-module row: existing child button + document count + enable/disable
+   toggle moved here from the removed Sections panel. */
+.eisf-child-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+  padding-right: var(--tnxt-space-md);
+  background: #fbfdff;
+  border-bottom: 1px solid #f6f8fb;
+}
+
+.eisf-child-row:hover {
+  background: #f5f7fb;
+}
+
+.eisf-child-row .eisf-child-item {
+  flex: 1;
+  min-width: 0;
+  border-bottom: 0;
+  background: transparent;
+}
+
+.eisf-child-title {
+  min-width: 0;
+}
+
+.eisf-child-item .section-count {
+  flex: 0 0 auto;
+  min-width: 1.375rem;
+  padding: 0.125rem 0.4375rem;
+  border-radius: 999px;
+  background: #dcecff;
+  color: #1f7ae0;
+  font-size: var(--tnxt-font-size-xs);
+  font-weight: 800;
+  text-align: center;
+}
+
+.eisf-child-item.disabled {
+  opacity: 0.65;
+  color: #64748b;
+}
+
+.eisf-child-item.disabled .section-count {
+  background: #e2e8f0;
+  color: #64748b;
+}
+
+/* Compact switch — same markup/behaviour as the previous panel toggle. */
+.eisf-child-row .eisf-submodule-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+}
+
+.eisf-child-row .eisf-submodule-toggle:focus {
+  outline: none;
+}
+
+.eisf-child-row .eisf-submodule-toggle:focus-visible .toggle-track {
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.35);
+}
+
+.eisf-child-row .eisf-submodule-toggle .toggle-track {
+  position: relative;
+  display: inline-block;
+  width: 1.875rem;
+  height: 1.0625rem;
+  border-radius: 999px;
+  background: #cbd5e1;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.eisf-child-row .eisf-submodule-toggle .toggle-thumb {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: var(--tnxt-font-size-sm);
+  height: var(--tnxt-font-size-sm);
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.25);
+  transition: transform 0.15s ease;
+}
+
+.eisf-child-row .eisf-submodule-toggle.enabled .toggle-track {
+  background: #16a34a;
+}
+
+.eisf-child-row .eisf-submodule-toggle.enabled .toggle-thumb {
+  transform: translateX(var(--tnxt-font-size-sm));
+}
+
+.eisf-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  overflow-y: auto;
+  background: #f6f8fb;
+}
+.eisf-content{
+    flex:1;
+    min-width:0;
+    min-height:0;
+    padding:0;
+    overflow:auto;
+}
+.eisf-child-item.active {
+  background: #e8f1ff;
+  color: #0b5ed7;
+  font-weight: 600;
+}
+
+.eisf-layout-reference {
+  display: flex;
+  min-height: calc(100vh - 4.5rem);
+  height: calc(100vh - 4.5rem);
+}
+
+.eisf-layout-reference .eisf-content {
+  width: auto;
+}
+
+@media (max-width: 1180px) {
+  .eisf-sidebar {
+    width: 15.625rem;
+    flex-basis: 15.625rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .eisf-layout-reference {
+    flex-direction: column;
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+  }
+
+  .eisf-sidebar {
+    position: relative;
+    top: auto;
+    width: 100%;
+    height: auto;
+    max-height: 16.25rem;
+    flex-basis: auto;
+    border-right: 0;
+    border-bottom: 1px solid #e5eaf2;
+  }
+}

@@ -1,0 +1,318 @@
+.viewer-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.viewer-modal{
+    width:59.375rem;
+    background:#fff;
+    border-radius:0.625rem;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.2);
+}
+
+.viewer-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+    background:#082b3d;
+    color:#fff;
+}
+
+.viewer-header h3{
+    margin:0;
+}
+
+.viewer-header span{
+    font-size:var(--tnxt-font-size-sm);
+    opacity:.8;
+}
+
+.viewer-close{
+    border:none;
+    background:none;
+    color:#fff;
+    font-size:1.375rem;
+    cursor:pointer;
+}
+
+.viewer-info{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:var(--tnxt-font-size-xl);
+    padding:var(--tnxt-space-xl) var(--tnxt-space-2xl);
+    border-bottom:1px solid #ececec;
+}
+
+.viewer-info div{
+    display:flex;
+    flex-direction:column;
+}
+
+.viewer-info label{
+    font-size:var(--tnxt-space-md);
+    color:#777;
+}
+
+.viewer-info span{
+    font-weight:600;
+    margin-top:0.3125rem;
+}
+
+.viewer-info-comments{
+    grid-column:1 / -1;
+}
+
+.viewer-info-comments span{
+    font-weight:500;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.viewer-preview{
+    height:26.25rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f6f8fb;
+}
+
+.pdf-placeholder{
+    text-align:center;
+}
+
+.pdf-placeholder-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.375rem;
+    height: 4.375rem;
+    border: 1px solid #d8e0ea;
+    border-radius: 0.4375rem;
+    background:
+        linear-gradient(135deg, transparent 0 72%, #e7edf5 73% 100%),
+        #fff;
+    color: #ef4444;
+    font-size: 0.9375rem;
+    font-weight: 800;
+}
+
+.pdf-placeholder h3{
+    margin-top:0.9375rem;
+}
+
+.viewer-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:0.625rem;
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+}
+
+.primary-btn{
+    background:#0d6efd;
+    color:#fff;
+    border:none;
+    padding:0.625rem var(--tnxt-font-size-xl);
+    border-radius:var(--tnxt-radius-sm);
+    cursor:pointer;
+}
+
+.secondary-btn{
+    background:#fff;
+    border:1px solid #d6d6d6;
+    padding:0.625rem var(--tnxt-font-size-xl);
+    border-radius:var(--tnxt-radius-sm);
+    cursor:pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+/*        Split-view preview panel (inline mode) — SharePoint / Vault UI      */
+/* -------------------------------------------------------------------------- */
+
+.viewer-panel{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    min-height:0;
+    background:#fff;
+    overflow:hidden;
+}
+
+.viewer-panel-empty{
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#64748b;
+    padding:1.875rem;
+}
+
+.viewer-panel-empty h3{
+    margin:var(--tnxt-font-size-base) 0 var(--tnxt-radius-sm);
+    font-size:0.9375rem;
+    color:#0f172a;
+}
+
+.viewer-panel-empty p{
+    margin:0;
+    font-size:var(--tnxt-font-size-sm);
+    max-width:2rem;
+}
+
+/* Fixed metadata header — never scrolls with the PDF body. */
+.viewer-panel-meta{
+    flex:0 0 auto;
+    padding:var(--tnxt-space-lg) var(--tnxt-font-size-xl) var(--tnxt-font-size-base);
+    border-bottom:1px solid #e6ecf3;
+    background:linear-gradient(180deg,#fbfdff 0%,#f6f9fc 100%);
+}
+
+.viewer-panel-title{
+    display:flex;
+    align-items:flex-start;
+    gap:var(--tnxt-font-size-xs);
+}
+
+.viewer-panel-title .pdf-file-icon{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:1.875rem;
+    height:2.125rem;
+    border:1px solid #e2e8f0;
+    border-radius:0.3125rem;
+    background:#fff;
+    color:#ef4444;
+    font-size:0.5625rem;
+    font-weight:800;
+}
+
+.viewer-panel-title-text{
+    flex:1 1 auto;
+    min-width:0;
+}
+
+.viewer-panel-title-text h3{
+    margin:0;
+    font-size:0.9375rem;
+    font-weight:700;
+    color:#0f172a;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.viewer-panel-title-text span{
+    display:block;
+    margin-top:0.1875rem;
+    font-size:var(--tnxt-space-md);
+    color:#64748b;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.viewer-panel-actions{
+    flex:0 0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:0.4375rem;
+}
+
+.viewer-panel-actions .secondary-btn{
+    padding:var(--tnxt-radius-sm) var(--tnxt-font-size-xs);
+    font-size:var(--tnxt-space-md);
+    font-weight:600;
+    color:#1e293b;
+    border-radius:0.3125rem;
+}
+
+.viewer-panel-actions .secondary-btn:hover{
+    background:#f1f5f9;
+    border-color:#c7d2e0;
+}
+
+.viewer-panel-close{
+    flex:0 0 auto;
+    width:1.75rem;
+    height:1.75rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid #e2e8f0;
+    border-radius:0.3125rem;
+    background:#fff;
+    color:#64748b;
+    font-size:var(--tnxt-font-size-sm);
+    cursor:pointer;
+}
+
+.viewer-panel-close:hover{
+    background:#f1f5f9;
+    border-color:#c7d2e0;
+    color:#1e293b;
+}
+
+.viewer-panel-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(8.75rem,1fr));
+    gap:var(--tnxt-space-md) var(--tnxt-space-lg);
+    margin-top:var(--tnxt-font-size-base);
+    padding-top:var(--tnxt-font-size-sm);
+    border-top:1px solid #e9eef4;
+}
+
+.viewer-panel-grid div{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+}
+
+.viewer-panel-grid label{
+    font-size:10.0.3125rem;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#8494a8;
+}
+
+.viewer-panel-grid span{
+    margin-top:0.3125rem;
+    font-size:12.0.3125rem;
+    font-weight:600;
+    color:#0f172a;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.viewer-panel-grid .viewer-panel-status{
+    display:flex;
+    overflow:visible;
+}
+
+/* Scrollable PDF body. */
+.viewer-panel-preview{
+    flex:1 1 auto;
+    min-height:0;
+    overflow:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#f4f6fa;
+}
+
+.viewer-panel-frame{
+    width:100%;
+    height:100%;
+    min-height:100%;
+    border:none;
+    background:#fff;
+}

@@ -1,0 +1,54 @@
+.enrollment-page {
+  padding: var(--tnxt-space-2xl);
+}
+
+.enrollment-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+}
+
+.enrollment-table th,
+.enrollment-table td {
+  padding: var(--tnxt-font-size-base);
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.progress-wrapper {
+  width: 11.25rem;
+  height: 0.625rem;
+  background: #e5e7eb;
+  border-radius: var(--tnxt-space-xl);
+  overflow: hidden;
+  margin-bottom: var(--tnxt-radius-sm);
+}
+
+.progress-bar {
+  height: 100%;
+  background: #2563eb;
+}
+.enrollment-summary{
+  display:flex;
+  gap:var(--tnxt-space-xl);
+  margin-bottom:1.5625rem;
+  flex-wrap:wrap;
+}
+
+.summary-card{
+  background:#fff;
+  padding:var(--tnxt-space-xl);
+  border-radius:0.625rem;
+  min-width:11.25rem;
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.view-btn{
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  padding:var(--tnxt-space-sm) var(--tnxt-font-size-base);
+  border-radius:var(--tnxt-radius-sm);
+  cursor:pointer;
+}

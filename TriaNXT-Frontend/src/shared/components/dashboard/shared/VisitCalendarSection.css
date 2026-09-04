@@ -1,0 +1,125 @@
+/*
+  VisitCalendarSection — unified Calendar + Table card.
+  Task 1 & 4: keep both inside the same card, aligned side-by-side,
+  reduced table size (not full-card width), proper borders and spacing.
+*/
+
+.calendar-table-unified-card.dashboard-widget-card {
+  width: 100%;
+}
+
+.calendar-table-unified-card .dashboard-widget-body {
+  padding: var(--tnxt-space-md);
+}
+
+.calendar-table-unified {
+  display: grid;
+  grid-template-columns: minmax(17.5rem, 0.9fr) minmax(0, 1.6fr);
+  gap: var(--tnxt-space-md);
+  align-items: stretch;
+  width: 100%;
+}
+
+.calendar-table-unified__calendar {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+  padding: var(--tnxt-space-md);
+  background: #ffffff;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-table-unified__table {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+  padding: var(--tnxt-space-md) var(--tnxt-space-md) var(--tnxt-space-sm) var(--tnxt-space-md);
+  background: #ffffff;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-radius-sm);
+}
+
+.calendar-table-unified__table-title {
+  font-weight: 600;
+  font-size: var(--tnxt-font-size-base);
+  color: #1f2937;
+  padding-bottom: var(--tnxt-radius-sm);
+  border-bottom: 1px solid #eef2f7;
+}
+
+.calendar-table-unified .visit-calendar-day-summary {
+  margin: var(--tnxt-radius-sm) 0 0;
+  font-size: var(--tnxt-space-md);
+  color: #4b5563;
+}
+
+.calendar-table-unified__table .ctms-standard-table {
+  width: 100%;
+}
+
+/* Reduce table cell padding & standardise borders for the compact table */
+.calendar-table-unified__table .upcoming-visits-table table,
+.calendar-table-unified__table .upcoming-visits-table .ctms-table {
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-sm);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.calendar-table-unified__table .upcoming-visits-table th,
+.calendar-table-unified__table .upcoming-visits-table td {
+  padding: var(--tnxt-space-sm) 0.625rem;
+  font-size: var(--tnxt-font-size-sm);
+  border-bottom: 1px solid #eef2f7;
+  border-right: 1px solid #eef2f7;
+}
+
+.calendar-table-unified__table .upcoming-visits-table th:last-child,
+.calendar-table-unified__table .upcoming-visits-table td:last-child {
+  border-right: none;
+}
+
+.calendar-table-unified__table .upcoming-visits-table tr:last-child td {
+  border-bottom: none;
+}
+
+.calendar-table-unified__table .upcoming-visits-table thead th {
+  background: #061a2e;
+  font-weight: 600;
+  color: #e8e9eb;
+  height: 2.25rem;
+}
+
+.calendar-table-unified__table .upcoming-visits-table tbody tr {
+  height: 2.5rem;
+}
+
+/* Override DataTable's default 85% width + auto margin for compact side placement */
+.calendar-table-unified__table .upcoming-visits-table .ctms-table,
+.calendar-table-unified__table .upcoming-visits-table .ctms-table-wrapper {
+  width: 100%;
+  margin: 0;
+  max-height: none;
+}
+
+.calendar-table-unified__table .ctms-table-card {
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  min-height: 0;
+}
+
+.calendar-table-unified__table .ctms-table-header {
+  display: none;
+}
+
+@media (max-width: 1100px) {
+  .calendar-table-unified {
+    grid-template-columns: 1fr;
+  }
+}

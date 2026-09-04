@@ -1,0 +1,53 @@
+.regulatory-page {
+  padding: var(--tnxt-space-2xl);
+}
+
+.regulatory-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+}
+
+.regulatory-table th,
+.regulatory-table td {
+  padding: var(--tnxt-font-size-base);
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.status-badge {
+  padding: var(--tnxt-radius-sm) var(--tnxt-space-md);
+  border-radius: var(--tnxt-space-xl);
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+}
+
+.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.review {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.attention {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.action-buttons{
+  display:flex;
+  gap:var(--tnxt-space-md);
+  margin-top:0.9375rem;
+}
+
+.action-buttons button{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:0.625rem var(--tnxt-font-size-xl);
+  border-radius:var(--tnxt-space-sm);
+  cursor:pointer;
+}

@@ -1,0 +1,47 @@
+.completion-widget {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-sm);
+  padding: var(--tnxt-space-lg);
+}
+
+.completion-widget-header {
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+.completion-widget-header h3 {
+  margin: 0;
+  font-size: var(--tnxt-space-lg);
+  font-weight: 600;
+}
+
+.completion-widget-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-lg);
+}
+
+.completion-percentage {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.completion-progress {
+  width: 100%;
+  height: 0.625rem;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.completion-progress-fill {
+  height: 100%;
+  background: #16a34a;
+  transition: width 0.3s ease;
+}
+
+.completion-summary {
+  font-size: var(--tnxt-font-size-base);
+  color: #6b7280;
+}

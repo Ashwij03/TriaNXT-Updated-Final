@@ -1,0 +1,15 @@
+.site-app-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.site-app-content {
+  flex: 1;
+  width: 100%;
+  padding: var(--tnxt-space-2xl);
+  overflow-y: auto;
+  box-sizing: border-box;
+}

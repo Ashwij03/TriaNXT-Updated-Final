@@ -1,0 +1,362 @@
+/* TriaNXT — Global UI overrides for consistent styling across all pages */
+
+/* ── Page shells ── */
+.admin-dashboard,
+.admin-page,
+.pi-dashboard,
+.site-dashboard,
+.study-dashboard-page,
+.studies-page,
+.subjects-dashboard,
+.profile-page,
+.settings-page {
+  color: var(--tnxt-text);
+}
+
+.dashboard-page-title h1,
+.admin-page-title h1,
+.page-header h1,
+.study-dashboard-page .page-header h1 {
+  color: var(--tnxt-text);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.dashboard-page-title p,
+.admin-page-title p,
+.page-header p {
+  color: var(--tnxt-text-secondary);
+}
+
+/* ── Cards & widgets ── */
+.dashboard-widget,
+.dashboard-widget-card,
+.dashboard-card,
+.ctms-table-card,
+.quick-actions-card,
+.enterprise-kpi,
+.admin-card,
+.profile-card,
+.settings-section,
+.dfm-sidebar,
+.dfm-main,
+.dfm-viewer-panel,
+.dfm-comments-panel,
+.study-info-card,
+.subject-card,
+.add-subject-card,
+.dashboard-loading,
+.fake-chart {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius);
+  box-shadow: var(--tnxt-shadow-card);
+}
+
+/* ── Tables ── */
+.ctms-table thead,
+table thead {
+  background: var(--tnxt-bg-subtle);
+}
+
+.ctms-table th,
+table th {
+  color: var(--tnxt-text-secondary);
+  font-weight: 600;
+  font-size: var(--tnxt-space-md);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--tnxt-border);
+}
+
+.ctms-table td,
+table td {
+  color: var(--tnxt-text);
+  border-bottom: 1px solid var(--tnxt-border-light);
+}
+
+.ctms-table tbody tr:hover,
+table tbody tr:hover {
+  background: var(--tnxt-bg-subtle);
+}
+
+/* ── Status badges ── */
+.status-badge,
+.badge,
+.pill,
+[class*="status-"] {
+  border-radius: 999px;
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  padding: var(--tnxt-space-xs) 0.625rem;
+}
+
+.status-scheduled,
+.status-enrolled,
+.status-active,
+.status-approved {
+  background: var(--tnxt-info-light);
+  color: var(--tnxt-info);
+}
+
+.status-pending,
+.status-screening,
+.status-warning {
+  background: var(--tnxt-warning-light);
+  color: var(--tnxt-warning);
+}
+
+.status-open,
+.status-danger,
+.status-rejected {
+  background: var(--tnxt-danger-light);
+  color: var(--tnxt-danger);
+}
+
+.status-completed,
+.status-success {
+  background: var(--tnxt-success-light);
+  color: var(--tnxt-success);
+}
+
+/* ── Buttons ── */
+button.primary,
+.btn-primary,
+.generate-btn,
+.download-btn {
+  background: var(--tnxt-primary);
+  border: none;
+  border-radius: var(--tnxt-radius-sm);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+button.primary:hover,
+.btn-primary:hover,
+.generate-btn:hover,
+.download-btn:hover {
+  background: var(--tnxt-primary-hover);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-outline,
+.btn-secondary {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border);
+  border-radius: var(--tnxt-radius-sm);
+  color: var(--tnxt-text);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.btn-outline:hover,
+.btn-secondary:hover {
+  border-color: var(--tnxt-primary);
+  color: var(--tnxt-primary);
+}
+
+.btn-accept,
+.accept-btn {
+  color: var(--tnxt-success);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-reject,
+.reject-btn,
+.remove-btn {
+  color: var(--tnxt-danger);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* ── Tabs ── */
+.study-tabs,
+.tab-bar,
+.report-tabs,
+.workspace-tabs {
+  border-bottom: 1px solid var(--tnxt-border);
+  display: flex;
+  gap: var(--tnxt-space-xs);
+  margin-bottom: var(--tnxt-space-lg);
+  overflow-x: auto;
+}
+
+.study-tabs button,
+.tab-bar button,
+.report-tabs button,
+.workspace-tabs button,
+.tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 0.125rem solid transparent;
+  color: var(--tnxt-text-secondary);
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 500;
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-xl);
+  transition: color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.study-tabs button.active,
+.tab-bar button.active,
+.report-tabs button.active,
+.workspace-tabs button.active,
+.tab-btn.active {
+  border-bottom-color: var(--tnxt-primary);
+  color: var(--tnxt-primary);
+  font-weight: 600;
+}
+
+.study-tabs button:hover,
+.tab-bar button:hover,
+.report-tabs button:hover {
+  color: var(--tnxt-primary);
+}
+
+/* ── Form inputs ── */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border);
+  border-radius: var(--tnxt-radius-sm);
+  color: var(--tnxt-text);
+  font-size: var(--tnxt-font-size-base);
+  padding: 0.625rem var(--tnxt-font-size-base);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--tnxt-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  outline: none;
+}
+
+/* ── Upload zones ── */
+.upload-zone,
+.drop-zone,
+.dfm-upload-zone {
+  background: var(--tnxt-bg-subtle);
+  border: 0.125rem dashed var(--tnxt-border);
+  border-radius: var(--tnxt-radius-lg);
+  padding: var(--tnxt-space-xl);
+  text-align: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.upload-zone:hover,
+.drop-zone:hover,
+.dfm-upload-zone:hover {
+  background: var(--tnxt-primary-light);
+  border-color: var(--tnxt-primary);
+}
+
+.upload-progress-bar,
+.progress-bar-fill {
+  background: var(--tnxt-primary);
+  border-radius: 999px;
+  height: var(--tnxt-radius-sm);
+}
+
+/* ── Subject cards grid ── */
+.subjects-grid,
+.subject-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--tnxt-space-md);
+}
+
+.subject-card {
+  padding: var(--tnxt-space-md);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.subject-card:hover {
+  box-shadow: var(--tnxt-shadow);
+  transform: translateY(-0.125rem);
+}
+
+.add-subject-card {
+  align-items: center;
+  border: 0.125rem dashed var(--tnxt-border);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-sm);
+  justify-content: center;
+  min-height: 1rem;
+  background: var(--tnxt-bg-subtle);
+}
+
+.add-subject-card:hover {
+  border-color: var(--tnxt-primary);
+  color: var(--tnxt-primary);
+}
+
+/* ── Folder tiles ── */
+.folder-tile,
+.folder-card,
+.dfm-folder-tile {
+  border-radius: var(--tnxt-radius);
+  cursor: pointer;
+  padding: var(--tnxt-space-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.folder-tile:hover,
+.folder-card:hover {
+  box-shadow: var(--tnxt-shadow);
+  transform: translateY(-0.125rem);
+}
+
+/* ── KPI color accents ── */
+.enterprise-kpi:nth-child(1) .enterprise-kpi-icon { background: var(--tnxt-primary-light); color: var(--tnxt-primary); }
+.enterprise-kpi:nth-child(2) .enterprise-kpi-icon { background: var(--tnxt-warning-light); color: var(--tnxt-warning); }
+.enterprise-kpi:nth-child(3) .enterprise-kpi-icon { background: var(--tnxt-success-light); color: var(--tnxt-success); }
+.enterprise-kpi:nth-child(4) .enterprise-kpi-icon { background: var(--tnxt-danger-light); color: var(--tnxt-danger); }
+.enterprise-kpi:nth-child(5) .enterprise-kpi-icon { background: var(--tnxt-info-light); color: var(--tnxt-info); }
+.enterprise-kpi:nth-child(6) .enterprise-kpi-icon { background: #f3e8ff; color: #7c3aed; }
+
+/* ── Auth pages ── */
+.auth-container,
+.login-container {
+  background: var(--tnxt-bg);
+}
+
+.auth-card,
+.login-box {
+  background: var(--tnxt-card);
+  border-radius: var(--tnxt-radius-lg);
+  box-shadow: var(--tnxt-shadow-lg);
+}
+
+/* ── Section headers ── */
+.section-header,
+.card-header {
+  border-bottom: 1px solid var(--tnxt-border-light);
+  margin-bottom: var(--tnxt-space-md);
+  padding-bottom: var(--tnxt-space-sm);
+}
+
+.section-header h2,
+.section-header h3,
+.card-header h3 {
+  color: var(--tnxt-text);
+  font-weight: 600;
+  margin: 0;
+}

@@ -1,0 +1,1043 @@
+/*
+  Task follow-up: pull the whole page up and to the left, closer to the
+  top bar and sidebar, without touching .dashboard-content's shared
+  var(--tnxt-space-3xl) padding (that class is reused by every other dashboard page, so
+  it stays untouched there). width is grown by the same amount the
+  page shifts left, so the right edge lands in exactly the same place
+  as before — only the top/left gap gets tighter.
+*/
+.study-dashboard-page {
+  color: #0f172a;
+  padding: 1.5rem;
+  margin-top: -1.625rem;
+  margin-left: -1rem;
+  width: calc(100% + 1rem);
+}
+
+/*    LOADING
+ */
+
+.dashboard-loading {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.studies-page {
+  padding: 0.1875rem;
+}
+
+/*    BACK BUTTON
+ */
+
+/*
+  Task 13 follow-up: Back to Studies now lives inline in the title row,
+  right after the KPI buttons, instead of being absolutely positioned
+  in the header's top-left corner. flex: 0 0 auto keeps it from
+  shrinking or growing inside the KPI button row.
+*/
+.study-dashboard-page .page-header .back-to-studies-btn {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.5625rem 1rem 0.5625rem 0.875rem;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  border-radius: 999px;
+
+  color: #ffffff;
+
+  font-size: 0.8125rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.study-dashboard-page .page-header .back-to-studies-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+
+  border-color: rgba(255, 255, 255, 0.6);
+
+  color: #ffffff;
+
+  transform: translateY(-0.125rem);
+}
+
+.study-dashboard-page .page-header .back-to-studies-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/*    PAGE HEADER
+ */
+
+/*
+  Everything in the header — title, KPI buttons, Back to Studies, and
+  the Refresh / Edit / Delete actions — now lives on one flowing row,
+  so the header's height is only ever as tall as it needs to be for a
+  single line (wrapping only when the viewport is too narrow to fit
+  everything, same as any other responsive flex row).
+*/
+.study-dashboard-page .page-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--tnxt-sidebar-gradient);
+  border-radius: var(--tnxt-radius-lg);
+  color: #ffffff;
+  padding: 1.5rem 1.5rem 1.375rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--tnxt-shadow);
+}
+
+/*
+  Study header action buttons (Refresh / Edit / Delete / Request Edit).
+  Sits as a normal flex item at the end of .page-header-title-row,
+  pushed to the far right by that row's space-between.
+*/
+.study-dashboard-page .page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/*
+  Title + KPI buttons + Back to Studies on the left, action buttons on
+  the right, all sharing one row. Wraps as a whole on narrower screens
+  instead of the actions floating separately.
+*/
+.study-dashboard-page .page-header-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.study-dashboard-page .page-header-title-group {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 1.125rem;
+  flex-wrap: wrap;
+}
+
+.study-dashboard-page .page-header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.study-dashboard-page .study-quick-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 0.5rem 1.5rem;
+  text-align: left;
+}
+
+.study-quick-detail {
+  display: flex;
+  align-items: baseline;
+  gap: 0.375rem;
+  white-space: nowrap;
+}
+
+.study-quick-detail-label {
+  color: #9fb4bd;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.study-quick-detail-value {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/*
+  Compact KPI buttons beside the title (replaces the old full-size KPI
+  cards that used to render as their own row beneath the blue header).
+  Styled as translucent "glass" pills — same rgba(255,255,255,…) family
+  as .refresh-study-btn / .edit-study-btn / .back-to-studies-btn — so
+  they read as part of the blue header instead of clashing solid-white
+  rectangles sitting on top of it. Each button's onClick (set in
+  StudyDashboard.js) jumps straight to the study tab it summarizes.
+*/
+.study-dashboard-page .page-header .study-header-kpi-buttons {
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.study-dashboard-page .page-header .study-header-kpi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5625rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+
+  padding: 0.5625rem 0.875rem 0.5625rem 1rem;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.study-dashboard-page .page-header .study-header-kpi-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-0.125rem);
+}
+
+.study-dashboard-page .page-header .study-header-kpi-btn:active {
+  transform: translateY(0);
+}
+
+.study-dashboard-page .page-header .study-header-kpi-btn-label {
+  color: #eaf2f7;
+}
+
+.study-dashboard-page .page-header .study-header-kpi-btn-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.375rem;
+  height: 1.375rem;
+  padding: 0 0.4375rem;
+
+  background: #ffffff;
+  border-radius: 999px;
+
+  color: #0a2540;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.study-dashboard-alerts {
+  background: #ffffff;
+  border-radius: var(--tnxt-space-lg);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  width: 100%;
+}
+
+.study-dashboard-page .dashboard-grid-calendar-requests {
+  margin-bottom: var(--tnxt-space-2xl);
+}
+
+
+.study-dashboard-subjects-section .study-subjects-container {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem;
+}
+
+/* Edit Button */
+
+.edit-study-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.625rem var(--tnxt-font-size-xl);
+
+  border: 1px solid #ffffff;
+
+  border-radius: 0.625rem;
+
+  background: transparent;
+
+  color: #ffffff;  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.edit-study-btn:hover {
+  background: #ffffff;
+  color: #082c3c;
+}
+
+/* Delete Button */
+
+.delete-study-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.625rem 1.125rem;
+
+  border: 1px solid #ef4444;
+
+  border-radius: 0.625rem;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-size: 0.875rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .25s;
+}
+
+.delete-study-btn:hover {
+  background: #ef4444;
+}
+
+.edit-study-btn svg,
+.delete-study-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/*    KPI GRID
+ */
+
+.study-dashboard-page .studies-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.75rem, 1fr));
+  gap: var(--tnxt-space-xl);
+  margin-bottom: 1.5rem;
+}
+
+/*    WIDGET GRID
+ */
+
+.study-dashboard-page .widget-grid {
+  align-items: stretch;
+}
+
+/*    STUDY OVERVIEW + CALENDAR ROW
+ */
+
+.studies-content-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tnxt-space-xl);
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.left-panel,
+.right-panel {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+}
+
+.left-panel {
+  flex: 1 1 0;
+}
+
+.right-panel {
+  flex: 1 1 0;
+}
+
+.study-overview-card,
+.calendar-wrapper {
+  width: 100%;
+  min-width: 0;
+}
+
+.study-overview-card .ctms-table-card {
+  padding: var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-sm);
+  background: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.left-panel .ctms-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.study-overview-card table {
+  width: 100%;
+}
+
+.calendar-wrapper {
+  width: 100%;
+  min-width: 0;
+}
+
+.calendar-wrapper .calendar-widget {
+  min-height: 0;
+}
+
+.activity-grid {
+  margin-top: 2rem;
+}
+
+/*    CALENDAR + ALERTS ROW
+ */
+
+.calendar-alerts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--tnxt-space-xl);
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.calendar-alerts-grid > div {
+  width: 100%;
+}
+
+.calendar-wrapper,
+.studies-alert-section {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+}
+
+/* CHARTS
+ */
+
+.studies-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
+  gap: var(--tnxt-space-xl);
+  margin-bottom: var(--tnxt-space-2xl);
+}
+
+.chart-card {
+  background: #ffffff;
+  border-radius: 0.875rem;
+  padding: 1.25rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #edf2f7;
+}
+
+.chart-card h3 {
+  margin-bottom: var(--tnxt-space-xl);
+  color: #082c3c;
+}
+
+.chart-card-full {
+  grid-column: 1 / -1;
+}
+
+/* ACTIVITY
+ */
+
+.activity-grid {
+  display: grid;
+  gap: var(--tnxt-space-xl);
+  margin-top: 1.5rem;
+}
+
+.activity-grid.single {
+  grid-template-columns: 1fr;
+}
+
+.activity-card {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1.5rem;
+  border: 1px solid #edf2f7;
+}
+
+.activity-card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #082c3c;
+  margin-bottom: 1.125rem;
+}
+
+.activity-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.activity-card li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.activity-card li:last-child {
+  border-bottom: none;
+}
+
+.activity-card li span {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.activity-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.activity-item strong {
+  color: #082c3c;
+  font-size: 0.875rem;
+}
+
+.activity-details {
+  font-size: 0.8125rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.activity-time {
+  font-size: 0.6875rem;
+  color: #94a3b8;
+  margin-left: auto;
+  padding-left: 0.75rem;
+  white-space: nowrap;
+}
+
+/* TABLE
+ */
+
+.study-dashboard-page .ctms-table-card {
+  border-radius: 0.5rem;
+  padding: 1.125rem;
+}
+
+.study-dashboard-page .ctms-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.study-dashboard-page .ctms-table th {
+  background: #082c3c;
+  color: #ffffff;
+}
+
+.study-dashboard-page .ctms-table th,
+.study-dashboard-page .ctms-table td {
+  white-space: normal;
+}
+
+/* BUTTONS
+ */
+
+.study-dashboard-page .quick-grid button {
+  border-radius: var(--tnxt-space-sm);
+  min-width: 0;
+}
+
+/* HOVER EFFECTS
+ */
+
+.study-dashboard-page .chart-card,
+.study-dashboard-page .activity-card,
+.study-dashboard-page .dashboard-widget,
+.study-dashboard-page .enterprise-kpi,
+.study-dashboard-page .ctms-table-card,
+.study-dashboard-page .calendar-wrapper,
+.study-dashboard-page .studies-alert-section {
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.study-dashboard-page .chart-card:hover,
+.study-dashboard-page .activity-card:hover,
+.study-dashboard-page .dashboard-widget:hover,
+.study-dashboard-page .enterprise-kpi:hover,
+.study-dashboard-page .ctms-table-card:hover,
+.study-dashboard-page .calendar-wrapper:hover,
+.study-dashboard-page .studies-alert-section:hover {
+  box-shadow: 0 12px 28px rgba(18, 46, 60, 0.14);
+  transform: translateY(-0.1875rem);
+}
+
+.module-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  min-height: 31.25rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.module-card h2 {
+  margin-bottom: 1.25rem;
+  color: #0f172a;
+}
+
+/* RESPONSIVE
+ */
+
+@media (max-width: 992px) {
+  .calendar-alerts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-alerts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--tnxt-space-lg);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .studies-content-grid {
+    flex-direction: column;
+    gap: var(--tnxt-space-xl);
+  }
+
+  .left-panel,
+  .right-panel {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .study-dashboard-page .page-header {
+    padding: var(--tnxt-font-size-xl);
+  }
+
+  .study-dashboard-page .page-header-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+.edit-study-btn,
+.delete-study-btn,
+.request-permission-btn{
+    width:100%;
+    justify-content:center;
+}
+
+  .study-dashboard-page .page-header-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .study-dashboard-page .page-header-title-group {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .study-dashboard-page .page-header .study-header-kpi-buttons {
+    width: 100%;
+  }
+
+  .study-dashboard-page .studies-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .studies-page {    padding: 1rem;
+  }
+
+.chart-card,
+.activity-card {
+    padding: 1rem;
+  }
+
+  .studies-chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*    STUDY OVERVIEW WIDGETS (Section B)
+ */
+
+.refresh-study-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem var(--tnxt-space-lg);
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.refresh-study-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.refresh-study-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.refresh-study-btn .spinning {
+  animation: study-refresh-spin 0.8s linear infinite;
+}
+
+@keyframes study-refresh-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.study-overview-widgets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16.25rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.study-widget-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e2e8f0;
+  text-align: left;
+}
+
+.study-widget-clickable {
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.study-widget-clickable:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.12);
+}
+
+.study-widget-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.study-widget-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.study-widget-empty {
+  margin: 0;
+  color: #64748b;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.study-widget-progress {
+  height: var(--tnxt-space-sm);
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: var(--tnxt-space-sm);
+}
+
+.study-widget-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #0d6efd, #38bdf8);
+}
+
+.study-widget-stat {
+  margin: 0;
+  color: #334155;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.study-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+.study-progress-item {
+  background: #f8fafc;
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+  text-align: center;
+}
+
+.study-progress-value {
+  display: block;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.study-progress-label {
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.study-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.study-status-chip {
+  background: #f8fafc;
+  border-radius: 0.625rem;
+  padding: 0.625rem;
+  text-align: center;
+}
+
+.study-status-count {
+  display: block;
+  font-size: var(--tnxt-space-xl);
+  font-weight: 700;
+}
+
+.study-status-label {
+  font-size: var(--tnxt-space-md);
+  color: #64748b;
+}
+
+.study-health-card .study-health-score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tnxt-space-md);
+  margin-bottom: var(--tnxt-space-md);
+}
+
+.study-health-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.study-health-status {
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.study-health-status.status-at-risk {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.study-health-status.status-needs-attention {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.study-health-factors {
+  margin: 0;
+  padding-left: var(--tnxt-font-size-xl);
+  color: #475569;
+}
+
+.study-health-factors li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: var(--tnxt-radius-sm);
+}
+
+.impact-tag {
+  font-size: var(--tnxt-space-md);
+  color: #64748b;
+}
+
+.study-milestone-card {
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+.study-milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.study-milestone-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--tnxt-space-md);
+  padding: 0.625rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.study-milestone-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.study-milestone-info span {
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.study-milestone-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.study-milestone-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: var(--tnxt-space-md);
+}
+
+.study-milestone-form input,
+.study-milestone-actions input,
+.study-milestone-actions select {
+  padding: var(--tnxt-space-sm) 0.625rem;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--tnxt-space-sm);
+}
+
+.study-table-wrap {
+  overflow-x: auto;
+}
+
+.study-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.study-table-wrap th,
+.study-table-wrap td {
+  padding: var(--tnxt-space-sm);
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.icon-btn.danger {
+  color: #dc3545;
+}
+
+/* Item 13 — Incomplete eISF modules preview inside the eISF Summary card */
+.study-health-incomplete-modules {
+  margin-top: var(--tnxt-space-xs);
+}
+
+.study-health-incomplete-label {
+  margin: 0 0 var(--tnxt-radius-sm);
+  font-size: var(--tnxt-space-md);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #64748b;
+}
+
+.study-health-incomplete-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-radius-sm);
+}
+
+.study-health-incomplete-item {
+  padding: var(--tnxt-space-sm) 0.625rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--tnxt-space-sm);
+  color: #0f172a;
+  font-size: var(--tnxt-font-size-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.study-health-incomplete-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.study-health-incomplete-id {
+  font-size: var(--tnxt-font-size-xs);
+  color: #64748b;
+  background: #e2e8f0;
+  padding: 0.125rem var(--tnxt-radius-sm);
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.study-health-incomplete-list--all {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: var(--tnxt-space-xs);
+}
+
+.study-health-view-all {
+  margin-top: 0.625rem;
+  padding: var(--tnxt-space-sm) var(--tnxt-space-md);
+  border: 1px solid #0d6efd;
+  border-radius: var(--tnxt-space-sm);
+  background: transparent;
+  color: #0d6efd;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.study-health-view-all:hover {
+  background: rgba(13, 110, 253, 0.08);
+}

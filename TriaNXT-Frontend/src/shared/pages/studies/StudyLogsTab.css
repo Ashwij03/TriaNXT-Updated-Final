@@ -1,0 +1,197 @@
+.studylogs-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--tnxt-space-md) 0;
+}
+
+/* Sub-log tab strip inside a Study's Logs tab (Delegation / Training /
+   Site Visit / NTF / Miscellaneous). */
+.study-log-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tnxt-space-sm);
+  margin: var(--tnxt-space-xl) 0 var(--tnxt-space-sm);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.study-log-tabs .tab {
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border: none;
+  background: transparent;
+  color: #4b5563;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 0.125rem solid transparent;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+}
+
+.study-log-tabs .tab:hover {
+  color: #0d6efd;
+}
+
+.study-log-tabs .tab.active {
+  color: #0d6efd;
+  border-bottom-color: #0d6efd;
+  background: transparent;
+}
+
+.add-delegation-btn {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-delegation-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal */
+.modal-box {
+  width: 28.75rem;
+  background: #ffffff;
+  border-radius: var(--tnxt-space-md);
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+/* Header */
+.modal-title {
+  background: #0b2d42;
+  color: white;
+  padding: var(--tnxt-space-lg) var(--tnxt-space-xl);
+  font-size: var(--tnxt-font-size-xl);
+  font-weight: 600;
+}
+
+/* Body */
+.modal-body {
+  padding: var(--tnxt-space-xl);
+}
+
+.modal-body input,
+.modal-body select {
+  width: 100%;
+  padding: 0.625rem var(--tnxt-space-md);
+  margin-bottom: var(--tnxt-font-size-base);
+  border: 1px solid #d5dce5;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+}
+
+.modal-body input:focus,
+.modal-body select:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 4px rgba(13,110,253,.3);
+}
+
+/* Footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  padding: var(--tnxt-font-size-xl) var(--tnxt-space-xl);
+  background: #f7f9fc;
+}
+
+.save-btn,
+.cancel-btn{
+    width:5rem;
+    height:2.25rem;
+    padding:0;
+    border:none;
+    border-radius:var(--tnxt-radius-sm);
+    font-size:var(--tnxt-font-size-base);
+    font-weight:600;
+    cursor:pointer;
+}
+
+.save-btn{
+    background:#0d6efd;
+    color:#ffffff;
+}
+.save-btn:hover{
+    background:#0b5ed7;
+}
+
+.cancel-btn{
+    background:#e5e7eb;
+    color:#1f2937;
+}
+.cancel-btn:hover{
+    background:#d1d5db;
+}
+.modal-body select{
+    width:100%;
+    height:2.625rem;
+    margin-bottom:0.9375rem;
+    border:1px solid #d5dce5;
+    border-radius:var(--tnxt-radius-sm);
+    padding:0 var(--tnxt-space-md);
+    font-size:var(--tnxt-font-size-base);
+    background:#fff;
+}
+
+/* Modal footer buttons — force Cancel and the action button to identical
+   dimensions inside every modal in the Study Logs tab (the "+ Add
+   Delegation" modal and the Delegation Log's Edit / Delete / Confirm /
+   Reason / View modals). Global stylesheets leak into these modals:
+     - CompletedVisit.css adds `margin-top:var(--tnxt-space-md); padding:0.625rem var(--tnxt-space-xl);
+       font-size:0.9375rem` to .save-btn only (pushes the action button var(--tnxt-space-md)
+       lower than Cancel),
+     - PIStudySubjectProfile.css force-overrides .save-btn/.cancel-btn
+       colors.
+   These scoped rules neutralize the leak so both buttons are
+   the same size and baseline, matching the clinical logs (ClinicalLog.css). */
+.study-logs-module .modal-footer .save-btn,
+.study-logs-module .modal-footer .cancel-btn {
+  width: 6.5rem;
+  min-width: 6.5rem;
+  height: 2.375rem;
+  margin: 0;
+  padding: 0 var(--tnxt-space-lg);
+  border: none;
+  border-radius: var(--tnxt-radius-sm);
+  box-sizing: border-box;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  line-height: 2.375rem;
+  text-align: center;
+}
+
+.study-logs-module .modal-footer .save-btn {
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+.study-logs-module .modal-footer .save-btn:hover {
+  background: #0b5ed7;
+}
+
+.study-logs-module .modal-footer .cancel-btn {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.study-logs-module .modal-footer .cancel-btn:hover {
+  background: #d1d5db;
+}

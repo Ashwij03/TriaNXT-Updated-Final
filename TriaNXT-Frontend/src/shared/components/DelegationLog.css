@@ -1,0 +1,279 @@
+.delegation-container{
+  padding:var(--tnxt-space-xl);
+  background:#f5f7fa;
+}
+
+.delegation-title{
+  margin-bottom:1.5625rem;
+  font-size:var(--tnxt-space-xl);
+  color:#222;
+}
+
+/* Phase 6 — IMP-3: row actions inside the shared DataTable's Actions
+   column. Keeps the same button styling that the raw <table> emitted
+   without leaking new global rules onto other tables. */
+.delegation-actions{
+  display:flex;
+  gap:var(--tnxt-space-sm);
+  flex-wrap:wrap;
+}
+
+.delegation-actions button{
+  padding:var(--tnxt-space-xs) 0.625rem;
+  border:1px solid #d5dce5;
+  background:#fff;
+  border-radius:var(--tnxt-space-xs);
+  cursor:pointer;
+  font-size:var(--tnxt-font-size-sm);
+}
+
+.delegation-actions button:hover{
+  background:#f5f7fa;
+}
+
+/* Phase 6 — IMP-3: delegate-picker search + role filter toolbar on
+   DelegationLogPage. Sits directly above the delegate card grid. */
+.delegate-toolbar{
+  display:flex;
+  gap:var(--tnxt-space-lg);
+  align-items:center;
+  flex-wrap:wrap;
+  margin:var(--tnxt-space-md) 0 var(--tnxt-space-lg);
+}
+
+.delegate-search{
+  flex:1 1 16.25rem;
+  min-width:13.75rem;
+  padding:var(--tnxt-space-sm) var(--tnxt-space-md);
+  border:1px solid #d5dce5;
+  border-radius:var(--tnxt-radius-sm);
+  font-size:var(--tnxt-font-size-base);
+}
+
+.delegate-filter{
+  display:flex;
+  align-items:center;
+  gap:var(--tnxt-space-sm);
+  font-size:var(--tnxt-font-size-sm);
+  color:#4b5563;
+}
+
+.delegate-filter select{
+  padding:var(--tnxt-radius-sm) 0.625rem;
+  border:1px solid #d5dce5;
+  border-radius:var(--tnxt-radius-sm);
+  font-size:var(--tnxt-font-size-base);
+  background:#fff;
+}
+
+.delegate-empty{
+  padding:var(--tnxt-space-2xl);
+  text-align:center;
+  color:#98a2b3;
+  background:#fff;
+  border:1px dashed #d5dce5;
+  border-radius:0.625rem;
+}
+
+/* CARD */
+
+.delegate-card{
+  width:26.25rem;
+  background:white;
+  border-radius:var(--tnxt-font-size-base);
+  padding:1.375rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0px 3px 12px rgba(0,0,0,0.12);
+}
+
+/* USER */
+
+.delegate-user{
+  display:flex;
+  align-items:center;
+  gap:0.9375rem;
+}
+
+.delegate-image img{
+  width:4.375rem;
+  height:4.375rem;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.delegate-info h3{
+  margin:0;
+  font-size:1.75rem;
+}
+
+.delegate-info p{
+  margin-top:0.3125rem;
+  color:gray;
+  font-size:var(--tnxt-space-xl);
+}
+
+/* RIGHT */
+
+.delegate-actions{
+  display:flex;
+  align-items:center;
+  gap:var(--tnxt-font-size-xl);
+}
+
+/* DUTY */
+
+.duty-box{
+  background:#e8f4ff;
+  color:#2196f3;
+  font-weight:bold;
+  padding:var(--tnxt-space-md) var(--tnxt-font-size-xl);
+  border-radius:var(--tnxt-space-sm);
+  cursor:pointer;
+  position:relative;
+}
+
+/* TOOLTIP */
+
+.tooltip-box{
+  display:none;
+  position:absolute;
+  top:-5.9375rem;
+  left:-1.875rem;
+  width:15.625rem;
+  background:white;
+  padding:0.9375rem;
+  border-radius:var(--tnxt-space-md);
+  box-shadow:0px 4px 14px rgba(0,0,0,0.2);
+  z-index:999;
+}
+
+.duty-box:hover .tooltip-box{
+  display:block;
+}
+
+/* SEARCH */
+
+.search-icon{
+  font-size:var(--tnxt-space-2xl);
+  cursor:pointer;
+}
+
+/* MODAL */
+
+.modal-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.modal-box{
+  width:62.5rem;
+  background:white;
+  border-radius:var(--tnxt-space-lg);
+  padding:1.875rem;
+}
+
+/* HEADER */
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.modal-user{
+  display:flex;
+  align-items:center;
+  gap:0.9375rem;
+}
+
+.modal-user img{
+  width:4.0625rem;
+  height:4.0625rem;
+  border-radius:50%;
+}
+
+.close-btn{
+  font-size:1.75rem;
+  cursor:pointer;
+}
+
+/* TABS */
+
+.modal-tabs{
+  margin-top:1.5625rem;
+  margin-bottom:1.5625rem;
+}
+
+.tab{
+  padding:var(--tnxt-space-md) var(--tnxt-space-2xl);
+  border:none;
+  background:#eee;
+  margin-right:0.625rem;
+  border-radius:var(--tnxt-space-sm);
+  cursor:pointer;
+}
+
+.active{
+  background:#2196f3;
+  color:white;
+}
+
+/* TABLE */
+
+.delegation-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.delegation-table th{
+  background:#f3f3f3;
+  color:#1f2937;
+  font-weight:600;
+  padding:var(--tnxt-space-lg);
+  border:1px solid #ddd;
+  text-align:left;
+}
+
+.delegation-table td{
+  color:#1f2937;
+  padding:var(--tnxt-space-lg);
+  border:1px solid #ddd;
+}
+
+.staff-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+.staff-table th,
+
+.staff-table td{
+
+padding:var(--tnxt-space-md);
+
+border:1px solid #ddd;
+
+}
+
+.staff-table button{
+
+margin-right:var(--tnxt-space-sm);
+
+padding:var(--tnxt-radius-sm) 0.625rem;
+
+cursor:pointer;
+
+}

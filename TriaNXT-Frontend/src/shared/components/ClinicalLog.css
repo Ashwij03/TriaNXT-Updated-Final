@@ -1,0 +1,186 @@
+/* Task 2A — AE/SE, PD & Temperature logs (Study Workspace → Logs).
+   Visual container mirrors TrainingLog/DelegationLog; the shared DataTable
+   pipeline (ctms-table-card) and the modal shell classes (modal-overlay,
+   modal-box, modal-title, modal-body, modal-footer, cancel-btn, save-btn)
+   come from DataTable.css / StudyLogsTab.css, so these new logs render with
+   the exact same table + form/modal style as the existing logs. */
+
+.clinical-log {
+  margin-top: var(--tnxt-space-xl);
+  background: #fff;
+  padding: var(--tnxt-space-xl);
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.clinical-log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-bottom: var(--tnxt-font-size-xl);
+}
+
+.clinical-log-header h2 {
+  margin: 0;
+  font-size: var(--tnxt-space-xl);
+  color: #222;
+}
+
+.clinical-add-btn {
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  padding: 0.5625rem var(--tnxt-space-lg);
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clinical-add-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* Row actions inside the shared DataTable's Actions column — same look as
+   .delegation-actions so the new logs match the existing Logs module. */
+.clinical-actions {
+  display: flex;
+  gap: var(--tnxt-space-sm);
+  flex-wrap: wrap;
+}
+
+.clinical-actions button {
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border: 1px solid #d5dce5;
+  background: #fff;
+  border-radius: var(--tnxt-space-xs);
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.clinical-actions button:hover {
+  background: #f5f7fa;
+}
+
+/* Add/Edit form — 2-column grid inside the shared modal-body so the larger
+   PD/Temp forms stay compact while keeping the same input styling. */
+.clinical-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--tnxt-space-md) var(--tnxt-space-lg);
+}
+
+.clinical-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3125rem;
+}
+
+.clinical-field.full {
+  grid-column: 1 / -1;
+}
+
+.clinical-field label {
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.clinical-field input,
+.clinical-field select,
+.clinical-field textarea {
+  width: 100%;
+  padding: 0.5625rem var(--tnxt-font-size-xs);
+  border: 1px solid #d5dce5;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-family: inherit;
+  box-sizing: border-box;
+  background: #fff;
+  color: #0f172a;
+}
+
+.clinical-field input:focus,
+.clinical-field select:focus,
+.clinical-field textarea:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 4px rgba(13, 110, 253, 0.3);
+}
+
+/* Modal footer buttons — force both buttons in the AE/SE, PD and Temp
+   log modals to identical dimensions so they never render uneven. The
+   app's global stylesheets leak into these modals:
+     - CompletedVisit.css adds `margin-top:var(--tnxt-space-md); padding:0.625rem var(--tnxt-space-xl);
+       font-size:0.9375rem` to .save-btn only (pushes it var(--tnxt-space-md) lower than
+       Cancel),
+     - PIStudySubjectProfile.css force-overrides .save-btn/.cancel-btn
+       colors (gray-500/blue-600 + white text).
+   These scoped rules neutralize the leak for the three
+   clinical-log modals only, restoring the Logs-module look where Cancel
+   and the action button are the same size and baseline. */
+.clinical-log .modal-footer .save-btn,
+.clinical-log .modal-footer .cancel-btn {
+  width: 6.5rem;
+  min-width: 6.5rem;
+  height: 2.375rem;
+  margin: 0;
+  padding: 0 var(--tnxt-space-lg);
+  border: none;
+  border-radius: var(--tnxt-radius-sm);
+  box-sizing: border-box;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  line-height: 2.375rem;
+  text-align: center;
+}
+
+.clinical-log .modal-footer .save-btn {
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+.clinical-log .modal-footer .save-btn:hover {
+  background: #0b5ed7;
+}
+
+.clinical-log .modal-footer .cancel-btn {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.clinical-log .modal-footer .cancel-btn:hover {
+  background: #d1d5db;
+}
+
+/* View modal — label/value rows in the same style as the Delegation
+   Log's view table. */
+.clinical-view-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--tnxt-space-lg);
+}
+
+.clinical-view-table th,
+.clinical-view-table td {
+  border: 1px solid #e5e7eb;
+  padding: 0.625rem var(--tnxt-space-md);
+  font-size: var(--tnxt-font-size-base);
+  text-align: left;
+}
+
+.clinical-view-table th {
+  background: #f3f6fa;
+  color: #1f2937;
+  font-weight: 600;
+  width: 38%;
+}
+
+@media (max-width: 640px) {
+  .clinical-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

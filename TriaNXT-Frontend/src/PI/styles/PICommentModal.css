@@ -1,0 +1,61 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: white;
+  width: 26.25rem;
+  padding: var(--tnxt-space-xl);
+  border-radius: var(--tnxt-radius-sm);
+}
+
+.modal-box h3 {
+  margin-top: 0;
+}
+
+.modal-box textarea {
+  width: 100%;
+  margin-top: 0.625rem;
+  padding: var(--tnxt-space-sm);
+}
+
+.mention-box {
+  border: 1px solid #ddd;
+  margin-top: var(--tnxt-radius-sm);
+}
+
+.mention-user {
+  padding: var(--tnxt-radius-sm);
+  cursor: pointer;
+}
+
+.mention-user:hover {
+  background: #f2f2f2;
+}
+
+.mention-user span {
+  color: #666;
+  font-size: var(--tnxt-space-md);
+  margin-left: var(--tnxt-radius-sm);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  margin-top: var(--tnxt-space-lg);
+}
+
+.submit-btn {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: var(--tnxt-radius-sm) var(--tnxt-font-size-base);
+  cursor: pointer;
+}

@@ -1,0 +1,43 @@
+.cro-status-badge {
+  display: inline-block;
+  padding: 0.3125rem var(--tnxt-space-md);
+  border-radius: var(--tnxt-space-xl);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cro-status-badge--completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.cro-status-badge--pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.cro-status-badge--scheduled {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.cro-status-badge--approved {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.cro-status-badge--expired {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.cro-status-badge--active {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.cro-status-badge--default {
+  background: #f1f5f9;
+  color: #475569;
+}

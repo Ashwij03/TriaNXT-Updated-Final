@@ -1,0 +1,13 @@
+.audit-logs-page .audit-details-cell {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 2rem;
+  line-height: 1.35;
+}
+
+.audit-logs-page .ctms-table td,
+.audit-logs-page .ctms-table th {
+  vertical-align: top;
+}

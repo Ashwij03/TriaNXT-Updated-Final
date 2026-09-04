@@ -1,0 +1,120 @@
+.study-reports-page {
+  background: #ffffff;
+  border-radius: var(--tnxt-space-md);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-2xl);
+  min-height: 31.25rem;
+  padding: var(--tnxt-space-2xl);
+}
+
+.study-reports-header {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tnxt-space-lg);
+  justify-content: space-between;
+}
+
+.study-reports-header h2 {
+  color: #082c3c;
+  margin: 0;
+}
+
+.study-reports-header p {
+  color: #6b7280;
+  margin: var(--tnxt-radius-sm) 0 0;
+}
+
+.study-reports-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+}
+
+.report-btn {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: var(--tnxt-space-sm);
+  color: #374151;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.625rem var(--tnxt-space-lg);
+}
+
+.report-btn-primary,
+.report-btn:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.study-reports-status {
+  color: #166534;
+  margin: 0;
+}
+
+.study-reports-overview {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-md);
+  padding: var(--tnxt-space-xl);
+}
+
+.study-reports-overview h3 {
+  color: #082c3c;
+  margin: 0 0 var(--tnxt-space-lg);
+}
+
+.study-reports-info-grid {
+  display: grid;
+  gap: var(--tnxt-space-md);
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+}
+
+.study-reports-info-grid label,
+.study-reports-description label {
+  color: #6b7280;
+  display: block;
+  font-size: var(--tnxt-space-md);
+  margin-bottom: var(--tnxt-space-xs);
+}
+
+.study-reports-info-grid span {
+  color: #111827;
+  font-weight: 600;
+}
+
+.study-reports-description {
+  margin-top: var(--tnxt-space-lg);
+}
+
+.study-reports-description p {
+  color: #374151;
+  margin: 0;
+}
+
+.study-reports-kpi-grid {
+  display: grid;
+  gap: var(--tnxt-space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(8.75rem, 1fr));
+}
+
+.study-reports-chart {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-md);
+  padding: var(--tnxt-space-xl);
+}
+
+.study-reports-chart h3 {
+  color: #082c3c;
+  margin: 0 0 var(--tnxt-space-lg);
+}
+
+.study-reports-format-note {
+  color: #6b7280;
+  font-size: var(--tnxt-font-size-sm);
+  margin: 0;
+}

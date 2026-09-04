@@ -1,0 +1,58 @@
+.cro-status-badge {
+  display: inline-block;
+  padding: var(--tnxt-radius-sm) var(--tnxt-font-size-base);
+  border-radius: var(--tnxt-space-xl);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cro-status-completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.cro-status-pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.cro-status-scheduled {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.cro-status-approved {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.cro-status-expired {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.cro-status-open {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.cro-status-answered {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.cro-status-closed {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.cro-status-active {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.cro-status-default {
+  background: #f1f5f9;
+  color: #475569;
+}

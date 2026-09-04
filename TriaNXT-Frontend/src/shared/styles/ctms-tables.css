@@ -1,0 +1,87 @@
+/*
+  ctms-tables.css
+  Task 5: standardize table appearance across Admin, Site Staff, Sponsor, PI, CRO.
+  Provides consistent width, row height, header height, column spacing,
+  card padding, borders and border-radius everywhere tables are used.
+
+  Applied through:
+    - all <table> elements inside .dashboard-widget-card / .dashboard-card
+    - any element with the `ctms-standard-table` class
+*/
+
+:root {
+  --ctms-table-border-color: #e5e7eb;
+  --ctms-table-border-radius: var(--tnxt-space-sm);
+  --ctms-table-header-bg: #f8fafc;
+  --ctms-table-header-color: #374151;
+  --ctms-table-row-hover-bg: #f9fafb;
+  --ctms-table-cell-padding-y: 0.75rem;   /* was 0.625rem */
+  --ctms-table-cell-padding-x: 0.875rem;  /* was 0.75rem */
+  --ctms-table-header-height: 2.75rem;    /* was 2.5rem */
+  --ctms-table-row-height: 3rem;          /* was 2.75rem */
+  --ctms-table-card-padding: 1rem;         /* was var(--tnxt-space-lg) */
+}
+
+/* Card padding — consistent left/right spacing inside cards */
+.dashboard-widget-card,
+.dashboard-card {
+  --ctms-card-padding-inline: var(--ctms-table-card-padding);
+}
+
+/* Base standardization applied to any bare table inside a dashboard card
+   OR any table explicitly opting into the standard style via
+   the `ctms-standard-table` class. */
+.dashboard-widget-card table.ctms-standard-table,
+.dashboard-card table.ctms-standard-table,
+table.ctms-standard-table,
+.ctms-standard-table > table,
+.ctms-standard-table .ctms-table {
+  width: 100%;
+  border: 1px solid var(--ctms-table-border-color);
+  border-radius: var(--ctms-table-border-radius);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.ctms-standard-table th,
+.ctms-standard-table td,
+table.ctms-standard-table th,
+table.ctms-standard-table td {
+  padding: var(--ctms-table-cell-padding-y) var(--ctms-table-cell-padding-x);
+  border-bottom: 1px solid #eef2f7;
+  border-right: 1px solid #eef2f7;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.ctms-standard-table th:last-child,
+.ctms-standard-table td:last-child,
+table.ctms-standard-table th:last-child,
+table.ctms-standard-table td:last-child {
+  border-right: none;
+}
+
+.ctms-standard-table tr:last-child td,
+table.ctms-standard-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ctms-standard-table thead th,
+table.ctms-standard-table thead th {
+  background: var(--ctms-table-header-bg);
+  color: var(--ctms-table-header-color);
+  font-weight: 600;
+  height: var(--ctms-table-header-height);
+}
+
+.ctms-standard-table tbody tr,
+table.ctms-standard-table tbody tr {
+  height: var(--ctms-table-row-height);
+}
+
+.ctms-standard-table tbody tr:hover,
+table.ctms-standard-table tbody tr:hover {
+  background: var(--ctms-table-row-hover-bg);
+}

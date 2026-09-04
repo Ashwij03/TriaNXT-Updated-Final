@@ -1,0 +1,80 @@
+.cro-settings-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tnxt-space-sm);
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+.cro-settings-tab {
+  border:1px solid #d8dee9;
+  background: #ffffff;
+  color: #374151;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+    
+}
+
+.settings-tab:hover{
+    background:#f8fafc;
+    border-color:#cbd5e1;
+    color:#1f2937;
+}
+
+.cro-settings-tab--active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.cro-settings-tab:focus-visible {
+  outline: 0.125rem solid #2563eb;
+  outline-offset: 0.125rem;
+}
+
+.cro-settings-panel {
+  margin-top: 0;
+}
+
+.cro-settings-section-title {
+  margin: 0 0 var(--tnxt-space-lg);
+  font-size: 1.125rem;
+  color: #ffffff;
+}
+
+.cro-settings-info {
+  margin-bottom: var(--tnxt-font-size-xl);
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 576px) {
+  .cro-settings-tabs {
+    flex-direction: column;
+  }
+
+  .cro-settings-tab {
+    width: 100%;
+    text-align: left;
+  }
+}
+.cro-profile-form{
+    display:flex;
+    flex-direction:column;
+    gap:var(--tnxt-font-size-base);
+}
+
+.cro-profile-form label{
+    font-size:var(--tnxt-font-size-base);
+    font-weight:600;
+    color:#475569;
+}
+
+.cro-profile-form .cro-input{
+    width:100%;
+}

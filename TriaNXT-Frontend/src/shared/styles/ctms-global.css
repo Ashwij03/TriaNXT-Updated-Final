@@ -1,0 +1,272 @@
+/* TriaNXT CTMS — global UI consistency overrides */
+
+/* Page titles */
+.dashboard-page-title h1,
+.admin-page-title h1,
+.access-permissions-header h1,
+.study-dashboard-page .page-header h1 {
+  color: white;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dashboard-page-title p,
+.admin-page-title p,
+.access-permissions-header p {
+  color: white;
+  font-size: var(--tnxt-font-size-sm);
+  margin: var(--tnxt-space-sm) 0 0;
+}
+
+/* Cards & widgets */
+.dashboard-widget,
+.dashboard-card,
+.enterprise-card,
+.ctms-table-card,
+.quick-actions-card,
+.dfm-sidebar,
+.dfm-main,
+.admin-settings-form,
+.notification-item,
+.study-info-card,
+.subject-card,
+.add-subject-card,
+.doc-viewer,
+.dashboard-loading {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius-lg);
+  box-shadow: var(--tnxt-shadow-card);
+}
+
+/* Tabs */
+.study-tabs button,
+.access-tab,
+.tab-btn,
+.study-workspace-tabs button {
+  border-bottom: 0.1875rem solid transparent;
+  color: var(--tnxt-text-secondary);
+  font-weight: 600;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.study-tabs button.active,
+.access-tab.active,
+.tab-btn.active,
+.study-workspace-tabs button.active {
+  border-bottom-color: var(--tnxt-primary);
+  color: var(--tnxt-primary);
+}
+
+/* Status badges */
+.status-badge,
+.badge,
+.pill,
+.subject-status-badge {
+  border-radius: var(--tnxt-radius-full);
+  font-size: var(--tnxt-font-size-xs);
+  font-weight: 600;
+  padding: var(--tnxt-space-xs) 0.625rem;
+}
+
+.status-enrolled,
+.status-active,
+.badge-success {
+  background: var(--tnxt-success-bg);
+  color: var(--tnxt-success);
+}
+
+.status-screening,
+.status-pending,
+.badge-warning {
+  background: var(--tnxt-warning-bg);
+  color: var(--tnxt-warning);
+}
+
+.status-withdrawn,
+.status-dropout,
+.badge-danger {
+  background: var(--tnxt-danger-bg);
+  color: var(--tnxt-danger);
+}
+
+.status-scheduled,
+.badge-info {
+  background: var(--tnxt-primary-light);
+  color: var(--tnxt-primary);
+}
+
+/* Buttons */
+.btn-primary,
+.primary-btn,
+.download-btn,
+.admin-settings-form button,
+.generate-report-btn {
+  background: var(--tnxt-primary);
+  border: none;
+  border-radius: var(--tnxt-radius-md);
+  color: var(--tnxt-text-inverse);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover,
+.primary-btn:hover,
+.download-btn:hover,
+.admin-settings-form button:hover {
+  background: var(--tnxt-primary-hover);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+select,
+textarea,
+.admin-settings-form input,
+.admin-settings-form select {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border);
+  border-radius: var(--tnxt-radius-md);
+  color: var(--tnxt-text);
+  font-size: var(--tnxt-font-size-sm);
+  padding: 0.625rem var(--tnxt-space-md);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--tnxt-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  outline: none;
+}
+
+/* Subject cards grid */
+.subjects-grid,
+.subject-cards-grid {
+  display: grid;
+  gap: var(--tnxt-space-xl);
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+}
+
+.add-subject-card,
+.add-subject-placeholder {
+  align-items: center;
+  background: var(--tnxt-bg-alt);
+  border: 0.125rem dashed var(--tnxt-border);
+  border-radius: var(--tnxt-radius-lg);
+  color: var(--tnxt-text-secondary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-md);
+  justify-content: center;
+  min-height: 11.25rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.add-subject-card:hover,
+.add-subject-placeholder:hover {
+  background: var(--tnxt-primary-light);
+  border-color: var(--tnxt-primary);
+  color: var(--tnxt-primary);
+}
+
+/* Folder tiles */
+.folder-tile,
+.subject-folder-tile,
+.dfm-folder-tile {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border);
+  border-radius: var(--tnxt-radius-lg);
+  box-shadow: var(--tnxt-shadow-sm);
+  cursor: pointer;
+  padding: var(--tnxt-space-xl);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.folder-tile:hover,
+.subject-folder-tile:hover {
+  box-shadow: var(--tnxt-shadow-md);
+  transform: translateY(-0.125rem);
+}
+
+/* Upload zone */
+.upload-zone,
+.dfm-upload-zone,
+.file-drop-zone {
+  background: var(--tnxt-bg-alt);
+  border: 0.125rem dashed var(--tnxt-border);
+  border-radius: var(--tnxt-radius-lg);
+  padding: var(--tnxt-space-3xl);
+  text-align: center;
+}
+
+.upload-progress-bar,
+.progress-bar-fill {
+  background: var(--tnxt-primary-light);
+  border-radius: var(--tnxt-radius-full);
+  height: var(--tnxt-space-sm);
+  overflow: hidden;
+}
+
+.upload-progress-bar .fill,
+.progress-bar-fill > div {
+  background: var(--tnxt-primary);
+  height: 100%;
+}
+
+/* Action links in tables */
+.access-action-link.accept,
+.access-action-link.approve {
+  color: var(--tnxt-success);
+}
+
+.access-action-link.revoke,
+.access-action-link.reject,
+.access-action-link.remove {
+  color: var(--tnxt-danger);
+}
+
+/* Hide recent activity on non-audit pages */
+.dashboard-recent-activity,
+.recent-activity-widget {
+  display: none;
+}
+
+.admin-dashboard .dashboard-recent-activity,
+.logs-page .recent-activity,
+.admin-page.audit-logs-page .recent-activity-widget {
+  display: block;
+}
+
+/* Sectioned profile/settings */
+.profile-section-card,
+.settings-section-card {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius-lg);
+  box-shadow: var(--tnxt-shadow-card);
+  margin-bottom: var(--tnxt-space-xl);
+  padding: var(--tnxt-space-2xl);
+}
+
+.profile-section-card h2,
+.settings-section-card h2 {
+  border-bottom: 1px solid var(--tnxt-border-light);
+  color: var(--tnxt-text);
+  font-size: var(--tnxt-font-size-lg);
+  font-weight: 600;
+  margin: 0 0 var(--tnxt-space-lg);
+  padding-bottom: var(--tnxt-space-md);
+}

@@ -1,0 +1,59 @@
+.etmf-center {
+  padding: var(--tnxt-space-2xl);
+}
+
+.etmf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--tnxt-space-lg);
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+.etmf-header h1 {
+  margin: 0;
+  font-size: 1.375rem;
+}
+
+.etmf-subtitle {
+  margin: var(--tnxt-space-xs) 0 0;
+  color: #6b7280;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.etmf-dashboard-wrapper {
+  width: 100%;
+  min-width: 0;
+  margin: 0 calc(-1 * var(--tnxt-space-2xl));
+  margin-bottom: calc(-1 * var(--tnxt-space-2xl));
+}
+
+.etmf-dashboard-wrapper .eisf-layout {
+  border-radius: 0;
+}
+
+/* Override the eISF sidebar title for eTMF context */
+.etmf-dashboard-wrapper .eisf-sidebar-title::after {
+  content: "";
+}
+
+.etmf-dashboard-wrapper .eisf-sidebar-title {
+  position: relative;
+}
+
+.etmf-dashboard-wrapper .eisf-sidebar-title::before {
+  content: "eTMF Modules";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: inherit;
+  font: inherit;
+  color: inherit;
+  background: inherit;
+}
+
+.etmf-dashboard-wrapper .eisf-sidebar-title > * {
+  visibility: hidden;
+}

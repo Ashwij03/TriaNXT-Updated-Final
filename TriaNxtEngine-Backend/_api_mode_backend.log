@@ -1,0 +1,24 @@
+DEBUG Using proactor: IocpProactor
+INFO Tria Engine (FastAPI) starting — env=development
+INFO Database connection OK
+INFO 127.0.0.1:51871 - "GET /api/health/ HTTP/1.1" 200
+INFO 127.0.0.1:51872 - "GET /api/health/ready/ HTTP/1.1" 200
+INFO {'event': 'login_failed', 'status': 'failed', 'user_id': None, 'user_email': None, 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/login/', 'method': 'POST', 'details': {'email': 'apimode@test.local'}}
+INFO 127.0.0.1:51876 - "POST /api/accounts/login/ HTTP/1.1" 401
+INFO {'event': 'login_failed', 'status': 'failed', 'user_id': None, 'user_email': None, 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/login/', 'method': 'POST', 'details': {'email': 'apimode@test.local'}}
+INFO 127.0.0.1:51877 - "POST /api/accounts/login/ HTTP/1.1" 401
+INFO 127.0.0.1:51878 - "GET /api/accounts/check-session/?username=apimode HTTP/1.1" 401
+INFO {'event': 'login_failed', 'status': 'failed', 'user_id': None, 'user_email': None, 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/login/', 'method': 'POST', 'details': {'email': 'apimode@test.local'}}
+INFO 127.0.0.1:51880 - "POST /api/accounts/login/ HTTP/1.1" 401
+INFO 127.0.0.1:51881 - "GET /api/accounts/check-session/?username=apimode HTTP/1.1" 401
+INFO 127.0.0.1:51882 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:51883 - "GET /api/accounts/check-session/?username=apimode HTTP/1.1" 200
+INFO 127.0.0.1:51937 - "GET /api/health/ HTTP/1.1" 200
+INFO 127.0.0.1:51954 - "GET /safety/ae-cases/summary/ HTTP/1.1" 404
+INFO 127.0.0.1:51955 - "GET /safety/ae-cases/ HTTP/1.1" 404
+INFO 127.0.0.1:51954 - "GET /safety/ae-cases/summary/ HTTP/1.1" 404
+INFO 127.0.0.1:51955 - "GET /safety/ae-cases/ HTTP/1.1" 404
+INFO 127.0.0.1:51979 - "GET /safety/ae-cases/ HTTP/1.1" 404
+INFO 127.0.0.1:51978 - "GET /safety/ae-cases/summary/ HTTP/1.1" 404
+INFO 127.0.0.1:51979 - "GET /safety/ae-cases/ HTTP/1.1" 404
+INFO 127.0.0.1:51978 - "GET /safety/ae-cases/summary/ HTTP/1.1" 404

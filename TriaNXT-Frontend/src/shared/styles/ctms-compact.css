@@ -1,0 +1,260 @@
+/*
+  ctms-compact.css
+  Shared Compact UI System (Phase 7 — IMP-6.3)
+
+  Purpose:
+    Provide a single, reusable source of "compact density" tokens and
+    utility classes so that high-density screens (Study pages, Subject
+    pages, Comments views, tables, dashboards, forms, and modals) can
+    opt into reduced vertical spacing WITHOUT:
+      - using a global CSS zoom/transform-scale hack (see IMP-6.1), or
+      - introducing broad global element selectors such as
+        `table {}`, `th {}`, `td {}` that could break unrelated
+        modules (see BUG-4 / Repository-Wide Table Quality).
+
+  Usage:
+    Add the `tnxt-compact` class to any page/section/card wrapper that
+    needs a denser layout. Everything below is scoped underneath that
+    class, so nothing here leaks into modules that do not opt in.
+
+    <div className="study-dashboard-page tnxt-compact"> ... </div>
+
+  Consumers:
+    - Study pages, Subject pages, Comments views, Activity feeds,
+      Site pages, dashboards, tables, forms, and modals (IMP-6.2).
+    - ctms-tables.css (BUG-4) reads the --tnxt-compact-table-* tokens
+      when a `.ctms-standard-table` lives inside `.tnxt-compact`.
+    - Modal components (IMP-MOD-1) read the --tnxt-compact-modal-*
+      tokens when opted in via `.tnxt-compact-modal`.
+
+  IMPORTANT: This file must never contain unscoped `zoom`, unscoped
+  `transform: scale(...)`, or bare element selectors. All rules are
+  scoped under a class.
+*/
+
+:root {
+  /* ===== START ITEM B: Compact tokens px → rem ===== */
+  /* Compact spacing scale — fixed values, NOT a multiplier/scale hack */
+  --tnxt-compact-space-xs: 0.125rem;    /* was 0.125rem  → 2/16 */
+  --tnxt-compact-space-sm: 0.25rem;     /* was var(--tnxt-space-xs)  → 4/16 */
+  --tnxt-compact-space-md: 0.5rem;      /* was var(--tnxt-space-sm)  → 8/16 */
+  --tnxt-compact-space-lg: 0.75rem;     /* was var(--tnxt-space-md) → 12/16 */
+  --tnxt-compact-space-xl: 1rem;        /* was var(--tnxt-space-lg) → 16/16 */
+
+  /* Compact typography */
+  --tnxt-compact-font-size-xs: 0.8125rem;   /* was 0.6875rem → 13/16 */
+  --tnxt-compact-font-size-sm: 0.9375rem;   /* was 0.75rem   → 15/16 */
+  --tnxt-compact-font-size-base: 1rem;      /* was 0.8125rem → 16/16 */
+  --tnxt-compact-line-height: 1.35;
+
+  /* Compact tables */
+  --tnxt-compact-table-cell-padding-y: 0.5rem;    /* was 0.375rem → 8/16, more room for larger text */
+  --tnxt-compact-table-cell-padding-x: 0.75rem;   /* was 0.625rem → 12/16 */
+  --tnxt-compact-table-header-height: 2.5rem;     /* was 2rem     → 40/16 */
+  --tnxt-compact-table-row-height: 2.75rem;       /* was 2.125rem → 44/16 */
+
+  /* Compact forms */
+  --tnxt-compact-form-row-gap: var(--tnxt-compact-space-md);
+  --tnxt-compact-form-label-margin: var(--tnxt-compact-space-xs);
+  --tnxt-compact-input-padding-y: 0.375rem;  /* was var(--tnxt-radius-sm)  → 6/16 */
+  --tnxt-compact-input-padding-x: 0.625rem;  /* was 0.625rem → 10/16 */
+  /* ===== END ITEM B ===== */
+
+  /* Compact modals */
+  --tnxt-compact-modal-padding: var(--tnxt-compact-space-xl);
+  --tnxt-compact-modal-header-padding: var(--tnxt-compact-space-lg)
+    var(--tnxt-compact-space-xl);
+  --tnxt-compact-modal-gap: var(--tnxt-compact-space-md);
+
+  /* Compact cards / widgets */
+  --tnxt-compact-card-padding: var(--tnxt-compact-space-lg);
+  --tnxt-compact-card-gap: var(--tnxt-compact-space-md);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Base density scope
+   ──────────────────────────────────────────────────────────────── */
+.tnxt-compact {
+  font-size: var(--tnxt-compact-font-size-base);
+  line-height: var(--tnxt-compact-line-height);
+}
+
+.tnxt-compact h1,
+.tnxt-compact h2,
+.tnxt-compact h3 {
+  line-height: 1.25;
+  margin-bottom: var(--tnxt-compact-space-sm);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Cards & widgets
+   ──────────────────────────────────────────────────────────────── */
+.tnxt-compact .dashboard-widget,
+.tnxt-compact .dashboard-widget-card,
+.tnxt-compact .dashboard-card,
+.tnxt-compact .enterprise-card,
+.tnxt-compact .ctms-table-card,
+.tnxt-compact .study-info-card,
+.tnxt-compact .subject-card {
+  padding: var(--tnxt-compact-card-padding);
+}
+
+.tnxt-compact .dashboard-section {
+  margin-bottom: var(--tnxt-compact-card-gap);
+}
+
+.tnxt-compact .dashboard-grid-6,
+.tnxt-compact .dashboard-grid-4,
+.tnxt-compact .dashboard-grid-2,
+.tnxt-compact .widget-grid {
+  gap: var(--tnxt-compact-space-lg);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Tables — consumed together with ctms-tables.css (BUG-4) and the
+   Studies list table (IMP-6.2). Each table family is listed
+   explicitly (never a bare `table`/`th`/`td` selector) so opting a
+   page into `.tnxt-compact` only densifies tables that already
+   exist inside it, without touching unrelated modules.
+   ──────────────────────────────────────────────────────────────── */
+.tnxt-compact .ctms-standard-table th,
+.tnxt-compact .ctms-standard-table td,
+.tnxt-compact table.ctms-standard-table th,
+.tnxt-compact table.ctms-standard-table td,
+.tnxt-compact .studies-table thead th,
+.tnxt-compact .studies-table tbody td {
+  padding: var(--tnxt-compact-table-cell-padding-y)
+    var(--tnxt-compact-table-cell-padding-x);
+  font-size: var(--tnxt-compact-font-size-sm);
+}
+
+.tnxt-compact .ctms-standard-table thead th,
+.tnxt-compact table.ctms-standard-table thead th {
+  height: var(--tnxt-compact-table-header-height);
+}
+
+.tnxt-compact .ctms-standard-table tbody tr,
+.tnxt-compact table.ctms-standard-table tbody tr,
+.tnxt-compact .studies-table tbody tr {
+  height: var(--tnxt-compact-table-row-height);
+}
+
+.tnxt-compact .studies-table thead th:first-child {
+  padding-left: var(--tnxt-compact-table-cell-padding-x);
+}
+
+.tnxt-compact .studies-table thead th:last-child,
+.tnxt-compact .studies-table tbody td:last-child {
+  padding-right: var(--tnxt-compact-table-cell-padding-x);
+}
+
+.tnxt-compact .studies-table tbody td:first-child {
+  padding-left: var(--tnxt-compact-table-cell-padding-x);
+}
+
+/* Clinical Sites Dashboard (Site Performance + Site Ranking tables) —
+   same explicit-family opt-in pattern as .studies-table above, added
+   for IMP-6.2 Compact UI Areas coverage of this high-density screen. */
+.tnxt-compact .site-table thead th,
+.tnxt-compact .site-table tbody td,
+.tnxt-compact .site-ranking-table thead th,
+.tnxt-compact .site-ranking-table tbody td {
+  padding: var(--tnxt-compact-table-cell-padding-y)
+    var(--tnxt-compact-table-cell-padding-x);
+  font-size: var(--tnxt-compact-font-size-sm);
+}
+
+.tnxt-compact .site-table thead th,
+.tnxt-compact .site-ranking-table thead th {
+  height: var(--tnxt-compact-table-header-height);
+}
+
+.tnxt-compact .site-table tbody tr,
+.tnxt-compact .site-ranking-table tbody tr {
+  height: var(--tnxt-compact-table-row-height);
+}
+
+.tnxt-compact .site-table thead th:first-child,
+.tnxt-compact .site-ranking-table thead th:first-child {
+  padding-left: var(--tnxt-compact-table-cell-padding-x);
+}
+
+.tnxt-compact .site-table thead th:last-child,
+.tnxt-compact .site-table tbody td:last-child,
+.tnxt-compact .site-ranking-table thead th:last-child,
+.tnxt-compact .site-ranking-table tbody td:last-child {
+  padding-right: var(--tnxt-compact-table-cell-padding-x);
+}
+
+.tnxt-compact .site-table tbody td:first-child,
+.tnxt-compact .site-ranking-table tbody td:first-child {
+  padding-left: var(--tnxt-compact-table-cell-padding-x);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Forms
+   ──────────────────────────────────────────────────────────────── */
+.tnxt-compact .form-row,
+.tnxt-compact .form-group {
+  margin-bottom: var(--tnxt-compact-form-row-gap);
+}
+
+.tnxt-compact label {
+  margin-bottom: var(--tnxt-compact-form-label-margin);
+  font-size: var(--tnxt-compact-font-size-sm);
+}
+
+.tnxt-compact input[type="text"],
+.tnxt-compact input[type="email"],
+.tnxt-compact input[type="password"],
+.tnxt-compact input[type="search"],
+.tnxt-compact input[type="number"],
+.tnxt-compact input[type="date"],
+.tnxt-compact select,
+.tnxt-compact textarea {
+  padding: var(--tnxt-compact-input-padding-y)
+    var(--tnxt-compact-input-padding-x);
+  font-size: var(--tnxt-compact-font-size-sm);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Modals — consumed together with the standardized Study modal
+   (IMP-MOD-1). Opt in with `.tnxt-compact-modal` on the modal root,
+   independent of whether the page behind it is compact.
+   ──────────────────────────────────────────────────────────────── */
+.tnxt-compact-modal .tnxt-modal-body,
+.tnxt-compact-modal.tnxt-modal-body {
+  padding: var(--tnxt-compact-modal-padding);
+  gap: var(--tnxt-compact-modal-gap);
+}
+
+.tnxt-compact-modal .tnxt-modal-header,
+.tnxt-compact-modal.tnxt-modal-header {
+  padding: var(--tnxt-compact-modal-header-padding);
+}
+
+.tnxt-compact-modal .tnxt-modal-footer,
+.tnxt-compact-modal.tnxt-modal-footer {
+  padding: var(--tnxt-compact-modal-header-padding);
+  gap: var(--tnxt-compact-space-md);
+}
+
+.tnxt-compact-modal .form-row,
+.tnxt-compact-modal .form-group {
+  margin-bottom: var(--tnxt-compact-form-row-gap);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Comments & activity feeds
+   ──────────────────────────────────────────────────────────────── */
+.tnxt-compact .notification-item,
+.tnxt-compact .comment-item,
+.tnxt-compact .activity-item {
+  padding: var(--tnxt-compact-space-md) var(--tnxt-compact-space-lg);
+}
+
+.tnxt-compact .notification-item + .notification-item,
+.tnxt-compact .comment-item + .comment-item,
+.tnxt-compact .activity-item + .activity-item {
+  margin-top: var(--tnxt-compact-space-sm);
+}

@@ -1,0 +1,22 @@
+.queries-page {
+  padding: var(--tnxt-space-2xl);
+}
+
+.queries-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--tnxt-space-md);
+  overflow: hidden;
+}
+
+.queries-table th {
+  background: #f8fafc;
+  text-align: left;
+  padding: var(--tnxt-font-size-base);
+}
+
+.queries-table td {
+  padding: var(--tnxt-font-size-base);
+  border-top: 1px solid #e5e7eb;
+}

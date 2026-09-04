@@ -1,0 +1,88 @@
+/* TriaNXT CTMS Design System — UI tokens from reference mockups */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Brand & layout */
+  --tnxt-navy: #0a2540;
+  --tnxt-navy-dark: #061a2e;
+  --tnxt-navy-light: #1a3a5c;
+  --tnxt-sidebar-gradient: linear-gradient(180deg, #0a2540 0%, #061a2e 100%);
+  --tnxt-primary: #2563eb;
+  --tnxt-primary-hover: #1d4ed8;
+  --tnxt-primary-light: #dbeafe;
+
+  /* Semantic colors */
+  --tnxt-success: #16a34a;
+  --tnxt-success-bg: #dcfce7;
+  --tnxt-warning: #ea580c;
+  --tnxt-warning-bg: #ffedd5;
+  --tnxt-danger: #dc2626;
+  --tnxt-danger-bg: #fee2e2;
+  --tnxt-info: #0284c7;
+  --tnxt-info-bg: #e0f2fe;
+
+  /* Surfaces */
+  --tnxt-bg: #f0f2f5;
+  --tnxt-bg-alt: #f8f9fa;
+  --tnxt-card: #ffffff;
+  --tnxt-border: #e5e7eb;
+  --tnxt-border-light: #f0f0f0;
+
+  /* Text */
+  --tnxt-text: #111827;
+  --tnxt-text-secondary: #6b7280;
+  --tnxt-text-muted: #9ca3af;
+  --tnxt-text-inverse: #ffffff;
+  --tnxt-sidebar-text: #c7d7de;
+  --tnxt-sidebar-text-muted: #94a3b8;
+
+  /* Typography */
+  --tnxt-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  /* ===== START ITEM B: px → rem conversion (÷16) ===== */
+  --tnxt-font-size-xs: 0.75rem;     /* was 0.6875rem → 12/16 */
+  --tnxt-font-size-sm: 0.9375rem;   /* was 0.8125rem → 15/16 */
+  --tnxt-font-size-base: 1rem;      /* was 0.875rem  → 16/16 */
+  --tnxt-font-size-lg: 1.0625rem;   /* was 1rem      → 17/16 */
+  --tnxt-font-size-xl: 1.1875rem;   /* was 1.125rem  → 19/16 */
+  --tnxt-font-size-2xl: 1.5rem;     /* was var(--tnxt-space-2xl)  → 24/16 */
+  --tnxt-font-size-3xl: 2rem;       /* was var(--tnxt-space-3xl)  → 32/16 */
+
+  /* Spacing */
+  --tnxt-space-xs: 0.25rem;    /* was var(--tnxt-space-xs)  → 4/16 */
+  --tnxt-space-sm: 0.5rem;     /* was var(--tnxt-space-sm)  → 8/16 */
+  --tnxt-space-md: 0.75rem;    /* was var(--tnxt-space-md) → 12/16 */
+  --tnxt-space-lg: 1rem;       /* was var(--tnxt-space-lg) → 16/16 */
+  --tnxt-space-xl: 1.25rem;    /* was var(--tnxt-space-xl) → 20/16 */
+  --tnxt-space-2xl: 1.5rem;    /* was var(--tnxt-space-2xl) → 24/16 */
+  --tnxt-space-3xl: 2rem;      /* was var(--tnxt-space-3xl) → 32/16 */
+
+  /* Radii & shadows */
+  --tnxt-radius-sm: 0.375rem;  /* was var(--tnxt-radius-sm)  → 6/16 */
+  --tnxt-radius-md: 0.5rem;    /* was var(--tnxt-space-sm)  → 8/16 */
+  --tnxt-radius-lg: 0.75rem;   /* was var(--tnxt-space-md) → 12/16 */
+  --tnxt-radius-xl: 1rem;      /* was var(--tnxt-space-lg) → 16/16 */
+  --tnxt-radius-full: 999px;   /* keep px — circular radius */
+  /* ===== END ITEM B ===== */
+  --tnxt-shadow-sm: 0 1px 0.1875rem rgba(0, 0, 0, 0.06);
+  --tnxt-shadow-md: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.06);
+  --tnxt-shadow-lg: 0 var(--tnxt-space-sm) var(--tnxt-space-2xl) rgba(15, 23, 42, 0.1);
+  --tnxt-shadow-card: 0 0.125rem var(--tnxt-space-md) rgba(10, 37, 64, 0.08);
+
+  /* ===== START ITEM B: Layout px → rem ===== */
+  --tnxt-sidebar-width: 10.5rem;  /* reduced to ~168px */
+  --tnxt-header-height: 4.5rem;    /* was 4.5rem  → 72/16 */
+  /* ===== END ITEM B ===== */
+  --tnxt-navbar-bg: #0b2a3b;
+  --tnxt-navbar-border: rgba(255, 255, 255, 0.12);
+  --tnxt-sidebar-navbar-separator: rgba(56, 189, 248, 0.35);
+
+  /* Legacy aliases */
+  --primary: var(--tnxt-primary);
+  --sidebar: var(--tnxt-navy);
+  --background: var(--tnxt-bg);
+  --card-bg: var(--tnxt-card);
+  --text: var(--tnxt-text);
+  --border: var(--tnxt-border);
+}

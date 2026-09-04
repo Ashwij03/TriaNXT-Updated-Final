@@ -1,0 +1,44 @@
+.edit-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.35);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.edit-modal{
+    width:37.5rem;
+    background:#fff;
+    border-radius:0.625rem;
+    overflow:hidden;
+}
+
+.edit-header{
+    background:#082b3d;
+    color:#fff;
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+    font-size:var(--tnxt-font-size-xl);
+    font-weight:600;
+}
+
+.edit-body{
+    padding:var(--tnxt-space-2xl);
+    display:grid;
+    gap:var(--tnxt-font-size-base);
+}
+
+.edit-body input,
+.edit-body select{
+    padding:0.625rem;
+    border:1px solid #ccc;
+    border-radius:var(--tnxt-radius-sm);
+}
+
+.edit-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:0.625rem;
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+}

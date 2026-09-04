@@ -1,0 +1,128 @@
+.pn-page{
+  padding:var(--tnxt-space-xl);
+}
+
+.page-subtitle{
+  color:#64748b;
+  margin-bottom:var(--tnxt-space-xl);
+}
+
+/* Summary Cards */
+
+.notes-summary{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:var(--tnxt-space-xl);
+  margin-bottom:var(--tnxt-space-xl);
+}
+
+.summary-card{
+  background:#fff;
+  border-radius:var(--tnxt-space-md);
+  padding:var(--tnxt-space-xl);
+  text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.summary-card h3{
+  margin-bottom:0.625rem;
+  font-size:var(--tnxt-space-lg);
+}
+
+.summary-card p{
+  font-size:1.625rem;
+  font-weight:600;
+  color:#2563eb;
+}
+
+/* Search */
+
+.notes-filters{
+  display:flex;
+  gap:0.625rem;
+  margin-bottom:var(--tnxt-space-xl);
+}
+
+.notes-filters input{
+  width:18.75rem;
+  padding:0.625rem;
+  border:1px solid #ddd;
+  border-radius:var(--tnxt-space-sm);
+}
+
+.search-btn{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:0.625rem var(--tnxt-font-size-xl);
+  border-radius:var(--tnxt-space-sm);
+  cursor:pointer;
+}
+
+/* Table Card */
+
+.notes-table-card{
+  background:white;
+  border-radius:var(--tnxt-space-md);
+  padding:var(--tnxt-space-xl);
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  overflow-x:auto;
+}
+
+/* Table */
+
+.notes-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.notes-table th{
+  background:#f8fafc;
+  padding:var(--tnxt-font-size-base);
+  text-align:left;
+  font-weight:600;
+}
+
+.notes-table td{
+  padding:var(--tnxt-font-size-base);
+  border-top:1px solid #e5e7eb;
+}
+
+.notes-table tr:hover{
+  background:#f9fafb;
+}
+
+/* Status */
+
+.status-badge{
+  padding:var(--tnxt-radius-sm) var(--tnxt-space-md);
+  border-radius:var(--tnxt-space-xl);
+  font-size:var(--tnxt-font-size-sm);
+  font-weight:600;
+}
+
+.Signed{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.Pending{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+/* Buttons */
+
+.view-btn{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:var(--tnxt-space-sm) var(--tnxt-font-size-base);
+  border-radius:var(--tnxt-space-sm);
+  cursor:pointer;
+}
+
+.view-btn:hover,
+.search-btn:hover{
+  background:#1d4ed8;
+}

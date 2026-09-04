@@ -1,0 +1,55 @@
+.document-status-widget {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-sm);
+  padding: var(--tnxt-space-lg);
+}
+
+.widget-header {
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+.widget-header h3 {
+  margin: 0;
+  font-size: var(--tnxt-space-lg);
+  font-weight: 600;
+}
+
+.widget-empty {
+  color: #6b7280;
+  text-align: center;
+  padding: var(--tnxt-space-2xl) 0;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.status-row:last-child {
+  border-bottom: none;
+}
+
+.status-info {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.status-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+}
+
+.status-label {
+  font-size: var(--tnxt-font-size-base);
+  text-transform: capitalize;
+}
+
+.status-count {
+  font-weight: 600;
+}

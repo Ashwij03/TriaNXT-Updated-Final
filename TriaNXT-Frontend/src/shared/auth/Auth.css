@@ -1,0 +1,656 @@
+body {
+  margin: 0;
+  font-family: var(--tnxt-font, "Inter", sans-serif);
+}
+
+/* PAGE */
+/* Single continuous background image spans the ENTIRE page (left panel
+   + right panel together) so the healthcare artwork never appears to
+   "split" between the two halves. */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  background: url("../assets/tria-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ===================================
+   LEFT PANEL (enterprise intro panel)
+=================================== */
+/* No background-image of its own — it sits directly over .auth-page's
+   background and only adds a soft white/mint tint so the copy stays
+   readable while the artwork underneath keeps showing through.
+   Opacity lowered (was 0.78/0.68) to the requested ~0.25-0.35 range
+   so the healthcare background photo reads through much more clearly. */
+/* Flex-basis widened (was 42%) and left/right padding trimmed so the
+   content column below has noticeably more room to breathe instead of
+   leaving a big empty gap between the copy and the login card. */
+.auth-left-panel {
+  position: relative;
+  flex: 1 1 48%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 3rem var(--tnxt-space-3xl) 3rem 3.5rem;
+  background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(224, 255, 246, 0.82));
+}
+
+/* Content column widened (was 440px) to use the extra space now given
+   to the left panel — logo/heading/feature list read as a wider,
+   more substantial block instead of a narrow strip with empty space
+   beside it. Still auto-centered within the panel. */
+.auth-left-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 37.5rem;
+  height: 100%;
+  min-height: 35rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-left-logo {
+  text-align: center;
+  margin-bottom: var(--tnxt-font-size-xl);
+}
+
+.auth-left-logo .trianxt-logo {
+  text-align: center;
+  margin: 0;
+}
+
+.auth-left-logo-sub {
+  display: block;
+  margin-top: var(--tnxt-radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0f4c46;
+  letter-spacing: 0.1875rem;
+}
+
+.auth-left-divider {
+  display: block;
+  width: 3.5rem;
+  height: 0.1875rem;
+  margin: 0 auto 1.75rem;
+  border-radius: 0.125rem;
+  background: #2e7d32;
+}
+
+.auth-left-headline {
+  margin: 0 0 var(--tnxt-space-lg);
+  color: #0b3d3a;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.28;
+}
+
+.auth-left-description {
+  max-width: 35rem;
+  margin: 0 0 1.75rem;
+  color: #21403c;
+  font-size: var(--tnxt-space-lg);
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.auth-left-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-lg);
+}
+
+.auth-left-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tnxt-font-size-base);
+}
+
+.auth-feature-icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(11, 61, 58, 0.18);
+  font-size: 1.1875rem;
+  line-height: 1;
+}
+
+.auth-left-features h4 {
+  margin: 0 0 var(--tnxt-space-xs);
+  color: #0b3d3a;
+  font-size: var(--tnxt-space-lg);
+  font-weight: 700;
+}
+
+.auth-left-features p {
+  margin: 0;
+  max-width: 31.25rem;
+  color: #2f4744;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+/* RIGHT PANEL — wraps the existing, unchanged auth-card */
+/* No background of its own (transparent) so the same continuous
+   .auth-page artwork carries all the way through behind the floating
+   card, matching the reference layout instead of a flat panel color.
+   Centered (not flex-start) so leftover space is balanced evenly on
+   both sides of the card instead of piling up on the right; the card
+   still overlaps the left panel slightly via its own negative margin.
+   overflow: visible lets that overlap actually render instead of
+   being clipped. */
+.auth-right-panel {
+  position: relative;
+  flex: 1 1 52%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--tnxt-space-2xl) 3rem;
+  box-sizing: border-box;
+  overflow: visible;
+  background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(224, 255, 246, 0.82));
+}
+
+@media (max-width: 900px) {
+  .auth-page {
+    flex-direction: column;
+    background-attachment: scroll;
+  }
+
+  .auth-left-panel {
+    padding: 2.25rem var(--tnxt-space-2xl);
+  }
+
+  .auth-left-content {
+    max-width: none;
+  }
+
+  .auth-right-panel {
+    justify-content: center;
+    padding: var(--tnxt-space-2xl);
+  }
+
+  .auth-card {
+    margin-left: 0;
+  }
+}
+
+/* OVERLAY */
+/* Very light wash over the right side only, purely to keep the
+   floating card readable against the background photo — the image
+   itself is untouched and still fully visible. Opacity lowered to the
+   requested ~0.25-0.35 range. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.15)
+  );
+}
+
+/* CARD */
+/* Pulled left with a negative margin so it overlaps the left panel's
+   edge slightly instead of floating with a gap in between — later in
+   DOM order than .auth-left-panel, so the overlap paints on top with
+   no z-index juggling needed. This is the base width used by Login;
+   Register overrides it via .auth-card--wide below. Widened from
+   3rem to 4rem (within the requested 620-43.75rem target) for better
+   visual balance against the left panel — padding/height untouched,
+   vertical centering still comes from .auth-right-panel. */
+.auth-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 43.75rem;
+  margin-left: -3rem;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: var(--tnxt-radius-xl);
+  padding: 1.625rem var(--tnxt-space-3xl) 1.875rem;
+  box-shadow: var(--tnxt-shadow-lg);
+  backdrop-filter: blur(var(--tnxt-radius-sm));
+}
+
+/* Registration only: wider card so paired fields (see .form-row below)
+   fit two-per-row on one screen. Login's .auth-card is untouched.
+   Narrowed from 47.5rem to the requested 700-47.5rem compact target. */
+.auth-card--wide {
+  max-width: 46.25rem;
+  margin-left: -4rem;
+}
+
+/* Registration only: heading reads slightly smaller than Login's, per
+   the compact enterprise sizing requested for "Create Account". */
+.auth-card--wide .auth-title {
+  font-size: 1.3125rem;
+  margin-bottom: var(--tnxt-font-size-base);
+}
+
+/* Registration only: pairs two existing .input-group fields side by
+   side (First/Last Name, Username/Email, Password/Confirm Password).
+   Falls back to a single column on narrow viewports. */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--tnxt-space-xl);
+}
+
+/* Registration only: tighter vertical rhythm (within the requested
+   16-var(--tnxt-space-xl) field-spacing range) so the two-column form fits on one
+   screen with minimal scrolling. Login is unaffected. */
+.auth-form-compact .input-group {
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+@media (max-width: 700px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* LOGO — text-only (no warning icon) */
+.auth-text-logo {
+  color: var(--tnxt-navy);
+  cursor: pointer;
+  display: block;
+  font-size: var(--tnxt-space-3xl);
+  font-weight: 700;
+  letter-spacing: 0.3125rem;
+  margin: 0 auto 0.9375rem;
+  text-align: center;
+}
+
+.logo {
+  width: 11.25rem;
+  display: block;
+  margin: 0 auto 0.9375rem;
+  cursor: pointer;
+}
+
+/* TITLE */
+.auth-title {
+  text-align: center;
+  margin-bottom: var(--tnxt-space-lg);
+  color: #333;
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+/* INPUT GROUP */
+.input-group {
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  color: #444;
+}
+
+/* INPUTS */
+.input-group input,
+select {
+  width: 100%;
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-base);
+  border: 1px solid #d8d8d8;
+  border-radius: var(--tnxt-space-md);
+  font-size: var(--tnxt-font-size-base);
+  box-sizing: border-box;
+  background: #fafafa;
+  transition: 0.3s;
+}
+
+.input-group input:focus,
+select:focus {
+  outline: none;
+  border-color: #1e88e5;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+}
+
+/* PASSWORD */
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  padding-right: 4.375rem;
+}
+
+.toggle-text {
+  position: absolute;
+  right: 0.9375rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1976d2;
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+}
+
+/* ERROR */
+.error {
+  color: #d32f2f;
+  font-size: var(--tnxt-space-md);
+  margin-top: 0.3125rem;
+}
+
+/* ===================================
+   PRIVACY POLICY
+=================================== */
+.policy-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.625rem;
+  margin: var(--tnxt-font-size-base) 0;
+  padding: var(--tnxt-font-size-base);
+  background: #f8fbff;
+  border: 1px solid #dbeafe;
+  border-radius: var(--tnxt-space-md);
+}
+
+.policy-container input[type="checkbox"] {
+  width: var(--tnxt-font-size-xl);
+  height: var(--tnxt-font-size-xl);
+  cursor: pointer;
+  accent-color: #1976d2;
+  margin: 0;
+}
+
+.policy-container label {
+  margin: 0;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+}
+
+.policy-link {
+  color: #1976d2;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.policy-link:hover {
+  color: #0d47a1;
+  text-decoration: underline;
+}
+
+/* ===================================
+   BUTTON
+=================================== */
+.auth-btn {
+  width: 100%;
+  border: none;
+  background: #43a047;
+  color: white;
+  padding: var(--tnxt-font-size-sm);
+  border-radius: var(--tnxt-space-md);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-btn:hover:not(:disabled) {
+  background: #2e7d32;
+  transform: translateY(-0.125rem);
+}
+
+.auth-btn:disabled {
+  background: #bdbdbd;
+  cursor: not-allowed;
+}
+
+/* ===================================
+   OR DIVIDER (Login only, UI only)
+=================================== */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md);
+  margin: var(--tnxt-space-lg) 0;
+  color: #9aa0a6;
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  letter-spacing: 0.125rem;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+/* ===================================
+   GOOGLE SIGN-IN BUTTON (Login only, UI only)
+   Same width/radius/spacing rhythm as .auth-btn so it reads as part
+   of the same design system, with a white/bordered variant instead
+   of the solid green primary action.
+=================================== */
+.google-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  border: 1px solid #d8d8d8;
+  background: #ffffff;
+  color: #3c4043;
+  padding: var(--tnxt-space-md);
+  border-radius: var(--tnxt-space-md);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.google-btn:hover {
+  background: #f8f9fa;
+  border-color: #c6c6c6;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.google-btn:active {
+  background: #f1f3f4;
+}
+
+.google-icon {
+  width: var(--tnxt-font-size-xl);
+  height: var(--tnxt-font-size-xl);
+  flex: 0 0 auto;
+}
+
+/* ===================================
+   LOGIN LINK
+=================================== */
+.login-section {
+  text-align: center;
+  margin-top: var(--tnxt-font-size-base);
+}
+
+.login-section span {
+  color: #666;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.login-link-btn {
+  border: none;
+  background: none;
+  color: #1976d2;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 0.3125rem;
+}
+
+.login-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===================================
+   SECURITY CARD
+=================================== */
+.security-card {
+  margin-top: var(--tnxt-font-size-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-font-size-base);
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-lg);
+  background: linear-gradient(135deg, #f5fbf6, #eefbf3);
+  border: 1px solid #d8efe0;
+  border-radius: var(--tnxt-font-size-base);
+}
+
+.security-icon {
+  font-size: var(--tnxt-space-3xl);
+}
+
+.security-card h4 {
+  margin: 0;
+  color: #2e7d32;
+  font-size: 0.9375rem;
+}
+
+.security-card p {
+  margin-top: 0.3125rem;
+  font-size: var(--tnxt-space-md);
+  line-height: 1.5;
+  color: #666;
+}
+
+/* ===================================
+   PRIVACY MODAL
+=================================== */
+.policy-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: var(--tnxt-space-xl);
+}
+
+.policy-content {
+  width: 100%;
+  max-width: 40.625rem;
+  background: white;
+  padding: 1.875rem;
+  border-radius: var(--tnxt-space-lg);
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.policy-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.policy-content p {
+  color: #555;
+  line-height: 1.7;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.close-policy {
+  width: 100%;
+  margin-top: var(--tnxt-space-xl);
+  padding: var(--tnxt-space-md);
+  border: none;
+  background: #1976d2;
+  color: white;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.close-policy:hover {
+  background: #1565c0;
+}
+
+.forgot-password {
+  text-align: right;
+  font-size: var(--tnxt-font-size-sm);
+  color: #1976d2;
+  cursor: pointer;
+  margin-top: var(--tnxt-radius-sm);
+  margin-bottom: 0;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* ===================================
+   MOBILE
+=================================== */
+@media (max-width: 768px) {
+  .auth-card {
+    padding: 1.375rem;
+  }
+
+  .logo {
+    width: 9.375rem;
+  }
+
+  .auth-title {
+    font-size: var(--tnxt-space-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: var(--tnxt-font-size-xl);
+    border-radius: 0.9375rem;
+  }
+
+  .logo {
+    width: 8.125rem;
+  }
+
+  .input-group input,
+  select {
+    padding: var(--tnxt-font-size-xs);
+  }
+
+  .policy-container {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .security-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .policy-content {
+    padding: var(--tnxt-space-xl);
+  }
+}

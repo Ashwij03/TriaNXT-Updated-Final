@@ -1,0 +1,699 @@
+.site-details-page {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: var(--tnxt-space-2xl);
+  box-sizing: border-box;
+  display: block;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.site-workspace-header {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--tnxt-space-2xl);
+  box-sizing: border-box;
+}
+
+.site-workspace-header h1 {
+  margin: var(--tnxt-space-md) 0 var(--tnxt-radius-sm);
+  color: #1e3a8a;
+}
+
+.site-workspace-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.site-workspace-status {
+  padding: var(--tnxt-space-sm) var(--tnxt-space-lg);
+  border-radius: var(--tnxt-space-xl);
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 600;
+}
+
+.back-btn {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: var(--tnxt-space-sm);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.back-btn:hover {
+  background: #1d4ed8;
+}
+
+/* =========================
+   TABS
+========================= */
+
+.site-workspace-tabs {
+  width: 100%;
+  display: flex;
+  gap: var(--tnxt-space-sm);
+  margin-bottom: var(--tnxt-space-2xl);
+  padding: var(--tnxt-space-sm);
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--tnxt-space-md);
+}
+
+.site-workspace-tabs button {
+  border: none;
+  background: transparent;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: var(--tnxt-space-sm);
+  cursor: pointer;
+  color: #64748b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.site-workspace-tabs button.active {
+  background: #082b3d;
+  color: #ffffff;
+}
+
+/* =========================
+   MAIN CARDS
+========================= */
+
+.details-card {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  align-self: stretch;
+  padding: var(--tnxt-space-2xl);
+  margin: 0 0 var(--tnxt-space-2xl) 0;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--tnxt-space-lg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.site-details-page > .details-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.analytics-section {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.analytics-section .details-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.details-card h2 {
+  margin: 0 0 var(--tnxt-space-xl);
+  color: #1e3a8a;
+  font-size: 1.375rem;
+}
+
+/* =========================
+   DETAILS GRID
+========================= */
+
+.details-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(13.75rem, 1fr)
+  );
+  gap: var(--tnxt-space-lg);
+  box-sizing: border-box;
+}
+
+.details-grid > div {
+  width: 100%;
+  min-width: 0;
+  padding: var(--tnxt-space-lg);
+  box-sizing: border-box;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+}
+
+.details-grid strong {
+  display: block;
+  margin-bottom: var(--tnxt-space-sm);
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.details-grid p {
+  margin: 0;
+  color: #1e293b;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.site-progress-section {
+  width: 100%;
+  margin-top: var(--tnxt-space-2xl);
+  box-sizing: border-box;
+}
+
+.site-progress-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+  color: #1e293b;
+}
+
+.site-progress-track {
+  width: 100%;
+  height: var(--tnxt-space-md);
+  overflow: hidden;
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+.site-progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.site-progress-text {
+  margin: var(--tnxt-space-sm) 0 0;
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+/* =========================
+   EMPTY STATES
+========================= */
+
+.site-activity-empty,
+.site-info-empty {
+  width: 100%;
+  padding: var(--tnxt-space-2xl);
+  box-sizing: border-box;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.625rem;
+  color: #64748b;
+}
+
+.site-activity-empty {
+  padding: 1.875rem;
+}
+
+.site-activity-empty p,
+.site-info-empty p {
+  margin: 0;
+}
+
+/* =========================
+   SITE INFO SECTIONS
+========================= */
+
+.site-info-section {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: var(--tnxt-space-xl);
+  box-sizing: border-box;
+}
+
+.site-info-section h3 {
+  margin: 0 0 var(--tnxt-space-lg);
+  color: #1e293b;
+  font-size: var(--tnxt-font-size-xl);
+}
+
+.site-info-section + .site-info-section {
+  margin-top: 1.75rem;
+  padding-top: var(--tnxt-space-2xl);
+  border-top: 1px solid #e2e8f0;
+}
+
+/* =========================
+   STUDY TEAM
+========================= */
+
+.site-team-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(15rem, 1fr)
+  );
+  gap: var(--tnxt-space-lg);
+  box-sizing: border-box;
+}
+
+.site-team-card {
+  width: 100%;
+  min-width: 0;
+  padding: var(--tnxt-font-size-xl);
+  box-sizing: border-box;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+}
+
+.site-team-card > strong {
+  display: block;
+  margin-bottom: var(--tnxt-space-lg);
+  color: #1e293b;
+  font-size: var(--tnxt-space-lg);
+}
+
+.site-team-card p {
+  margin: 0.625rem 0 0;
+  color: #1e293b;
+}
+
+.site-team-card p span {
+  display: block;
+  margin-bottom: var(--tnxt-space-xs);
+  color: #64748b;
+  font-size: var(--tnxt-space-md);
+}
+
+/* =========================
+   REGULATORY / KPI / RISK
+========================= */
+
+.site-regulatory-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(17.5rem, 1fr)
+  );
+  gap: var(--tnxt-space-lg);
+  box-sizing: border-box;
+}
+
+.site-regulatory-item {
+  width: 100%;
+  min-width: 0;
+  padding: var(--tnxt-font-size-xl);
+  box-sizing: border-box;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+}
+
+.site-regulatory-item p {
+  margin: 0.625rem 0 0;
+  color: #1e293b;
+  overflow-wrap: anywhere;
+}
+
+.site-regulatory-item p:first-child {
+  margin-top: 0;
+}
+
+.site-regulatory-item p span {
+  display: block;
+  margin-bottom: var(--tnxt-space-xs);
+  color: #64748b;
+  font-size: var(--tnxt-space-md);
+  text-transform: capitalize;
+}
+
+.site-regulatory-item pre {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  box-sizing: border-box;
+}
+
+/* =========================
+   ENROLLMENT ANALYTICS
+========================= */
+
+.site-enrollment-analytics-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(1rem, 1fr)
+  );
+  gap: var(--tnxt-space-lg);
+  margin-top: var(--tnxt-space-xl);
+  box-sizing: border-box;
+}
+
+.site-enrollment-analytics-card {
+  width: 100%;
+  min-width: 0;
+  padding: var(--tnxt-space-xl);
+  box-sizing: border-box;
+  text-align: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+}
+
+.site-enrollment-analytics-card span {
+  display: block;
+  margin-bottom: 0.625rem;
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.site-enrollment-analytics-card strong {
+  color: #0f172a;
+  font-size: 1.75rem;
+}
+
+/* =========================
+   ENROLLMENT STATISTICS
+========================= */
+
+.site-enrollment-statistics {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1.75rem;
+  padding-top: var(--tnxt-space-2xl);
+  box-sizing: border-box;
+  border-top: 1px solid #e2e8f0;
+}
+
+.site-enrollment-statistics h3 {
+  margin: 0 0 var(--tnxt-space-lg);
+  color: #1e293b;
+  font-size: var(--tnxt-font-size-xl);
+}
+
+.clinical-site-enrollment-section {
+  width: 100%;
+  max-width: 100%;
+  margin-top: var(--tnxt-space-xl);
+  box-sizing: border-box;
+}
+
+.clinical-site-enrollment-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+}
+
+.clinical-site-enrollment-track {
+  width: 100%;
+  height: var(--tnxt-space-md);
+  overflow: hidden;
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+.clinical-site-enrollment-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.clinical-site-enrollment-section p {
+  margin: var(--tnxt-space-sm) 0 0;
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+/* =========================
+   SUBJECT ANALYTICS
+========================= */
+
+.site-subject-status-analytics {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1.75rem;
+  padding-top: var(--tnxt-space-2xl);
+  box-sizing: border-box;
+  border-top: 1px solid #e2e8f0;
+}
+
+.site-subject-status-analytics h3 {
+  margin: 0 0 var(--tnxt-space-xl);
+  color: #1e293b;
+  font-size: var(--tnxt-font-size-xl);
+}
+
+/* =========================
+   LARGE DESKTOP
+========================= */
+
+@media (min-width: 1200px) {
+  .details-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(12.5rem, 1fr)
+    );
+  }
+
+  .site-enrollment-analytics-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .site-team-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(16.25rem, 1fr)
+    );
+  }
+
+  .site-regulatory-list {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(18.75rem, 1fr)
+    );
+  }
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1024px) {
+  .details-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(11.25rem, 1fr)
+    );
+  }
+
+  .site-workspace-tabs {
+    overflow-x: auto;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .site-details-page {
+    padding: var(--tnxt-space-lg);
+  }
+
+  .site-workspace-header {
+    flex-direction: column;
+    gap: var(--tnxt-space-lg);
+  }
+
+  .site-workspace-tabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .details-card {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--tnxt-font-size-xl);
+  }
+
+  .details-grid,
+  .site-team-grid,
+  .site-enrollment-analytics-grid,
+  .site-regulatory-list {
+    grid-template-columns: 1fr;
+  }
+
+  .details-grid > div,
+  .site-team-card,
+  .site-enrollment-analytics-card,
+  .site-regulatory-item {
+    width: 100%;
+    min-width: 0;
+  }
+}
+.site-primary-btn {
+  margin-top: var(--tnxt-font-size-xl);
+  padding: 0.625rem 1.375rem;
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  background: #0b2d45;
+  color: #fff;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.site-primary-btn:hover {
+  background: #154c73;
+}
+
+.site-activity-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 10.625rem;
+  text-align: center;
+}
+
+.site-activity-empty h3 {
+  margin-bottom: var(--tnxt-space-sm);
+  color: #1e3a8a;
+}
+
+.site-activity-empty p {
+  margin-bottom: var(--tnxt-font-size-xl);
+  color: #64748b;
+}
+
+/* ==========================
+   COMMON EMPTY STATE
+========================== */
+
+.site-empty-state {
+  width: 100%;
+  padding: 3rem var(--tnxt-space-2xl);
+  text-align: center;
+  background: #f8fafc;
+  border: 0.125rem dashed #cbd5e1;
+  border-radius: var(--tnxt-space-md);
+}
+
+.site-empty-state h4 {
+  margin: 0 0 0.625rem;
+  color: #1e3a8a;
+  font-size: var(--tnxt-font-size-xl);
+  font-weight: 600;
+}
+
+.site-empty-state p {
+  margin: 0 0 var(--tnxt-space-xl);
+  color: #64748b;
+  font-size: var(--tnxt-font-size-base);
+}
+
+.site-empty-btn {
+  padding: 0.625rem 1.375rem;
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  background: #2563eb;
+  color: #ffffff;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.site-empty-btn:hover {
+  background: #1d4ed8;
+}
+
+.site-empty-btn:disabled,
+.site-empty-btn[disabled] {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.site-empty-btn:disabled:hover,
+.site-empty-btn[disabled]:hover {
+  background: #cbd5e1;
+}
+
+/* ==========================
+   SITE WORKSPACE INLINE FORMS
+========================== */
+
+.site-inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: var(--tnxt-space-lg);
+  padding: var(--tnxt-space-lg);
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+}
+
+.site-inline-form input,
+.site-inline-form select {
+  flex: 1 1 11.25rem;
+  padding: var(--tnxt-space-sm) var(--tnxt-space-md);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  background: #ffffff;
+}
+
+.site-inline-form-actions {
+  display: flex;
+  gap: 0.625rem;
+  align-items: center;
+  flex: 1 1 100%;
+}
+
+.site-team-card-actions,
+.site-regulatory-actions {
+  display: flex;
+  gap: var(--tnxt-space-sm);
+  margin-top: 0.625rem;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  padding: var(--tnxt-space-xs) var(--tnxt-space-sm);
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+.link-btn.danger {
+  color: #dc2626;
+}

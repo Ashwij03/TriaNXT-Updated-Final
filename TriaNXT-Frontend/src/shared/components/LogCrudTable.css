@@ -1,0 +1,226 @@
+/* Shared CRUD log table used by Site Visit / NTF / Miscellaneous logs.
+   Mirrors the Delegation Log / Training Log presentation: the shared
+   DataTable handles search/filter/pagination, and the toolbar + modals
+   reuse the StudyLogsTab modal classes (modal-overlay / modal-box /
+   modal-title / modal-body / modal-footer / save-btn / cancel-btn). */
+
+.log-crud-container {
+  margin-top: var(--tnxt-space-xl);
+  background: #fff;
+  padding: var(--tnxt-space-xl);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-sm);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.log-crud-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+.log-crud-title {
+  margin: 0;
+  font-size: var(--tnxt-space-xl);
+  color: #222;
+}
+
+.log-crud-add-btn {
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.log-crud-add-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* Row actions inside the shared DataTable's Actions column — same
+   button styling the Delegation Log emits. */
+.log-crud-actions {
+  display: flex;
+  gap: var(--tnxt-space-sm);
+  flex-wrap: wrap;
+}
+
+.log-crud-actions button {
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border: 1px solid #d5dce5;
+  background: #fff;
+  border-radius: var(--tnxt-space-xs);
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.log-crud-actions button:hover {
+  background: #f5f7fa;
+}
+
+/* Form fields inside Add / Edit modals */
+.log-crud-field {
+  margin-bottom: var(--tnxt-font-size-base);
+}
+
+.log-crud-field label {
+  display: block;
+  margin-bottom: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.log-crud-field input,
+.log-crud-field select,
+.log-crud-field textarea {
+  width: 100%;
+  padding: 0.625rem var(--tnxt-space-md);
+  border: 1px solid #d5dce5;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-family: inherit;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.log-crud-field input:focus,
+.log-crud-field select:focus,
+.log-crud-field textarea:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 4px rgba(13, 110, 253, 0.3);
+}
+
+.log-crud-field textarea {
+  min-height: 5.625rem;
+  resize: vertical;
+}
+
+/* Scrollable overlay for these logs' modals: the Add/Edit forms can be
+   taller than the viewport, so the footer buttons must stay reachable.
+   `margin: auto` on the modal-box keeps it centered when it fits and
+   lets the overlay scroll when it doesn't. Scoped to these logs only. */
+.log-crud-modal-overlay {
+  overflow-y: auto;
+  padding: var(--tnxt-space-2xl);
+}
+
+.log-crud-modal-overlay .modal-box {
+  margin: auto;
+}
+
+/* Modal footer + Cancel/Save buttons.
+   Scoped to these logs' modals on purpose: several global stylesheets
+   (CompletedVisit.css, UploadDocumentModal.css, PIStudySubjectProfile.css)
+   attach margin/padding/colors to the generic .save-btn / .cancel-btn
+   classes, which made Cancel and Save render misaligned (Save was pushed
+   down by a stray margin-top:var(--tnxt-space-md)). Using dedicated classes here keeps the
+   three logs' modal buttons identical and aligned everywhere. */
+.log-crud-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.625rem;
+  padding: var(--tnxt-font-size-xl) var(--tnxt-space-xl);
+  background: #f7f9fc;
+}
+
+.log-crud-modal-footer .log-crud-cancel-btn,
+.log-crud-modal-footer .log-crud-save-btn {
+  width: 5rem;
+  height: 2.25rem;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.log-crud-modal-footer .log-crud-save-btn {
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+.log-crud-modal-footer .log-crud-save-btn:hover {
+  background: #0b5ed7;
+}
+
+.log-crud-modal-footer .log-crud-cancel-btn {
+  background: #e5e7eb;
+  color: #1f2937;
+}
+
+.log-crud-modal-footer .log-crud-cancel-btn:hover {
+  background: #d1d5db;
+}
+
+/* Mandatory-delete-reason textarea */
+.log-crud-delete-reason {
+  width: 100%;
+  min-height: 5.625rem;
+  padding: 0.625rem var(--tnxt-space-md);
+  border: 1px solid #d5dce5;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-family: inherit;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* View modal header + read-only field table */
+.log-crud-view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--tnxt-space-lg) var(--tnxt-space-xl);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.log-crud-view-header h3 {
+  margin: 0;
+  font-size: 1.0625rem;
+  color: #1f2937;
+}
+
+.log-crud-view-close {
+  font-size: var(--tnxt-space-2xl);
+  line-height: 1;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.log-crud-view-close:hover {
+  color: #1f2937;
+}
+
+.log-crud-view-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.log-crud-view-table th,
+.log-crud-view-table td {
+  border: 1px solid #ddd;
+  padding: 0.625rem var(--tnxt-space-md);
+  text-align: left;
+  font-size: var(--tnxt-font-size-base);
+  vertical-align: top;
+}
+
+.log-crud-view-table th {
+  background: #f3f3f3;
+  color: #1f2937;
+  font-weight: 600;
+  width: 35%;
+}

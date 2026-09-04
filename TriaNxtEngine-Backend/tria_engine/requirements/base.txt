@@ -1,0 +1,18 @@
+# base.txt — TriaNXT CTMS engine (FastAPI + SQLAlchemy + Alembic)
+# Replaces the Django/DRF dependency set. Framework-agnostic libraries the
+# old stack also used (psycopg2-binary, argon2-cffi, cryptography, boto3,
+# redis, python-dotenv, pillow) are kept as-is.
+fastapi>=0.110
+uvicorn[standard]>=0.27
+pydantic>=2.6
+pydantic-settings>=2.2
+sqlalchemy>=2.0
+alembic>=1.13
+python-multipart>=0.0.9
+psycopg2-binary>=2.9
+python-dotenv>=1.0
+argon2-cffi>=23.1
+cryptography>=42.0
+pillow>=10.2
+boto3>=1.34
+redis>=5.0

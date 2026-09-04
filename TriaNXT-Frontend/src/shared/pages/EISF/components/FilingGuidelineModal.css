@@ -1,0 +1,103 @@
+.filing-guideline-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tnxt-space-xl);
+  background: rgba(15, 23, 42, 0.38);
+}
+
+.filing-guideline-modal {
+  width: min(35rem, 100%);
+  max-height: calc(100vh - 2.5rem);
+  overflow: hidden;
+  border-radius: 0.625rem;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
+}
+
+.filing-guideline-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tnxt-font-size-xl);
+  padding: var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+  background: #082b3d;
+  color: #fff;
+}
+
+.filing-guideline-header span {
+  display: block;
+  margin-bottom: var(--tnxt-space-xs);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--tnxt-space-md);
+  font-weight: 700;
+}
+
+.filing-guideline-header h3 {
+  margin: 0;
+  color: #fff;
+  font-size: var(--tnxt-font-size-xl);
+  font-weight: 700;
+}
+
+.filing-guideline-close {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  font-size: var(--tnxt-space-2xl);
+  line-height: 1;
+}
+
+.filing-guideline-body {
+  padding: 1.375rem var(--tnxt-space-2xl);
+  overflow-y: auto;
+  max-height: calc(100vh - 11.875rem);
+}
+
+.filing-guideline-body h4 {
+  margin: 0 0 var(--tnxt-space-sm);
+  color: #0f172a;
+  font-size: 0.9375rem;
+}
+
+.filing-guideline-body p {
+  margin: 0 0 var(--tnxt-space-lg);
+  color: #475569;
+  font-size: var(--tnxt-font-size-sm);
+  line-height: 1.55;
+}
+
+.filing-guideline-body ul {
+  margin: 0;
+  padding-left: var(--tnxt-space-xl);
+  color: #1e293b;
+  font-size: var(--tnxt-font-size-sm);
+  line-height: 1.65;
+}
+
+.filing-guideline-body li + li {
+  margin-top: var(--tnxt-space-sm);
+}
+
+.filing-guideline-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--tnxt-space-lg) var(--tnxt-space-2xl) var(--tnxt-font-size-xl);
+  border-top: 1px solid #edf1f7;
+}
+
+.filing-guideline-footer button {
+  min-width: 7rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: var(--tnxt-space-sm);
+  background: #0d6efd;
+  color: #fff;
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 700;
+}

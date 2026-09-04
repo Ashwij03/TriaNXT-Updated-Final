@@ -1,0 +1,271 @@
+.subject-analytics-section {
+  width: 100%;
+  min-width: 0;
+}
+
+.subject-analytics-pair-grid {
+  display: grid;
+  gap: var(--tnxt-space-xl);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  align-items: stretch;
+}
+
+.subject-analytics-pair-grid .dashboard-widget-card {
+  min-height: 0;
+  min-width: 0;
+}
+
+/*
+  Subject Status Analytics "legend" (the KPI strip above the pie chart
+  showing each status name + count). Base layout, spacing, typography,
+  and color-indicator alignment are defined here so the section always
+  renders correctly — the compact modifier below only tightens sizing.
+*/
+.subject-status-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: var(--tnxt-space-md);
+  margin-bottom: var(--tnxt-font-size-xl);
+  width: 100%;
+}
+
+.subject-status-kpi {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--tnxt-space-xs);
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-base);
+  background: var(--tnxt-bg-alt);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius-md);
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  padding-left: 1.375rem;
+}
+
+/* Color indicator dot — mirrors the pie chart's slice color order
+   (COLORS array in DashboardPieChart.js) purely via CSS, no data change. */
+.subject-status-kpi::before {
+  content: "";
+  position: absolute;
+  top: var(--tnxt-font-size-base);
+  left: var(--tnxt-space-sm);
+  width: var(--tnxt-space-sm);
+  height: var(--tnxt-space-sm);
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #2563eb;
+}
+
+.subject-status-kpi:nth-child(6n + 1)::before {
+  background: #2563eb;
+}
+
+.subject-status-kpi:nth-child(6n + 2)::before {
+  background: #10b981;
+}
+
+.subject-status-kpi:nth-child(6n + 3)::before {
+  background: #f59e0b;
+}
+
+.subject-status-kpi:nth-child(6n + 4)::before {
+  background: #8b5cf6;
+}
+
+.subject-status-kpi:nth-child(6n + 5)::before {
+  background: #ef4444;
+}
+
+.subject-status-kpi:nth-child(6n + 6)::before {
+  background: #64748b;
+}
+
+.subject-status-kpi strong {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--tnxt-text);
+  white-space: nowrap;
+}
+
+.subject-status-kpi span {
+  font-size: var(--tnxt-space-md);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--tnxt-text-secondary);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.subject-analytics-section--compact .subject-status-kpi-grid {
+  gap: 0.625rem;
+  margin-bottom: var(--tnxt-font-size-base);
+}
+
+.subject-analytics-section--compact .subject-status-kpi {
+  padding: 0.625rem var(--tnxt-space-md) 0.625rem var(--tnxt-space-xl);
+}
+
+.subject-analytics-section--compact .subject-status-kpi::before {
+  top: var(--tnxt-space-md);
+  left: 0.4375rem;
+  width: 0.4375rem;
+  height: 0.4375rem;
+}
+
+.subject-analytics-section--compact .subject-status-kpi strong {
+  font-size: var(--tnxt-space-xl);
+  margin-bottom: 0;
+}
+
+.subject-analytics-section--compact .subject-status-kpi span {
+  font-size: var(--tnxt-font-size-xs);
+}
+
+/*
+  Chart row — houses the Subject Status pie chart together with the
+  Planned vs. Current Subjects summary panel to its right (Task 6).
+  The summary panel only renders when plannedSubjects/currentSubjects
+  are supplied (Study Dashboard usage); otherwise the pie chart simply
+  takes the full row width.
+*/
+.subject-status-chart-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-xl);
+  width: 100%;
+}
+
+.subject-status-chart-row-chart {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/*
+  Task 6 — Study Details Subject Analytics: Planned vs. Current Subjects
+  summary panel, shown to the right of the Subject Status Analytics pie
+  chart only when the section is rendered for a single study
+  (StudyDashboard passes the two counts in). Mirrors the KPI-card visual
+  language used elsewhere so it reads as part of the same design system.
+*/
+.subject-analytics-enrollment-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tnxt-font-size-base);
+  padding: var(--tnxt-font-size-base) var(--tnxt-font-size-xl);
+  background: var(--tnxt-bg-alt);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius-md);
+  flex: 0 0 auto;
+  width: 10.625rem;
+  box-sizing: border-box;
+}
+
+.subject-analytics-enrollment-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--tnxt-space-xs);
+  width: 100%;
+  min-width: 0;
+}
+
+.subject-analytics-enrollment-label {
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-secondary);
+  white-space: nowrap;
+}
+
+.subject-analytics-enrollment-value {
+  font-size: var(--tnxt-space-xl);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--tnxt-text);
+  white-space: nowrap;
+}
+
+.subject-analytics-enrollment-divider {
+  width: 100%;
+  height: 1px;
+  min-height: 0;
+  align-self: stretch;
+  background: var(--tnxt-border-light);
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .subject-analytics-pair-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .subject-status-kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(6.25rem, 1fr));
+    gap: 0.625rem;
+  }
+
+  .subject-status-kpi {
+    padding: 0.625rem var(--tnxt-space-md) 0.625rem var(--tnxt-space-xl);
+  }
+
+  .subject-status-kpi strong {
+    font-size: var(--tnxt-font-size-xl);
+  }
+
+  .subject-status-kpi span {
+    font-size: var(--tnxt-font-size-xs);
+  }
+
+  .subject-status-chart-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subject-analytics-enrollment-summary {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .subject-analytics-enrollment-stat {
+    width: auto;
+    align-items: center;
+  }
+
+  .subject-analytics-enrollment-divider {
+    width: 1px;
+    height: auto;
+    min-height: var(--tnxt-space-xl);
+    align-self: stretch;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .subject-status-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .subject-analytics-enrollment-summary {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subject-analytics-enrollment-stat {
+    align-items: flex-start;
+  }
+
+  .subject-analytics-enrollment-divider {
+    width: 100%;
+    height: 1px;
+    min-height: 0;
+  }
+}

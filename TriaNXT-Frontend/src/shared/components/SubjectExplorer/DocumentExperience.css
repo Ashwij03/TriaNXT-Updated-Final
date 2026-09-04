@@ -1,0 +1,973 @@
+/**
+ * Subject Explorer - ENTERPRISE DOCUMENT EXPERIENCE (Phase 6)
+ * ==========================================================
+ *
+ * Styling for the Phase 6 surfaces only:
+ *
+ *   1. .sf-stats*        folder statistics tiles + storage bar
+ *   2. .sf-filterbar*    advanced filter row (type / date / size)
+ *   3. .sf-empty-*       upgraded empty states (new rules only)
+ *   4. .sf-skeleton*     loading placeholders
+ *   5. UI polish         hover/focus refinements layered on Phase 4 classes
+ *
+ * Every selector is either a NEW `sf-*` name or a deliberate refinement of an
+ * existing one, loaded after SubjectFiles.css so the polish wins on equal
+ * specificity. Phase 1-5 stylesheets are not edited.
+ *
+ * Phase 7 note: every local alias below now resolves to the TriaNXT design
+ * system (`--tnxt-*` from src/styles/design-system.css) with a literal
+ * fallback, so this stylesheet shares one palette, radius scale and shadow
+ * ramp with the rest of the workspace instead of defining its own.
+ */
+
+/* Local aliases -> design-system tokens (scoped names, no cross-module clash). */
+:root {
+  --sfx-primary: var(--tnxt-primary, #2563eb);
+  --sfx-primary-hover: var(--tnxt-primary-hover, #1d4ed8);
+  --sfx-primary-soft: var(--tnxt-primary-light, #dbeafe);
+  --sfx-border: var(--tnxt-border, #e5e7eb);
+  --sfx-border-strong: #d1d5db;
+  --sfx-text: var(--tnxt-text, #111827);
+  --sfx-muted: var(--tnxt-text-secondary, #6b7280);
+  --sfx-faint: var(--tnxt-text-muted, #9ca3af);
+  --sfx-surface: var(--tnxt-card, #ffffff);
+  --sfx-surface-alt: var(--tnxt-bg-alt, #f8f9fa);
+
+  /* Radii mirror the workspace scale: sm=controls, md=tiles, lg=panels. */
+  --sfx-radius-sm: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  --sfx-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  --sfx-radius-lg: var(--tnxt-radius-lg, var(--tnxt-space-md));
+  --sfx-radius-full: var(--tnxt-radius-full, 999px);
+
+  --sfx-shadow: var(--tnxt-shadow-sm, 0 1px 0.1875rem rgba(0, 0, 0, 0.06));
+  --sfx-shadow-hover: var(--tnxt-shadow-md, 0 0.125rem 0.625rem rgba(0, 0, 0, 0.06));
+  --sfx-shadow-card: var(--tnxt-shadow-card, 0 0.125rem var(--tnxt-space-md) rgba(10, 37, 64, 0.08));
+  --sfx-ring: 0 0 0 0.1875rem rgba(37, 99, 235, 0.18);
+  --sfx-ease: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ------------------------------------------------------------------
+   Accessibility utility: visible to screen readers, not on screen.
+   Used for table captions and other non-visual labels.
+------------------------------------------------------------------ */
+.sf-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==================================================================
+   1. FOLDER STATISTICS
+================================================================== */
+
+.sf-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.625rem;
+  margin: 0 0 var(--tnxt-space-md);
+}
+
+/* Fix (this update): brought down to match `.sf-panel-header`/`.sf-toolbar`
+   (both var(--tnxt-space-md)) - this strip had been left at its original var(--tnxt-font-size-base) through the
+   earlier header/toolbar reductions, so the stat tiles sat visibly further
+   in from the edges than the search bar and table below them. */
+.sf-panel .sf-stats {
+  padding: 0 var(--tnxt-space-md);
+}
+
+.sf-stat-tile {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-base);
+  background: var(--sfx-surface);
+  border: 1px solid var(--sfx-border);
+  border-radius: var(--sfx-radius);
+  box-shadow: var(--sfx-shadow);
+  transition: border-color var(--sfx-ease), box-shadow var(--sfx-ease),
+    transform var(--sfx-ease);
+}
+
+.sf-stat-tile:hover {
+  border-color: var(--sfx-border-strong);
+  box-shadow: var(--sfx-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.sf-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tnxt-space-3xl);
+  height: var(--tnxt-space-3xl);
+  flex: 0 0 var(--tnxt-space-3xl);
+  border-radius: var(--sfx-radius-sm);
+  color: var(--sfx-primary);
+  background: var(--sfx-primary-soft);
+}
+
+/* Per-metric accents drawn from the design-system status palette. */
+.sf-stat-tile--folders .sf-stat-icon {
+  color: var(--tnxt-primary, #2563eb);
+  background: var(--tnxt-primary-light, #dbeafe);
+}
+.sf-stat-tile--files .sf-stat-icon {
+  color: var(--tnxt-info, #0284c7);
+  background: var(--tnxt-info-bg, #e0f2fe);
+}
+.sf-stat-tile--storage .sf-stat-icon {
+  color: var(--tnxt-warning, #ea580c);
+  background: var(--tnxt-warning-bg, #ffedd5);
+}
+.sf-stat-tile--subjects .sf-stat-icon {
+  color: #6d28d9;
+  background: #ede9fe;
+}
+
+.sf-stat-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.sf-stat-value {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--sfx-text);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-stat-label {
+  margin-top: 1px;
+  font-size: var(--tnxt-font-size-xs, var(--tnxt-font-size-xs));
+  font-weight: 700;
+  color: var(--sfx-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sf-stat-caption {
+  margin-top: 0.1875rem;
+  font-size: var(--tnxt-font-size-xs);
+  color: var(--sfx-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- storage usage bar ---------- */
+.sf-stat-bar {
+  margin-top: var(--tnxt-radius-sm);
+  height: var(--tnxt-space-xs);
+  border-radius: var(--sfx-radius-full);
+  background: var(--tnxt-border, #e5e7eb);
+  overflow: hidden;
+}
+
+.sf-stat-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--sfx-radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--tnxt-warning, #ea580c),
+    #f59e0b
+  );
+  transition: width 260ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================================================================
+   2. ADVANCED FILTERS
+================================================================== */
+
+.sf-filterbar {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md);
+  flex-wrap: wrap;
+  margin: 0 var(--tnxt-font-size-base) 0.625rem;
+  padding: 0.625rem var(--tnxt-space-md);
+  background: var(--sfx-surface-alt);
+  border: 1px solid var(--sfx-border);
+  border-radius: var(--sfx-radius);
+  /* Slides in under the toggle rather than appearing abruptly. */
+  animation: sfx-slide-down 170ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes sfx-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--tnxt-space-xs));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sf-filterbar-lead {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  font-size: var(--tnxt-font-size-xs, var(--tnxt-font-size-xs));
+  font-weight: 700;
+  color: var(--sfx-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sf-filterbar-lead svg {
+  color: var(--sfx-primary);
+}
+
+.sf-filterbar-groups {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-radius-sm);
+  min-width: 0;
+  padding: var(--tnxt-space-xs) var(--tnxt-space-sm) var(--tnxt-space-xs) 0.625rem;
+  background: var(--sfx-surface);
+  border: 1px solid var(--sfx-border);
+  border-radius: var(--sfx-radius-sm);
+  cursor: pointer;
+  transition: border-color var(--sfx-ease), box-shadow var(--sfx-ease);
+}
+
+.sf-filter:hover {
+  border-color: var(--sfx-border-strong);
+  box-shadow: var(--sfx-shadow);
+}
+
+/* An active dimension is tinted so narrowed state is obvious at a glance. */
+.sf-filter.is-active {
+  border-color: #bfdbfe;
+  background: var(--sfx-primary-soft);
+}
+
+.sf-filter-label {
+  font-size: var(--tnxt-font-size-xs, var(--tnxt-font-size-xs));
+  font-weight: 600;
+  color: var(--sfx-muted);
+  white-space: nowrap;
+}
+
+.sf-filter.is-active .sf-filter-label {
+  color: var(--sfx-primary);
+}
+
+/* The caret is decorative; the native select sits transparently on top. */
+.sf-filter-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sf-filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0.125rem var(--tnxt-space-xl) 0.125rem 0.125rem;
+  max-width: 11.875rem;
+  font-size: var(--tnxt-font-size-sm, var(--tnxt-font-size-sm));
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--sfx-text);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.sf-filter-select:focus-visible + .sf-filter-caret,
+.sf-filter-select:focus-visible {
+  color: var(--sfx-primary);
+}
+
+.sf-filter:focus-within {
+  border-color: var(--sfx-primary);
+  box-shadow: var(--sfx-ring);
+}
+
+.sf-filter-caret {
+  position: absolute;
+  right: 0;
+  pointer-events: none;
+  color: var(--sfx-faint);
+}
+
+.sf-filterbar-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-left: auto;
+}
+
+.sf-filter-count {
+  font-size: var(--tnxt-space-md);
+  color: var(--sfx-muted);
+  white-space: nowrap;
+}
+
+.sf-filter-count strong {
+  color: var(--sfx-text);
+  font-weight: 700;
+}
+
+.sf-filter-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  padding: var(--tnxt-space-xs) 0.5625rem;
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--tnxt-danger, #dc2626);
+  background: var(--tnxt-danger-bg, #fee2e2);
+  border: 1px solid #fecaca;
+  border-radius: var(--sfx-radius-sm);
+  cursor: pointer;
+  transition: background var(--sfx-ease), border-color var(--sfx-ease);
+}
+
+.sf-filter-clear:hover {
+  background: #fecaca;
+  border-color: #fca5a5;
+}
+
+.sf-filter-clear:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+/* ---------- the toolbar toggle ---------- */
+.sf-filter-toggle {
+  position: relative;
+}
+
+.sf-filter-toggle.is-open,
+.sf-filter-toggle.has-active {
+  color: var(--sfx-primary);
+  border-color: #bfdbfe;
+  background: var(--sfx-primary-soft);
+}
+
+.sf-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tnxt-space-lg);
+  height: var(--tnxt-space-lg);
+  padding: 0 var(--tnxt-space-xs);
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  background: var(--sfx-primary);
+  border-radius: var(--sfx-radius-full);
+}
+
+/* ==================================================================
+   3. EMPTY STATES
+================================================================== */
+
+/* Roomier than the Phase 4 state, with a softer inset field. */
+.sf-panel .sf-empty-state {
+  padding: 2.125rem var(--tnxt-space-2xl) 1.875rem;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    var(--tnxt-bg-alt, #f8f9fa) 100%
+  );
+  border-radius: var(--sfx-radius);
+}
+
+.sf-empty-illustration {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.875rem;
+  height: 3.875rem;
+  margin-bottom: var(--tnxt-font-size-base);
+  color: var(--sfx-primary);
+  background: radial-gradient(
+    circle at 50% 40%,
+    #eff6ff 0%,
+    var(--tnxt-primary-light, #dbeafe) 100%
+  );
+  border: 1px solid #dbeafe;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 #fff;
+}
+
+.sf-empty-state--folder h3 {
+  margin: 0 0 var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-lg, var(--tnxt-space-lg));
+  font-weight: 700;
+  color: var(--sfx-text);
+  letter-spacing: -0.01em;
+}
+
+.sf-empty-state--folder p {
+  margin: 0 auto var(--tnxt-space-lg);
+  max-width: 27.5rem;
+  font-size: var(--tnxt-font-size-sm, var(--tnxt-font-size-sm));
+  line-height: 1.6;
+  color: var(--sfx-muted);
+}
+
+.sf-empty-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tnxt-space-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+/* ---------- document-category hints ---------- */
+.sf-empty-hints {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tnxt-radius-sm);
+  flex-wrap: wrap;
+  margin: var(--tnxt-space-lg) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sf-empty-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  padding: 0.1875rem 0.5625rem;
+  font-size: var(--tnxt-font-size-xs, var(--tnxt-font-size-xs));
+  font-weight: 500;
+  color: var(--sfx-muted);
+  background: var(--sfx-surface);
+  border: 1px solid var(--sfx-border);
+  border-radius: var(--sfx-radius-full);
+  transition: color var(--sfx-ease), border-color var(--sfx-ease);
+}
+
+.sf-empty-hint:hover {
+  color: var(--sfx-primary);
+  border-color: #bfdbfe;
+}
+
+.sf-empty-hint svg {
+  color: var(--sfx-faint);
+}
+
+.sf-empty-hint:hover svg {
+  color: var(--sfx-primary);
+}
+
+/* ---------- search / filtered variants ---------- */
+.sf-empty-state--search .sf-empty-icon,
+.sf-empty-state--filtered .sf-empty-icon {
+  color: var(--tnxt-warning, #ea580c);
+  background: var(--tnxt-warning-bg, #ffedd5);
+  border-color: #fed7aa;
+}
+
+/* ==================================================================
+   4. LOADING SKELETONS
+================================================================== */
+
+.sf-skeleton {
+  display: block;
+  border-radius: var(--tnxt-space-xs);
+  background: linear-gradient(
+    90deg,
+    #eef1f6 25%,
+    #f8fafc 50%,
+    #eef1f6 75%
+  );
+  background-size: 200% 100%;
+  animation: sfx-shimmer 1.3s ease-in-out infinite;
+}
+
+.sf-skeleton--value {
+  width: 2.875rem;
+  height: 1.0625rem;
+}
+
+/* ---------- table skeleton rows ---------- */
+.sf-skeleton--text {
+  height: var(--tnxt-font-size-xs);
+  border-radius: var(--sfx-radius-full);
+}
+
+.sf-skeleton--icon {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: var(--sfx-radius-sm);
+}
+
+.sf-skeleton-row td {
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-base);
+  border-bottom: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+.sf-skeleton-row:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.sf-skeleton-name {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.sf-skeleton-name .sf-skeleton--text {
+  flex: 1;
+  max-width: 13.75rem;
+}
+
+@keyframes sfx-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Respect users who ask for reduced motion (Phase 7: covers every animated
+   surface in the module, not just the Phase 6 ones). */
+@media (prefers-reduced-motion: reduce) {
+  .sf-skeleton,
+  .sf-stat-bar-fill,
+  .sf-filterbar,
+  .sf-stat-tile,
+  .sf-btn,
+  .sf-file-icon,
+  .sf-table tbody tr,
+  .sf-row-action,
+  .sf-icon-btn,
+  .sx-row,
+  .sw-card,
+  .sxm-modal {
+    animation: none;
+    transition: none;
+  }
+
+  .sf-stat-tile:hover,
+  .sf-btn:active:not(:disabled),
+  .sf-table tbody tr:hover .sf-file-icon {
+    transform: none;
+  }
+}
+
+/* ==================================================================
+   5. UI POLISH (requirement 5)
+   Refinements layered on Phase 4 classes - spacing, hover, icons, focus.
+================================================================== */
+
+/* ---------- panel rhythm ---------- */
+.sf-panel {
+  /* Panels use the large radius + card shadow so they match .sw-card. */
+  border-radius: var(--sfx-radius-lg);
+  box-shadow: var(--sfx-shadow-card);
+}
+
+.sf-panel-header {
+  padding: var(--tnxt-font-size-base) var(--tnxt-font-size-base) var(--tnxt-space-md);
+  gap: var(--tnxt-space-md);
+}
+
+.sf-panel-heading h2 {
+  letter-spacing: -0.01em;
+}
+
+.sf-panel-meta {
+  gap: var(--tnxt-space-md);
+}
+
+/* ---------- table rows: clearer hover + focus ---------- */
+.sf-table tbody tr {
+  transition: background var(--sfx-ease), box-shadow var(--sfx-ease);
+}
+
+.sf-table tbody tr:hover {
+  background: #f5f8ff;
+  /* Left accent reads as "this row" without shifting any layout. */
+  box-shadow: inset 3px 0 0 var(--sfx-primary);
+}
+
+.sf-table tbody tr:focus-within {
+  background: #eff6ff;
+  box-shadow: inset 3px 0 0 var(--sfx-primary);
+}
+
+/* Active / opened file - persists while its preview modal is open so the
+   user never loses their place in a long table (Phase 7, requirement 3).
+   Colour matched to eISF's row-selected state
+   (`.document-table tbody tr.row-selected` in
+   `pages/shared/EISF/components/DocumentTable.css`): a light blue fill with
+   a solid blue left accent, and the file name itself picking up the same
+   blue, bold. */
+.sf-table tbody tr.is-active,
+.sf-table tbody tr[aria-selected="true"] {
+  background: #eaf3ff;
+  box-shadow: inset 3px 0 0 #1c6ed4;
+}
+
+.sf-table tbody tr.is-active .sf-file-name,
+.sf-table tbody tr[aria-selected="true"] .sf-file-name {
+  color: #1c6ed4;
+  font-weight: 700;
+}
+
+/* Header background/border live on `.sf-panel .sf-table thead th` in
+   `SubjectFiles.css` (navy, matched to eISF's reference header) - that
+   selector is more specific than this one and wins the cascade for those
+   two properties, so the navy values are restated here too rather than left
+   to look like this rule still controls them. */
+.sf-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #082b3d;
+  border-bottom: 0.125rem solid #05202e;
+}
+
+.sf-sort-btn {
+  transition: color var(--sfx-ease);
+}
+
+/* Light blue rather than `--sfx-primary`, which is the same accent used
+   against light backgrounds elsewhere in this table and would not read as a
+   hover cue against the navy header. */
+.sf-sort-btn:hover {
+  color: #bfe0ff;
+}
+
+.sf-th-name.is-sorted .sf-sort-btn,
+.sf-table th.is-sorted .sf-sort-btn {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* ---------- file type icons ---------- */
+.sf-file-icon {
+  border-radius: var(--sfx-radius-sm);
+  transition: transform var(--sfx-ease);
+}
+
+.sf-table tbody tr:hover .sf-file-icon {
+  transform: scale(1.06);
+}
+
+.sf-file-icon--lg {
+  width: 2.375rem;
+  height: 2.375rem;
+}
+
+/* ---------- row action buttons ---------- */
+.sf-row-action,
+.sf-icon-btn {
+  border-radius: var(--sfx-radius-sm);
+  transition: background var(--sfx-ease), color var(--sfx-ease),
+    border-color var(--sfx-ease);
+}
+
+.sf-row-action:hover,
+.sf-icon-btn:hover {
+  color: var(--sfx-primary);
+  background: var(--sfx-primary-soft);
+}
+
+/* One focus ring for every interactive control in the module (Phase 7). */
+.sf-btn:focus-visible,
+.sf-icon-btn:focus-visible,
+.sf-row-action:focus-visible,
+.sf-sort-btn:focus-visible,
+.sf-dir-btn:focus-visible,
+.sf-search-input:focus-visible,
+.sf-search input:focus-visible,
+.sf-sort select:focus-visible,
+.sf-filter-select:focus-visible,
+.sf-empty-hint:focus-visible,
+.sxm-btn:focus-visible,
+.sxm-close:focus-visible,
+.sxm-field input:focus-visible,
+.sx-search-input:focus-visible,
+.sx-empty-action:focus-visible {
+  outline: 0.125rem solid transparent; /* keeps a ring in forced-colors mode */
+  outline-offset: 0.125rem;
+  box-shadow: var(--sfx-ring);
+}
+
+/* Keyboard-focused table rows get a visible ring of their own. */
+.sf-table tbody tr:focus-visible {
+  outline: 0.125rem solid var(--sfx-primary);
+  outline-offset: -0.125rem;
+}
+
+/* ---------- toolbar ---------- */
+.sf-toolbar {
+  padding: 0 var(--tnxt-font-size-base) 0.625rem;
+  gap: 0.625rem;
+}
+
+.sf-search input,
+.sf-search-input {
+  transition: border-color var(--sfx-ease), box-shadow var(--sfx-ease);
+}
+
+.sf-dir-btn:hover,
+.sf-sort select:hover {
+  border-color: var(--sfx-border-strong);
+}
+
+/* ---------- buttons ---------- */
+.sf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tnxt-radius-sm);
+  border-radius: var(--sfx-radius-sm);
+  /* Uniform control height across the toolbar, empty states and modals. */
+  min-height: var(--tnxt-space-3xl);
+  transition: background var(--sfx-ease), border-color var(--sfx-ease),
+    box-shadow var(--sfx-ease), transform var(--sfx-ease);
+}
+
+.sf-btn:hover:not(:disabled) {
+  box-shadow: var(--sfx-shadow);
+}
+
+.sf-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.sf-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- preview modal ---------- */
+.sf-preview-stage {
+  border-radius: var(--sfx-radius);
+  background: var(--sfx-surface-alt);
+}
+
+.sf-detail-grid {
+  gap: 0.625rem var(--tnxt-space-lg);
+}
+
+.sf-detail-item dt {
+  font-size: var(--tnxt-font-size-xs, var(--tnxt-font-size-xs));
+  font-weight: 700;
+  color: var(--sfx-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sf-detail-item dd {
+  font-size: var(--tnxt-font-size-sm, var(--tnxt-font-size-sm));
+  color: var(--sfx-text);
+}
+
+/* ---------- scroll behaviour (Phase 7, requirement 3) ---------- */
+.sf-table-scroll,
+.sx-tree-scroll,
+.sf-preview-stage {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  overscroll-behavior: contain;
+}
+
+.sf-table-scroll::-webkit-scrollbar,
+.sf-preview-stage::-webkit-scrollbar {
+  width: 0.5625rem;
+  height: 0.5625rem;
+}
+
+.sf-table-scroll::-webkit-scrollbar-track,
+.sf-preview-stage::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sf-table-scroll::-webkit-scrollbar-thumb,
+.sf-preview-stage::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border: 0.125rem solid transparent;
+  background-clip: content-box;
+  border-radius: var(--sfx-radius-full);
+}
+
+.sf-table-scroll::-webkit-scrollbar-thumb:hover,
+.sf-preview-stage::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+/* Never let a long file name or crumb push the layout sideways. */
+.sf-panel,
+.sf-panel-header,
+.sf-toolbar,
+.sf-stats,
+.sf-filterbar {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ==================================================================
+   6. RESPONSIVE
+
+   Phase 7: aligned to the single module-wide breakpoint ladder used by
+   Subjects.css so surfaces reflow together instead of at odd widths:
+
+     75rem  laptop      - 4-up stats become 2-up
+      62rem  tablet      - sidebar stacks, filter row wraps
+      48rem  small tablet / large phone
+      3rem  mobile
+================================================================== */
+
+/* ---------- laptop ---------- */
+@media (max-width: 1200px) {
+  .sf-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------- tablet ---------- */
+@media (max-width: 992px) {
+  .sf-filterbar {
+    gap: var(--tnxt-space-sm);
+  }
+
+  .sf-filterbar-right {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sf-filter-select {
+    max-width: 9.375rem;
+  }
+
+  .sf-panel-header {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------- small tablet / large phone ---------- */
+@media (max-width: 768px) {
+  .sf-stats {
+    grid-template-columns: 1fr;
+    gap: var(--tnxt-space-sm);
+  }
+
+  .sf-panel .sf-stats,
+  .sf-filterbar {
+    margin-left: var(--tnxt-space-md);
+    margin-right: var(--tnxt-space-md);
+  }
+
+  .sf-panel .sf-stats {
+    padding: 0;
+  }
+
+  .sf-panel-header,
+  .sf-toolbar {
+    padding-left: var(--tnxt-space-md);
+    padding-right: var(--tnxt-space-md);
+  }
+
+  .sf-filterbar-groups {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sf-filter {
+    justify-content: space-between;
+  }
+
+  .sf-filter-select {
+    max-width: none;
+  }
+
+  .sf-panel .sf-empty-state {
+    padding: 1.625rem var(--tnxt-font-size-base) 1.375rem;
+  }
+
+  .sf-empty-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sf-empty-actions .sf-btn {
+    width: 100%;
+  }
+
+  /* Comfortable touch targets on tablets and phones. */
+  .sf-btn,
+  .sf-icon-btn,
+  .sf-row-action,
+  .sf-dir-btn {
+    min-height: 2.25rem;
+  }
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 480px) {
+  .sf-panel .sf-stats,
+  .sf-filterbar {
+    margin-left: 0.625rem;
+    margin-right: 0.625rem;
+  }
+
+  .sf-panel-header,
+  .sf-toolbar {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+  }
+
+  .sf-stat-tile {
+    padding: 0.625rem var(--tnxt-space-md);
+  }
+
+  .sf-empty-illustration {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .sf-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Devices without a real pointer get no hover-lift (it can stick on tap). */
+@media (hover: none) {
+  .sf-stat-tile:hover {
+    transform: none;
+    box-shadow: var(--sfx-shadow);
+  }
+
+  .sf-table tbody tr:hover .sf-file-icon {
+    transform: none;
+  }
+}

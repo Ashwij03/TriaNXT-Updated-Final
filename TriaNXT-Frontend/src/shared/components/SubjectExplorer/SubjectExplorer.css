@@ -1,0 +1,756 @@
+/* ==================================================================
+   SUBJECT EXPLORER - file-explorer sidebar for the Subjects workspace
+   Independent implementation (no eISF code/imports).
+   All selectors are scoped under `.sx-explorer` so nothing leaks into
+   other pages through the global CSS bundle.
+
+   Phase 10: visual hierarchy, spacing, and the SUBJECTS header/tree/
+   active-state pattern deliberately mirror the eISF sidebar
+   (src/pages/shared/EISF/EDashboard/EISFDashboard.css) - same title
+   treatment, flat bordered rows, active blue fill, and badge/pill
+   sizing - while remaining a fully independent stylesheet with no
+   eISF imports or shared selectors.
+================================================================== */
+
+.sx-explorer {
+  position: sticky;
+  top: var(--tnxt-space-md);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 7.5rem);
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5eaf2);
+  border-radius: var(--tnxt-radius-lg, var(--tnxt-space-md));
+  box-shadow: var(--tnxt-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.06));
+  overflow: hidden;
+  font-family: var(--tnxt-font, "Inter", system-ui, sans-serif);
+}
+
+/* ================= HEADER (mirrors .eisf-sidebar-title) ================= */
+.sx-explorer .sx-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-xs);
+  padding: 0.375rem var(--tnxt-space-sm);
+  border-bottom: 1px solid var(--tnxt-border, #e5eaf2);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.sx-explorer .sx-header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #0f172a;
+  min-width: 0;
+}
+
+.sx-explorer .sx-header-icon {
+  color: var(--tnxt-primary, #1c6ed4);
+  flex-shrink: 0;
+}
+
+.sx-explorer .sx-header-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tnxt-space-xl);
+  height: var(--tnxt-font-size-xl);
+  padding: 0 var(--tnxt-radius-sm);
+  border-radius: var(--tnxt-radius-full, 999px);
+  background: #dcecff;
+  color: #1f7ae0;
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+/* Update 4: "Subjects" title acting as a button back to All Subjects.
+   Same look as the static heading, just interactive. */
+.sx-explorer .sx-header-title--link {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.sx-explorer .sx-header-title--link:hover {
+  color: #1c6ed4;
+}
+
+.sx-explorer .sx-header-title--link:hover .sx-header-icon {
+  color: #1c6ed4;
+}
+
+.sx-explorer .sx-header-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  flex-shrink: 0;
+  border: 1px solid var(--tnxt-border, #e5eaf2);
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sx-explorer .sx-header-action:hover {
+  background: #eaf3ff;
+  border-color: #1c6ed4;
+  color: #1c6ed4;
+}
+
+/* ================= SEARCH ================= */
+.sx-explorer .sx-search {
+  position: relative;
+  padding: 0.375rem var(--tnxt-space-sm);
+  border-bottom: 1px solid var(--tnxt-border-light, #f0f0f0);
+  flex-shrink: 0;
+}
+
+.sx-explorer .sx-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1.375rem;
+  transform: translateY(-50%);
+  color: var(--tnxt-text-muted, #9ca3af);
+  pointer-events: none;
+}
+
+/* Specificity raised to beat the global `.tnxt-compact input[type="text"]`
+   padding rule in ctms-compact.css, which would collapse the icon gutter. */
+.sx-explorer .sx-search .sx-search-input,
+.sx-explorer .sx-search input[type="text"] {
+  width: 100%;
+  padding: 0.3125rem 1.375rem 0.3125rem 1.625rem;
+  font-family: inherit;
+  font-size: 0.625rem;
+  color: var(--tnxt-text, #111827);
+  background: #f8fafc;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.sx-explorer .sx-search .sx-search-input:focus {
+  background: #fff;
+  border-color: #1c6ed4;
+  box-shadow: 0 0 0 3px rgba(28, 110, 212, 0.12);
+}
+
+.sx-explorer .sx-search-clear {
+  position: absolute;
+  top: 50%;
+  right: 1.1875rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tnxt-font-size-xl);
+  height: var(--tnxt-font-size-xl);
+  border: none;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  cursor: pointer;
+}
+
+.sx-explorer .sx-search-clear:hover {
+  background: #cbd5e1;
+}
+
+/* ================= SCROLLABLE TREE ================= */
+.sx-explorer .sx-tree-scroll {
+  flex: 1 1 auto;
+  min-height: 7.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--tnxt-space-xs) var(--tnxt-space-xs) 0.375rem;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  /* Phase 7: the tree keeps its own scroll chain and scrolls smoothly when
+     a row is revealed programmatically. */
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-explorer .sx-tree-scroll {
+    scroll-behavior: auto;
+  }
+}
+
+.sx-explorer .sx-tree-scroll::-webkit-scrollbar {
+  width: var(--tnxt-space-sm);
+}
+
+.sx-explorer .sx-tree-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sx-explorer .sx-tree-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+  border: 0.125rem solid #fff;
+}
+
+.sx-explorer .sx-tree-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ================= TREE LISTS ================= */
+.sx-explorer .sx-node-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sx-explorer .sx-node {
+  position: relative;
+}
+
+/* ================= ROW (mirrors .eisf-menu-label / .eisf-child-item:
+   flat, bordered rows rather than a floating rounded pill) ================= */
+.sx-explorer .sx-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  width: 100%;
+  min-height: 1.875rem;
+  padding: 0.3125rem var(--tnxt-space-sm) 0.3125rem var(--tnxt-font-size-lg);
+  border-bottom: 1px solid #f1f4f8;
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  color: #475569;
+  cursor: pointer;
+  user-select: none;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  border-top: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+  /* Keeps a keyboard-focused row clear of the sticky header when the tree
+     scrolls it into view (Phase 7, scroll behaviour). */
+  scroll-margin: var(--tnxt-space-sm) 0;
+}
+
+.sx-explorer .sx-row:hover {
+  background: #f5f8fc;
+}
+
+.sx-explorer .sx-row:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px rgba(28, 110, 212, 0.35);
+}
+
+/* Subjects read as the primary level of the tree - same weight/size step
+   eISF uses between its top-level module row and nested section rows. */
+.sx-explorer .sx-row--subject {
+  min-height: 2.25rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: #fff;
+}
+
+.sx-explorer .sx-row--folder {
+  background: #fbfdff;
+  font-weight: 500;
+}
+
+/* ---- ACTIVE / SELECTED HIGHLIGHT (mirrors .eisf-menu-item.active /
+   .eisf-child-item.active: flat blue fill, no rounding, no accent bar) ---- */
+.sx-explorer .sx-row.is-selected {
+  background: #eaf3ff;
+  color: #1c6ed4;
+  font-weight: 600;
+}
+
+.sx-explorer .sx-row.is-selected .sx-node-icon,
+.sx-explorer .sx-row.is-selected .sx-caret {
+  color: #1c6ed4;
+}
+
+/* Ancestors of the selected node get a faint marker so the active branch
+   stays traceable when the tree is deep (Phase 7, requirement 3). */
+.sx-explorer .sx-row.is-on-active-path:not(.is-selected) {
+  color: #0f172a;
+  background: #f5f8fc;
+}
+
+/* ================= CARET (expand/collapse indicator) ================= */
+.sx-explorer .sx-caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tnxt-space-lg);
+  height: var(--tnxt-space-lg);
+  flex-shrink: 0;
+  color: #64748b;
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sx-explorer .sx-caret.is-open {
+  transform: rotate(90deg);
+}
+
+/* Keeps leaf rows aligned with rows that have a caret. */
+.sx-explorer .sx-caret--empty {
+  visibility: hidden;
+}
+
+/* ================= ICONS + LABEL ================= */
+.sx-explorer .sx-node-icon {
+  flex-shrink: 0;
+  color: #6b7280;
+}
+
+.sx-explorer .sx-row--subject .sx-node-icon {
+  color: #1c6ed4;
+}
+
+.sx-explorer .sx-row--folder .sx-node-icon {
+  color: #f59e0b;
+}
+
+.sx-explorer .sx-node-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Item-count pill - sized/coloured to match eISF's .section-count badge. */
+.sx-explorer .sx-node-badge {
+  flex-shrink: 0;
+  min-width: 1.375rem;
+  padding: 0.125rem 0.4375rem;
+  border-radius: 999px;
+  background: #dcecff;
+  color: #1f7ae0;
+  font-size: var(--tnxt-font-size-xs);
+  font-weight: 800;
+  text-align: center;
+}
+
+.sx-explorer .sx-row.is-selected .sx-node-badge {
+  background: #cfe3fd;
+  color: #1c6ed4;
+}
+
+/* Update 2/5: lock indicator on the ICF system folder row. */
+.sx-explorer .sx-lock-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.sx-explorer .sx-row.is-selected .sx-lock-badge {
+  color: #dbe9ff;
+}
+
+.sx-explorer .sx-row--folder.is-locked .sx-node-label {
+  color: #475569;
+}
+
+/* Fix (this update): trailing actions cluster - stops its own clicks (see
+   SubjectTreeNode.js) so nothing in this zone, empty space included, can
+   ever bubble up and trigger the row's own navigate/select handler. */
+.sx-explorer .sx-row-actions {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+}
+
+/* ================= EXPAND / COLLAPSE ANIMATION ================= */
+/* Children stay mounted so the transition runs in both directions. */
+.sx-explorer .sx-children {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.18s ease, visibility 0.24s;
+}
+
+.sx-explorer .sx-children > .sx-node-list {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.sx-explorer .sx-children.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .sx-explorer .sx-children,
+  .sx-explorer .sx-caret {
+    transition: none;
+  }
+}
+
+/* ================= EMPTY STATE ================= */
+.sx-explorer .sx-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  padding: 1.625rem var(--tnxt-font-size-base);
+  text-align: center;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.sx-explorer .sx-empty strong {
+  font-size: 0.6875rem;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sx-explorer .sx-empty span {
+  font-size: var(--tnxt-font-size-xs);
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Recovery action so a fruitless search is never a dead end (Phase 7). */
+.sx-explorer .sx-empty-action {
+  margin-top: 0.625rem;
+  padding: 0.3125rem var(--tnxt-font-size-xs);
+  font-family: inherit;
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: #1c6ed4;
+  background: var(--tnxt-card, #ffffff);
+  border: 1px solid var(--tnxt-border, #e5eaf2);
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sx-explorer .sx-empty-action:hover {
+  background: #eaf3ff;
+  border-color: #bfdbfe;
+}
+
+.sx-explorer .sx-empty-action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(28, 110, 212, 0.18);
+}
+
+/* ================= FOOTER ================= */
+.sx-explorer .sx-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-radius-sm);
+  padding: 0.375rem var(--tnxt-space-sm);
+  border-top: 1px solid var(--tnxt-border, #e5eaf2);
+  background: #fbfdff;
+  font-size: 0.5625rem;
+  flex-shrink: 0;
+  min-height: 2.25rem;
+}
+
+.sx-explorer .sx-footer-label {
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 0.5625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.sx-explorer .sx-footer-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 0.625rem;
+  color: #1c6ed4;
+}
+
+.sx-explorer .sx-footer-hint {
+  color: var(--tnxt-text-muted, #9ca3af);
+  font-style: italic;
+}
+
+/* ==================================================================
+   PHASE 3 - FOLDER MANAGEMENT
+   Three-dot trigger, dropdown menu, and CRUD result toast.
+================================================================== */
+
+/* ---- "+" quick-create action (subjects only, Phase 11) -------------------
+   Mirrors eISF's persistent "+" glyph: unlike the "..." trigger above, this
+   is NEVER opacity-hidden - it is visible at all times so a subject with
+   zero folders (e.g. SUB-003) always has an obvious way to add its first
+   one, without requiring hover/focus to reveal anything first. ---- */
+.sx-explorer .sx-quick-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tnxt-space-xl);
+  height: var(--tnxt-space-xl);
+  flex-shrink: 0;
+  margin-left: 0.125rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  color: #1c6ed4;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.sx-explorer .sx-quick-add:hover {
+  background: #eaf3ff;
+  transform: scale(1.08);
+}
+
+.sx-explorer .sx-quick-add:focus-visible {
+  outline: 0.125rem solid #1c6ed4;
+  outline-offset: 1px;
+}
+
+.sx-explorer .sx-row.is-selected .sx-quick-add {
+  color: #1c6ed4;
+}
+
+/* ---- three-dot trigger (inside the row) ---- */
+.sx-explorer .sx-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tnxt-space-xl);
+  height: var(--tnxt-space-xl);
+  flex-shrink: 0;
+  margin-left: 0.125rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  /* Hidden until hover/focus so the tree stays clean, but the space is
+     always reserved so labels never shift when the button appears. */
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.sx-explorer .sx-row:hover .sx-menu-trigger,
+.sx-explorer .sx-row:focus-within .sx-menu-trigger,
+.sx-explorer .sx-row.is-selected .sx-menu-trigger,
+.sx-explorer .sx-menu-trigger.is-open,
+.sx-explorer .sx-menu-trigger:focus-visible {
+  opacity: 1;
+}
+
+.sx-explorer .sx-menu-trigger:hover,
+.sx-explorer .sx-menu-trigger.is-open {
+  background: rgba(28, 110, 212, 0.12);
+  color: #1c6ed4;
+}
+
+.sx-explorer .sx-menu-trigger:focus-visible {
+  outline: 0.125rem solid #1c6ed4;
+  outline-offset: 1px;
+}
+
+/* Keep the row highlighted while its menu is open. */
+.sx-explorer .sx-row.is-menu-open {
+  background: #eef2f7;
+}
+
+.sx-explorer .sx-row.is-selected.is-menu-open {
+  background: #cfe3fd;
+}
+
+/* ---- dropdown menu (portalled to <body>, so NOT scoped to .sx-explorer) ---- */
+.sx-menu {
+  position: fixed;
+  z-index: 1400;
+  padding: 0.3125rem;
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  box-shadow: 0 12px 28px rgba(10, 37, 64, 0.18);
+  font-family: var(--tnxt-font, "Inter", system-ui, sans-serif);
+  animation: sx-menu-in 0.12s ease-out;
+}
+
+@keyframes sx-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--tnxt-space-xs));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sx-menu-heading {
+  padding: 0.3125rem 0.5625rem 0.4375rem;
+  margin-bottom: var(--tnxt-space-xs);
+  border-bottom: 1px solid var(--tnxt-border-light, #f0f0f0);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-muted, #9ca3af);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sx-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  width: 100%;
+  padding: 0.3125rem 0.5rem;
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  color: #334155;
+  font-family: inherit;
+  font-size: 0.6875rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.sx-menu-item:hover,
+.sx-menu-item:focus-visible {
+  outline: none;
+  background: #eaf3ff;
+  color: #1c6ed4;
+}
+
+.sx-menu-item svg {
+  flex-shrink: 0;
+  color: #1c6ed4;
+}
+
+.sx-menu-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sx-menu-item-hint {
+  flex-shrink: 0;
+  font-size: 0.5625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.sx-menu-item.is-danger {
+  color: #b91c1c;
+}
+
+.sx-menu-item.is-danger svg {
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.sx-menu-item.is-danger:hover,
+.sx-menu-item.is-danger:focus-visible {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  color: #991b1b;
+}
+
+/* ---- CRUD result toast ---- */
+.sx-explorer .sx-toast {
+  flex-shrink: 0;
+  margin: var(--tnxt-space-sm) var(--tnxt-space-md) 0;
+  padding: 0.3125rem 0.5rem;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  font-size: 0.625rem;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
+  animation: sx-toast-in 0.18s ease-out;
+}
+
+.sx-explorer .sx-toast--success {
+  background: var(--tnxt-success-bg, #dcfce7);
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.sx-explorer .sx-toast--error {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+@keyframes sx-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.1875rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-menu,
+  .sx-explorer .sx-toast {
+    animation: none;
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  /* Stacked above the main content: release the sticky/tall behaviour
+     and cap the height so the tree stays scrollable, not page-long. */
+  .sx-explorer {
+    position: static;
+    max-height: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sx-explorer {
+    max-height: 17.5rem;
+  }
+
+  .sx-explorer .sx-row {
+    padding: 0.5625rem var(--tnxt-space-sm);
+    font-size: var(--tnxt-font-size-sm);
+  }
+}
+
+/* Touch devices have no hover, so the folder actions button must stay
+   visible and be large enough to tap. */
+@media (hover: none) {
+  .sx-explorer .sx-menu-trigger {
+    opacity: 1;
+    width: var(--tnxt-space-2xl);
+    height: var(--tnxt-space-2xl);
+  }
+
+  .sx-menu-item {
+    padding: 0.625rem 0.5625rem;
+  }
+}

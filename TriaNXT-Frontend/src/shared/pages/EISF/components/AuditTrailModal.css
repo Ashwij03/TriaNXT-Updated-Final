@@ -1,0 +1,94 @@
+.audit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: var(--tnxt-space-lg);
+}
+
+.audit-modal {
+  width: 100%;
+  max-width: 53.125rem;
+  background: #ffffff;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.audit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #082b3d;
+  color: #ffffff;
+  padding: var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+}
+
+.audit-header h3 {
+  margin: 0;
+  font-size: var(--tnxt-font-size-xl);
+  font-weight: 600;
+}
+
+.audit-header button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.audit-table thead {
+  background: #f5f7fa;
+}
+
+.audit-table th {
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-lg);
+  text-align: left;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.audit-table td {
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-lg);
+  border-bottom: 1px solid #ececec;
+  font-size: var(--tnxt-font-size-base);
+  color: #374151;
+  vertical-align: top;
+}
+
+.audit-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+@media (max-width: 768px) {
+  .audit-modal {
+    max-width: 100%;
+  }
+
+  .audit-header {
+    padding: var(--tnxt-font-size-base) var(--tnxt-space-lg);
+  }
+
+  .audit-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .audit-table th,
+  .audit-table td {
+    padding: var(--tnxt-space-md);
+  }
+}

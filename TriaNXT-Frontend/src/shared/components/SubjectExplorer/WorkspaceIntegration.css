@@ -1,0 +1,292 @@
+/**
+ * WORKSPACE INTEGRATION (Phase 5)
+ * ===============================
+ *
+ * Styles for the two pieces Phase 5 adds to the Subjects workspace shell:
+ *   1. the folder crumbs appended to the existing breadcrumb
+ *   2. the selected-folder context bar
+ *
+ * Scoping rules
+ * -------------
+ * - Only ADDITIVE selectors. The Phase 1 `.sw-breadcrumb` / `.sw-crumb`
+ *   base rules in Subjects.css are left untouched; this file only adds the
+ *   new `--folder` modifier and the crumb icon.
+ * - Everything else uses the new `sw-folderbar*` names, so nothing here can
+ *   collide with `sx-` (explorer), `sxm-` (folder modals) or `sf-` (files).
+ * - Only tokens that exist in styles/design-system.css are referenced, each
+ *   with a hardcoded fallback. Tints are literal values rather than
+ *   `color-mix`, matching the approach used by the Phase 1-4 stylesheets.
+ */
+
+/* ================= BREADCRUMB: FOLDER CRUMBS ================= */
+
+/* Crumbs are inline-flex so the icon and label align on one baseline. */
+.sw-breadcrumb .sw-crumb {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  max-width: 13.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sw-crumb-icon {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+/* Folder crumbs read as a subtle chip so the tree path is visually
+   distinct from the static page crumbs. */
+.sw-crumb--folder {
+  padding: 0.125rem var(--tnxt-space-sm);
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: var(--tnxt-bg-alt, #f8f9fa);
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  color: var(--tnxt-text-secondary, #6b7280);
+  font-size: 11.0.3125rem;
+  line-height: 1.6;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.sw-crumb--folder.sw-crumb--link:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: var(--tnxt-primary, #2563eb);
+  text-decoration: none;
+}
+
+.sw-crumb--folder.sw-crumb--link:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: 1px;
+}
+
+/* The active folder crumb is the strongest element in the trail. */
+.sw-crumb--folder.sw-crumb--current {
+  background: var(--tnxt-primary-light, #dbeafe);
+  border-color: #bfdbfe;
+  color: var(--tnxt-primary-hover, #1d4ed8);
+  font-weight: 600;
+}
+
+.sw-crumb--folder .sw-crumb-icon {
+  opacity: 0.9;
+}
+
+/* ================= SELECTED FOLDER BAR ================= */
+
+.sw-folderbar {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md);
+  padding: 0.625rem var(--tnxt-font-size-base);
+  margin-bottom: var(--tnxt-space-md);
+  border: 1px solid #bfdbfe;
+  border-left: 0.1875rem solid var(--tnxt-primary, #2563eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: linear-gradient(to right, #f5f9ff, #ffffff 60%);
+}
+
+/* Nothing selected: neutral, no accent border. */
+.sw-folderbar--empty {
+  border: 1px dashed var(--tnxt-border, #e5e7eb);
+  border-left: 0.1875rem solid #d1d5db;
+  background: var(--tnxt-bg-alt, #f8f9fa);
+}
+
+.sw-folderbar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  flex-shrink: 0;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: var(--tnxt-primary-light, #dbeafe);
+  color: var(--tnxt-primary, #2563eb);
+}
+
+/* Subject rows use the explorer's person accent, not the folder blue. */
+.sw-folderbar-icon.is-subject {
+  background: var(--tnxt-info-bg, #e0f2fe);
+  color: var(--tnxt-info, #0284c7);
+}
+
+.sw-folderbar--empty .sw-folderbar-icon {
+  background: var(--tnxt-card, #ffffff);
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+/* ---------- text block ---------- */
+.sw-folderbar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0; /* lets the ellipsis work inside a flex row */
+  flex: 1;
+}
+
+.sw-folderbar-title {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+  min-width: 0;
+}
+
+.sw-folderbar-title strong {
+  font-size: 13.0.3125rem;
+  font-weight: 600;
+  color: var(--tnxt-navy, #0a2540);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sw-folderbar-kind {
+  flex-shrink: 0;
+  padding: 1px 0.4375rem;
+  border-radius: var(--tnxt-space-xs);
+  background: var(--tnxt-bg-alt, #f8f9fa);
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.sw-folderbar-path {
+  font-size: 11.0.3125rem;
+  color: var(--tnxt-text-muted, #9ca3af);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sw-folderbar--empty .sw-folderbar-text strong {
+  font-size: var(--tnxt-font-size-sm);
+  color: var(--tnxt-text, #111827);
+}
+
+.sw-folderbar--empty .sw-folderbar-text span {
+  font-size: 11.0.3125rem;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+/* ---------- stats ---------- */
+.sw-folderbar-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+  flex-shrink: 0;
+}
+
+.sw-folderbar-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  padding: var(--tnxt-space-xs) 0.5625rem;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: var(--tnxt-card, #ffffff);
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  font-size: 11.0.3125rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+  white-space: nowrap;
+}
+
+.sw-folderbar-stat strong {
+  font-weight: 600;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sw-folderbar-stat svg {
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+/* ---------- clear button ---------- */
+.sw-folderbar-clear {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  flex-shrink: 0;
+  padding: 0.3125rem 0.625rem;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: var(--tnxt-card, #ffffff);
+  color: var(--tnxt-text-secondary, #6b7280);
+  font-family: inherit;
+  font-size: 11.0.3125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.sw-folderbar-clear:hover {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  border-color: #fecaca;
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.sw-folderbar-clear:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: 1px;
+}
+
+/* =================================================================
+   RESPONSIVE
+   Phase 7: one module-wide ladder - 1200 / 992 / 768 / 480.
+================================================================= */
+
+@media (max-width: 992px) {
+  .sw-breadcrumb .sw-crumb {
+    max-width: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Stats drop under the name so the folder label keeps full width. */
+  .sw-folderbar {
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .sw-folderbar-icon {
+    order: 1;
+  }
+
+  .sw-folderbar-text {
+    flex: 1 1 100%;
+    order: 2;
+  }
+
+  .sw-folderbar-stats {
+    order: 3;
+    flex: 1;
+  }
+
+  .sw-folderbar-clear {
+    order: 4;
+    min-height: 2.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sw-breadcrumb .sw-crumb {
+    max-width: 7.5rem;
+  }
+
+  .sw-folderbar {
+    padding: 0.5625rem var(--tnxt-font-size-xs);
+  }
+
+  .sw-folderbar-stats {
+    flex-wrap: wrap;
+  }
+
+  /* Icon-only clear button on the narrowest screens. */
+  .sw-folderbar-clear span {
+    display: none;
+  }
+}

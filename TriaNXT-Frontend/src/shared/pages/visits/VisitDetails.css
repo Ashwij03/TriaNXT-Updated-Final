@@ -1,0 +1,692 @@
+.visit-details-wrapper {
+  background: #fff;
+}
+
+.visit-tabs {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  margin-top: 0.625rem;
+}
+
+.visit-tab {
+  padding: 0.625rem var(--tnxt-space-lg);
+  font-size: var(--tnxt-font-size-sm);
+  cursor: pointer;
+  color: #555;
+}
+
+.visit-tab.active {
+  color: #1a73e8;
+  border-bottom: 0.125rem solid #1a73e8;
+  font-weight: 600;
+}
+
+.visit-tab-content {
+  padding: var(--tnxt-space-lg);
+}
+
+/* =============================== */
+/* PRINT ONLY VISIT AREA */
+/* =============================== */
+@media print {
+
+  body * {
+    visibility: hidden;
+  }
+
+  #print-area,
+  #print-area * {
+    visibility: visible;
+  }
+
+  #print-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+    padding: var(--tnxt-space-xl);
+  }
+
+  html,
+  body {
+    background: white;
+    overflow: visible;
+    height: auto;
+  }
+
+  button {
+    display: none;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ===================================================== */
+/* FRIEND CSS MERGED BELOW */
+/* ===================================================== */
+
+/* ===== PROCEDURE LEVEL ===== */
+.procedure-bar {
+  display: flex;
+  align-items: center;
+  background-color: #f2b36a;
+  color: #fff;
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-lg);
+  border-radius: var(--tnxt-space-xs);
+  margin-top: var(--tnxt-space-xl);
+}
+
+.check-icon {
+  margin-right: var(--tnxt-space-md);
+  font-weight: bold;
+}
+
+.procedure-title {
+  font-size: var(--tnxt-space-lg);
+  font-weight: bold;
+}
+
+.procedure-plus {
+  margin-left: auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 0.125rem dotted #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--tnxt-font-size-xl);
+  cursor: pointer;
+}
+
+.procedure-bar:hover .procedure-plus {
+  display: flex;
+}
+
+/* ===== QUESTION LEVEL ===== */
+.procedure-content {
+  border: 1px solid #ddd;
+  padding: var(--tnxt-space-xl);
+  margin-top: 0.625rem;
+  border-radius: var(--tnxt-space-xs);
+}
+
+.question-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eef1f5;
+  padding: var(--tnxt-font-size-base);
+  border-radius: var(--tnxt-space-xs);
+  position: relative;
+}
+
+.question-value {
+  margin-top: var(--tnxt-radius-sm);
+}
+
+.audit {
+  font-size: var(--tnxt-space-md);
+  color: #666;
+}
+
+.audit-link {
+  color: #1a73e8;
+  font-size: var(--tnxt-font-size-sm);
+  margin-top: var(--tnxt-radius-sm);
+  cursor: pointer;
+}
+
+.question-plus {
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  border: 0.125rem solid #ddd;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: var(--tnxt-space-lg);
+  background: white;
+}
+
+.question-row:hover .question-plus {
+  display: flex;
+}
+
+/* ===== BOX 3: PROGRESS NOTES ===== */
+.progress-notes-card {
+  border: 1px solid #ddd;
+  border-radius: var(--tnxt-space-xs);
+  margin-top: var(--tnxt-space-xl);
+  overflow: hidden;
+}
+
+.progress-header {
+  background: #f2b36a;
+  color: white;
+  padding: 0.625rem var(--tnxt-font-size-base);
+  font-weight: bold;
+}
+
+.progress-body {
+  display: flex;
+  align-items: center;
+  padding: var(--tnxt-space-lg);
+  position: relative;
+}
+
+.progress-icon {
+  font-size: var(--tnxt-space-2xl);
+  margin-right: var(--tnxt-space-md);
+}
+
+.progress-text {
+  font-size: var(--tnxt-font-size-base);
+}
+
+.progress-plus {
+  position: absolute;
+  bottom: var(--tnxt-space-md);
+  right: var(--tnxt-space-md);
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  border: 0.125rem solid #ddd;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: white;
+  font-size: var(--tnxt-space-lg);
+}
+
+.progress-notes-card:hover .progress-plus {
+  display: flex;
+}
+
+/* ===== DOCUMENT HEADER ===== */
+.document-card {
+  border: 1px solid #ddd;
+  padding: var(--tnxt-space-lg);
+  margin-top: var(--tnxt-space-xl);
+  background: #fff;
+  border-radius: var(--tnxt-space-xs);
+  position: relative;
+}
+
+.document-title {
+  color: #f57c00;
+  font-weight: bold;
+  margin-bottom: var(--tnxt-space-md);
+  font-size: var(--tnxt-space-lg);
+}
+
+.document-meta {
+  display: block;
+  color: #000;
+  font-size: var(--tnxt-font-size-base);
+  margin: var(--tnxt-space-md) 0;
+}
+
+.document-meta div {
+  margin-bottom: var(--tnxt-radius-sm);
+}
+
+.document-comments {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.document-plus {
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  border: 0.125rem solid #ddd;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: white;
+  font-size: var(--tnxt-space-lg);
+}
+
+.document-card:hover .document-plus {
+  display: flex;
+}
+
+/* ===== INLINE COMMENTS ===== */
+.inline-comment,
+.comment-inline {
+  display: flex;
+  gap: var(--tnxt-space-md);
+  cursor: pointer;
+  padding: 0.625rem;
+}
+
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #ccc;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue-tick {
+  position: absolute;
+  bottom: -var(--tnxt-space-xs);
+  right: -var(--tnxt-space-xs);
+  background: #1a73e8;
+  color: white;
+  font-size: 0.625rem;
+  border-radius: 50%;
+  padding: 0.125rem;
+}
+
+.comment-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-xs);
+}
+
+.comment-body small {
+  color: #777;
+  font-size: var(--tnxt-space-md);
+}
+
+/* ===================================================== */
+/* CTMS VISIT WORKSPACE
+/* ===================================================== */
+
+.visit-workspace-tabs {
+  display: flex;
+  gap: var(--tnxt-space-md);
+  margin: var(--tnxt-space-xl) 0;
+  flex-wrap: wrap;
+}
+
+.visit-workspace-tabs button {
+  border: none;
+  background: #e5e7eb;
+  color: #374151;
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-xl);
+  border-radius: var(--tnxt-space-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .25s ease;
+}
+
+.visit-workspace-tabs button:hover {
+  transform: translateY(-0.125rem);
+}
+
+.visit-workspace-tabs button.active {
+  background: #2563eb;
+  color: white;
+}
+
+.visit-tab-content {
+  background: white;
+  border-radius: var(--tnxt-space-md);
+  padding: var(--tnxt-space-2xl);
+  margin-top: var(--tnxt-space-lg);
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.visit-tab-content h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+/* ===================================================== */
+/* DOCUMENTS
+/* ===================================================== */
+
+.add-doc-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: var(--tnxt-space-xl);
+  transition: .25s;
+}
+
+.add-doc-btn:hover {
+  background: #1d4ed8;
+}
+
+.visit-tab-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.visit-tab-content thead {
+  background: #042c40;
+}
+
+.visit-tab-content th {
+  color: white;
+  padding: var(--tnxt-font-size-base);
+  text-align: left;
+}
+
+.visit-tab-content td {
+  padding: var(--tnxt-font-size-base);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.visit-tab-content tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ===================================================== */
+/* QUERY TABLE
+/* ===================================================== */
+
+.query-status-open {
+  background: #fef3c7;
+  color: #92400e;
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border-radius: var(--tnxt-space-xl);
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+}
+
+.query-status-closed {
+  background: #dcfce7;
+  color: #166534;
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border-radius: var(--tnxt-space-xl);
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+}
+
+.respond-btn {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: var(--tnxt-space-sm) var(--tnxt-font-size-base);
+  border-radius: var(--tnxt-radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.respond-btn:hover {
+  background: #6d28d9;
+}
+
+/* ===================================================== */
+/* AUDIT TRAIL
+/* ===================================================== */
+
+.audit-table {
+  width: 100%;
+}
+
+.audit-table th {
+  background: #042c40;
+  color: white;
+}
+
+.audit-table td {
+  padding: var(--tnxt-font-size-base);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.audit-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ===================================================== */
+/* ACTION BUTTONS
+/* ===================================================== */
+
+.table-actions {
+  display: flex;
+  gap: var(--tnxt-space-sm);
+  flex-wrap: wrap;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn {
+  border: none;
+  border-radius: var(--tnxt-radius-sm);
+  padding: var(--tnxt-space-sm) var(--tnxt-font-size-base);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.view-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.view-btn:hover {
+  background: #1d4ed8;
+}
+
+.edit-btn {
+  min-height: 2.25rem;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ===================================================== */
+/* MODALS
+/* ===================================================== */
+
+.ctms-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.ctms-modal {
+  background: white;
+  width: 34.375rem;
+  max-width: 95%;
+  border-radius: var(--tnxt-space-lg);
+  padding: 1.75rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,.25);
+}
+
+.ctms-modal h3 {
+  font-size: 1.625rem;
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+.ctms-modal input,
+.ctms-modal textarea,
+.ctms-modal select {
+  width: 100%;
+  padding: var(--tnxt-space-md);
+  border: 1px solid #dbe2ea;
+  border-radius: var(--tnxt-space-sm);
+  margin-bottom: var(--tnxt-font-size-base);
+}
+
+.ctms-modal textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.ctms-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.625rem;
+  margin-top: var(--tnxt-space-lg);
+}
+
+.ctms-modal-actions button {
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+}
+
+.save-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.delete-confirm-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.visit-procedures-wrapper {
+  background: #fff;
+  border-radius: var(--tnxt-space-md);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+.procedures-left {
+  background: #294766;
+}
+
+.procedure-item {
+  transition: all .2s ease;
+}
+
+.procedure-item:hover {
+  background: rgba(255,255,255,.1);
+}
+
+.procedure-item.active {
+  background: #1f3850;
+}
+
+.procedure-header {
+  background: #f6b26b;
+  font-size: 0.9375rem;
+}
+
+.procedure-body {
+  background: #fff;
+}
+
+.add-doc-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  padding: 0.625rem var(--tnxt-font-size-xl);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+.visit-tab-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.visit-tab-content thead {
+  background: #042c40;
+}
+
+.visit-tab-content th {
+  color: white;
+  padding: var(--tnxt-font-size-base);
+  text-align: left;
+}
+
+.visit-tab-content td {
+  padding: var(--tnxt-font-size-base);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.visit-tab-content tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ===================================================== */
+/* RESPONSIVE
+/* ===================================================== */
+
+@media(max-width:768px){
+
+  .visit-workspace-tabs{
+    flex-direction: column;
+  }
+
+  .visit-tab-content{
+    padding: var(--tnxt-font-size-xl);
+  }
+
+  .visit-tab-content table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  .table-actions{
+    flex-direction:column;
+  }
+
+  .view-btn,
+  .edit-btn,
+  .delete-btn{
+    width:100%;
+  }
+
+}
+
+@media print {
+
+  html,
+  body {
+    background: white;
+    overflow: visible;
+    height: auto;
+  }
+
+  button {
+    display: none;
+  }
+
+  .visit-header,
+  .visit-procedures,
+  .procedure-bar,
+  .comment-inline {
+    overflow: visible;
+    height: auto;
+    display: block;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

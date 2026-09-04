@@ -1,0 +1,25 @@
+.back-btn{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:0.625rem var(--tnxt-font-size-xl);
+  border-radius:var(--tnxt-space-sm);
+  cursor:pointer;
+  margin-bottom:var(--tnxt-space-xl);
+
+  width:auto;
+  height:auto;
+  display:inline-block;
+}
+
+.back-btn:hover{
+  background:#1d4ed8;
+}
+
+.details-card{
+  background:#fff;
+  padding:var(--tnxt-space-2xl);
+  border-radius:var(--tnxt-space-md);
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  max-width:56.25rem;
+}

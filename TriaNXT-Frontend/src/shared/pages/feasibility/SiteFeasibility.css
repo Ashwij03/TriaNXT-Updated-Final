@@ -1,0 +1,418 @@
+/* Site Feasibility & Selection (M23 / spec 6.30) — self-contained page styles */
+.fs-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1f2937;
+}
+
+.fs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.fs-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #0f172a;
+}
+
+.fs-subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.fs-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.fs-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.fs-kpi {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fs-kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.fs-kpi-label {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.fs-btn {
+  display: inline-block;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #1f2937;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 6px;
+  font-family: inherit;
+}
+
+.fs-btn:hover:not(:disabled) {
+  border-color: #9ca3af;
+}
+
+.fs-btn-primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.fs-btn-primary:hover:not(:disabled) {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.fs-btn-danger-ghost {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.fs-btn-small {
+  padding: 4px 10px;
+  font-size: 11px;
+}
+
+.fs-create-card,
+.fs-config-card {
+  background: #f8fafc;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+.fs-create-card h3,
+.fs-config-card h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+
+.fs-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px 14px;
+}
+
+.fs-form-grid label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: #374151;
+  gap: 4px;
+}
+
+.fs-full {
+  grid-column: 1 / -1;
+}
+
+.fs-form-grid input,
+.fs-form-grid select,
+.fs-config-card input,
+.fs-decision-confirm textarea,
+.fs-toolbar select {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  background: #fff;
+  color: #111827;
+}
+
+.fs-checkline {
+  flex-direction: row !important;
+  align-items: center;
+}
+
+.fs-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.fs-toolbar select {
+  min-width: 240px;
+}
+
+.fs-config-note {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0 0 10px;
+}
+
+.fs-config-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.fs-config-label {
+  width: 280px;
+  font-weight: 500;
+}
+
+.fs-config-edit {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.fs-config-row input {
+  width: 90px;
+}
+
+.fs-table-wrap {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.fs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.fs-table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: #f8fafc;
+  color: #6b7280;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.fs-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+.fs-row {
+  cursor: pointer;
+}
+
+.fs-row:hover td {
+  background: #f8fafc;
+}
+
+.fs-row-sub {
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+.fs-actions-col {
+  white-space: nowrap;
+}
+
+.fs-badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fs-badge-identified {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.fs-badge-sent {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.fs-badge-scored {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.fs-badge-selected {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.fs-badge-rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.fs-threshold {
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.fs-converted-tag {
+  margin-left: 8px;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 11px;
+}
+
+.fs-empty {
+  color: #9ca3af;
+  text-align: center;
+  padding: 22px 12px;
+  font-style: italic;
+}
+
+.fs-detail-row td {
+  background: #f8fafc;
+  padding: 14px 18px;
+}
+
+.fs-panel {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.fs-panel h4 {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+.fs-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fs-facts li {
+  display: flex;
+  gap: 12px;
+  font-size: 13px;
+  padding: 3px 0;
+}
+
+.fs-facts span {
+  width: 200px;
+  color: #6b7280;
+}
+
+.fs-score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.fs-score-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.fs-score-grid em {
+  color: #9ca3af;
+  font-style: normal;
+}
+
+.fs-score-current {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #6d28d9;
+  font-weight: 600;
+}
+
+.fs-decision-btns,
+.fs-decision-confirm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fs-decision-confirm {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.fs-decision-confirm p {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+
+.fs-decision-confirm textarea {
+  width: 100%;
+  max-width: 520px;
+  resize: vertical;
+  margin-bottom: 8px;
+}
+
+.fs-rationale {
+  font-size: 13px;
+  color: #374151;
+  margin: 0;
+}
+
+.fs-converted {
+  border-color: #a7f3d0;
+  background: #ecfdf5;
+}
+
+.fs-history {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.fs-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.fs-notice {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}

@@ -1,0 +1,1995 @@
+.sf-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5625rem;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-lg, var(--tnxt-space-md));
+  box-shadow: var(--tnxt-shadow-card, 0 2px 12px rgba(10, 37, 64, 0.08));
+  font-family: var(--tnxt-font, "Inter", system-ui, sans-serif);
+  overflow: hidden;
+}
+
+/* Local border-box reset: the host app has no global reset, and the panel
+   mixes padded inputs with grid/flex children. */
+.sf-panel,
+.sf-panel *,
+.sf-panel *::before,
+.sf-panel *::after {
+  box-sizing: border-box;
+}
+
+/* Visually hidden native file inputs (upload button + drop zone). */
+.sf-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.sf-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--tnxt-font-size-base);
+  flex-wrap: wrap;
+  padding: var(--tnxt-space-md) var(--tnxt-space-md) 0.625rem;
+  border-bottom: 1px solid var(--tnxt-border-light, #f0f0f0);
+  background: linear-gradient(180deg, #fbfdff 0%, #ffffff 100%);
+}
+
+.sf-panel-heading {
+  min-width: 0;
+}
+
+/* ---- header "Back" button (steps up one folder level at a time) ---- */
+.sf-panel-heading--with-back {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.sf-panel-heading-text {
+  min-width: 0;
+}
+
+.sf-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: 1px;
+  padding: 0;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--tnxt-primary, #2563eb);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.sf-back-btn:hover {
+  background: var(--tnxt-primary, #2563eb);
+  border-color: var(--tnxt-primary, #2563eb);
+  color: #fff;
+}
+
+.sf-back-btn:focus-visible {
+  outline: 2px solid var(--tnxt-primary, #2563eb);
+  outline-offset: 2px;
+}
+
+.sf-panel-eyebrow {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--tnxt-primary, #2563eb);
+  margin-bottom: var(--tnxt-space-xs);
+}
+
+/* The eyebrow doubles as the panel's heading element; strip the default h3
+   margins so the header stays compact. */
+.sf-panel-header h3.sf-panel-eyebrow {
+  margin: 0 0 var(--tnxt-space-xs);
+}
+
+.sf-panel-header h2 {
+  margin: 0;
+  font-size: var(--tnxt-space-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--tnxt-navy, #0a2540);
+  overflow-wrap: anywhere;
+}
+
+/* ---- folder breadcrumb path ---- */
+.sf-path {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem;
+  flex-wrap: wrap;
+  margin-top: 0.3125rem;
+  font-size: 0.6875rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.sf-path-seg {
+  max-width: 11.875rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-path-seg:last-child {
+  font-weight: 600;
+  color: #475569;
+}
+
+.sf-path-sep {
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+/* Task 1.6: eISF-style "Documents — N Files" section header line, shown
+   between the folder name and its breadcrumb/meta row. */
+.sf-section-header {
+  margin: var(--tnxt-space-xs) 0 0;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  color: #334155;
+}
+
+/* ---- count + size meta row ---- */
+.sf-panel-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-font-size-base);
+  flex-wrap: wrap;
+  margin-top: var(--tnxt-space-sm);
+}
+
+.sf-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.sf-meta-item svg {
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.sf-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5625rem;
+  flex-wrap: wrap;
+}
+
+/* ================= BUTTONS ================= */
+.sf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tnxt-space-xs);
+  padding: 0.3125rem 0.625rem;
+  border: 1px solid transparent;
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  font-family: inherit;
+  font-size: 0.625rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease, transform 0.15s ease, opacity 0.15s ease;
+}
+
+.sf-btn--primary {
+  background: var(--tnxt-primary, #2563eb);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.24);
+}
+
+.sf-btn--primary:hover:not(:disabled) {
+  background: var(--tnxt-primary-hover, #1d4ed8);
+  transform: translateY(-1px);
+}
+
+.sf-btn--ghost {
+  background: #fff;
+  color: #334155;
+  border-color: var(--tnxt-border, #e5e7eb);
+}
+
+.sf-btn--ghost:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.sf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sf-btn:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: 0.125rem;
+}
+
+/* ================= ALERTS (upload feedback + validation) ================= */
+.sf-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5625rem;
+  margin: 0 var(--tnxt-font-size-xl);
+  padding: 0.625rem var(--tnxt-space-md);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  font-size: var(--tnxt-space-md);
+  line-height: 1.5;
+  animation: sf-alert-in 0.18s ease-out;
+}
+
+@keyframes sf-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--tnxt-space-xs));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-alert {
+    animation: none;
+  }
+}
+
+.sf-alert--success {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.sf-alert--warning {
+  background: var(--tnxt-warning-bg, #fef3c7);
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.sf-alert--error {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.sf-alert-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.sf-alert-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.sf-alert-message {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* Per-file rejection reasons (requirement 8). */
+.sf-alert-list {
+  margin: 0.4375rem 0 0;
+  padding-left: var(--tnxt-space-lg);
+  font-weight: 500;
+}
+
+.sf-alert-list li {
+  margin-bottom: 0.1875rem;
+  overflow-wrap: anywhere;
+}
+
+.sf-alert-list strong {
+  font-weight: 700;
+}
+
+.sf-alert-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  flex-shrink: 0;
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.sf-alert-close:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ================= TOOLBAR (search + sort) ================= */
+/* Fix (this update): matches the ~10% reduction on `.sf-panel-header`
+   above (var(--tnxt-space-lg) -> var(--tnxt-font-size-base)) so the toolbar row's search box, filters, and
+   Export button line up with the tightened header instead of sitting 0.125rem
+   further in. */
+/* Fix (this update): matches `.sf-panel-header` above (now 12px on both) so
+   the toolbar row's search box, filters, and Export button line up exactly
+   with the header content instead of sitting a pixel or two further in. */
+.sf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  padding: 0 var(--tnxt-space-md);
+}
+
+/* ---- search ---- */
+.sf-search {
+  position: relative;
+  flex: 1 1 15rem;
+  max-width: 21.25rem;
+}
+
+.sf-search-icon {
+  position: absolute;
+  top: 50%;
+  left: var(--tnxt-font-size-xs);
+  transform: translateY(-50%);
+  color: var(--tnxt-text-muted, #9ca3af);
+  pointer-events: none;
+}
+
+/* Specificity raised so the global `.tnxt-compact input[type="text"]` rule
+   in ctms-compact.css cannot collapse the icon gutter. */
+.sf-panel .sf-search .sf-search-input,
+.sf-panel .sf-search input[type="text"] {
+  width: 100%;
+  padding: var(--tnxt-space-sm) var(--tnxt-space-3xl) var(--tnxt-space-sm) 2.125rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--tnxt-text, #111827);
+  background: #f8fafc;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.sf-panel .sf-search .sf-search-input:focus {
+  background: #fff;
+  border-color: var(--tnxt-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.sf-search-clear {
+  position: absolute;
+  top: 50%;
+  right: 0.4375rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tnxt-space-xl);
+  height: var(--tnxt-space-xl);
+  border: none;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sf-search-clear:hover {
+  background: #cbd5e1;
+}
+
+/* ---- sort controls ---- */
+.sf-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5625rem;
+  flex-wrap: wrap;
+}
+
+.sf-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-radius-sm);
+}
+
+.sf-sort > span {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.sf-panel .sf-sort select {
+  min-width: 6rem;
+  padding: 0.4375rem 0.5625rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--tnxt-text, #111827);
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sf-panel .sf-sort select:focus {
+  border-color: var(--tnxt-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.sf-dir-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  padding: 0.4375rem var(--tnxt-font-size-xs);
+  font-family: inherit;
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  color: #475569;
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.sf-dir-btn:hover {
+  border-color: var(--tnxt-primary, #2563eb);
+  color: var(--tnxt-primary, #2563eb);
+}
+
+.sf-result-count {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--tnxt-text-muted, #9ca3af);
+  white-space: nowrap;
+}
+
+/* ================= DROP ZONE ================= */
+/* Fix (this update): margin brought down from 18px to match the header/
+   toolbar/stats row's var(--tnxt-space-md) - this was the widest inset in the panel and
+   the main reason the drag-and-drop zone (and, by visual continuity, the
+   table just below it) read as narrower than it needed to be. */
+.sf-dropzone {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md);
+  margin: 0 var(--tnxt-space-md);
+  padding: var(--tnxt-space-lg);
+  border: 1.0.3125rem dashed #cbd5e1;
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: #f8fafc;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.sf-dropzone--compact {
+  padding: var(--tnxt-font-size-xs) var(--tnxt-font-size-base);
+}
+
+.sf-dropzone:hover:not(.is-disabled):not(.is-busy) {
+  border-color: var(--tnxt-primary, #2563eb);
+  background: #f4f8ff;
+}
+
+.sf-dropzone.is-dragging {
+  border-color: var(--tnxt-primary, #2563eb);
+  border-style: solid;
+  background: #eff6ff;
+  box-shadow: inset 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.sf-dropzone.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sf-dropzone.is-busy {
+  cursor: progress;
+}
+
+.sf-dropzone:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: 0.125rem;
+}
+
+.sf-dropzone-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: var(--tnxt-primary-light, #dbeafe);
+  color: var(--tnxt-primary, #2563eb);
+}
+
+.sf-dropzone--compact .sf-dropzone-icon {
+  width: var(--tnxt-space-3xl);
+  height: var(--tnxt-space-3xl);
+}
+
+.sf-dropzone.is-dragging .sf-dropzone-icon {
+  background: var(--tnxt-primary, #2563eb);
+  color: #fff;
+}
+
+.sf-dropzone-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.sf-dropzone-text strong {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sf-dropzone-text span {
+  font-size: var(--tnxt-font-size-xs);
+  line-height: 1.45;
+  color: var(--tnxt-text-secondary, #6b7280);
+  overflow-wrap: anywhere;
+}
+
+/* ================= TABLE =================
+   Header styling matched to the eISF `DocumentTable` "reference" header
+   (`.reference-table-card .document-table thead th` in
+   `pages/shared/EISF/components/DocumentTable.css`): navy background, white
+   bold type, no uppercase, a darker 0.125rem bottom rule plus a 1px inset
+   highlight, and hairline dividers between header cells. Font size and
+   padding are one density step down from eISF's own reference values
+   (0.9375rem/var(--tnxt-font-size-xl)) because this table carries eight columns beside a 15rem rail,
+   where eISF's table has the full page width - the same density mapping
+   already used elsewhere in this stylesheet. */
+/* The scroll wrapper doubles as the table's own "card": a subtle light-grey
+   surface so the table boundary stays clearly visible against the white
+   panel, with vertical padding so the table never touches the card edges and
+   leaves breathing room below the last row. */
+.sf-table-scroll {
+  overflow-x: auto;
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+  background: #f2f5f9;
+  padding: var(--tnxt-space-md) 0 var(--tnxt-font-size-xl);
+}
+
+/* `table-layout: fixed` is what actually guarantees the alignment
+   requirement: with the default `auto` algorithm each row's column widths
+   can be nudged by that row's own content, which is how the header and body
+   drift out of step. Fixed layout instead sizes every column strictly from
+   the `<colgroup>` widths declared once in `SubjectFileTable.js` - the same
+   widths for the header row and every body row, every time. `min-width`
+   keeps eight columns from being crushed unreadably on a narrow rail;
+   `.sf-table-scroll` (below) already scrolls horizontally past that point. */
+/* Fix (this update): `width: 100%` is what forced the table to stretch
+   across the full card on wide screens even though its content only needs
+   ~54.375rem - removed so `table-layout: fixed` sizes the table to the sum of
+   the `<colgroup>` widths declared in `SubjectFileTable.js` instead.
+   `min-width` matches that sum so the table (and its horizontal scroll)
+   behave identically to before on narrow screens - only the "stretch to
+   fill a wide card" behaviour is gone. */
+/* Fix (this update): back to `width: 100%` so the table fills its card the
+   way the reference "User Directory" table does - percentages on every
+   `<colgroup>` column (SubjectFileTable.js) then distribute that full
+   width evenly instead of leaving it stretched-but-empty (the earlier
+   `width: auto` version) or narrower than the card (the fixed-px version
+   before that). `min-width` is the same 47.5rem floor as originally, so
+   `.sf-table-scroll` still takes over with horizontal scroll rather than
+   crushing 8 columns unreadably on a narrow viewport. */
+/* Fix (this update): the table no longer stretches to fill the card. It
+   was `width: 100%` of `.sf-table-scroll` (itself full-width inside the
+   card), which is exactly why previous padding-only passes never reduced
+   the table's own occupied width - padding around the table changed, but
+   the table's own CSS width contract never did. Now `width: 90%` with
+   `margin: 0 auto` centers a table that is ~10% narrower than its
+   container, leaving balanced space on both sides. `min-width` stays as a
+   floor: once the container is too narrow for 90% to still fit every
+   column readably, the table stops shrinking there and `.sf-table-scroll`
+   takes over with horizontal scroll instead - unchanged from before. */
+/* Centred at 90% width - ~10% total balanced space split evenly across both
+   sides (~5% each, per the layout brief) - instead of stretching
+   edge-to-edge; `min-width` is a modest floor - once the panel is too
+   narrow for 90% to stay readable, `.sf-table-scroll` takes over with
+   horizontal scroll rather than the table being crushed. */
+.sf-panel .sf-table {
+  width: 95%;
+  margin: 0 auto;
+  min-width: 35rem;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.sf-panel .sf-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.5625rem var(--tnxt-space-md);
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #082b3d;
+  border-bottom: 0.125rem solid #05202e;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+  font-size: var(--tnxt-space-md);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #fff;
+}
+
+/* Fix (this update): 0.12 opacity white-on-navy read as almost invisible -
+   raised to 0.28 so the header's own column dividers are clearly visible,
+   not just implied by the (much darker) body borders below. */
+.sf-panel .sf-table thead th:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+/* Fix (this update): every header (Actions included) is centered now, both
+   horizontally and vertically, to read consistently across every Subjects
+   table - the Actions header used to be right-aligned to visually pair
+   with the row's right-aligned buttons below it; it still sits directly
+   above them since the column itself is the same width either way, so
+   centering it costs nothing and matches every other header. */
+.sf-panel .sf-table thead th.sf-th-actions {
+  padding-right: var(--tnxt-space-md);
+}
+
+/* Sorted column keeps the same navy family, one step lighter, rather than
+   eISF's light-blue "sorted" tint - white text on the light tint used
+   elsewhere in this file would not have read against a light background,
+   so the active column stays on-brand with the header instead. */
+.sf-panel .sf-table thead th.is-sorted {
+  color: #fff;
+  background: #0d3852;
+}
+
+/* Sortable header button (requirement 6). Inherits white from the header;
+   hover/focus use a light blue rather than `--tnxt-primary` so the state is
+   still visible against the navy header (the accent blue used on light
+   backgrounds elsewhere in this table is too close to the header's own
+   navy to read as a hover cue here). */
+.sf-sort-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.sf-sort-btn:hover {
+  color: #bfe0ff;
+}
+
+.sf-sort-btn:focus-visible {
+  outline: 0.125rem solid #bfe0ff;
+  outline-offset: 0.125rem;
+  border-radius: 0.1875rem;
+}
+
+/* Fix (this update): #edf1f7 was nearly the same lightness as the table's
+   own white background - raised to a clearly visible (but still subtle,
+   not black) enterprise gray. */
+.sf-panel .sf-table td {
+  padding: 0.5625rem var(--tnxt-space-md);
+  border-bottom: 1px solid #d8dfe8;
+  color: #334155;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Fix (this update): vertical grid lines between body columns - previously
+   only the header row had column dividers, so the table read as a stack of
+   full-width rows rather than a grid once the header scrolled out of view
+   or on a quick glance at a single row. Same color bump as the horizontal
+   border above, so both grid directions read with equal visibility. */
+.sf-panel .sf-table td:not(:last-child) {
+  border-right: 1px solid #d8dfe8;
+}
+
+.sf-panel .sf-table tbody tr {
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.sf-panel .sf-table tbody tr:hover,
+.sf-panel .sf-table tbody tr.is-menu-open {
+  background: #fbfdff;
+}
+
+.sf-panel .sf-table tbody tr:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: -0.125rem;
+}
+
+.sf-panel .sf-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ---- name cell ----
+   The column's width now comes entirely from `<colgroup>` (`.sf-col-name`
+   in `SubjectFileTable.js`); this rule only has to keep the cell's own text
+   from forcing that width open, so `<table>` overflow rather than any
+   min/max-width here is what stops a long name from breaking the layout. */
+.sf-panel .sf-table td.sf-cell-name {
+  overflow: hidden;
+}
+
+/* Icon + name, laid out inside the cell rather than on the cell itself -
+   see the comment in `SubjectFileRow.js` for why the flex layout moved
+   in from `td.sf-cell-name`. */
+.sf-cell-name-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5625rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.sf-file-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sf-cell-size {
+  font-variant-numeric: tabular-nums;
+}
+
+.sf-cell-user {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Actions column: the button group is centred directly under its centred
+   header (so the Actions header and the icons align exactly), with padding
+   sized to the group plus `overflow: visible` so nothing about this cell
+   itself can clip the dropdown trigger. */
+.sf-panel .sf-table td.sf-cell-actions {
+  text-align: center;
+  padding-left: var(--tnxt-radius-sm);
+  padding-right: var(--tnxt-radius-sm);
+  overflow: visible;
+}
+
+/* Status column: contains ONLY the status badge - no icons or clickable
+   areas. Centred under its centred header, with a touch of extra right
+   padding so the badge never crowds the actions column next to it. */
+.sf-panel .sf-table td.sf-cell-status {
+  text-align: center;
+  padding-right: var(--tnxt-font-size-xl);
+}
+
+/* ================= FILE ICONS + TYPE CHIPS ================= */
+.sf-file-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  /* Per-type colours are set by the modifiers below. */
+  background: var(--sf-icon-bg, #f1f5f9);
+  color: var(--sf-icon-fg, #475569);
+}
+
+.sf-file-icon--lg {
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+}
+
+/* Type palette - shared by the icon tile and the type chip so a row reads
+   as one colour family. */
+.sf-file-icon--pdf,
+.sf-type-chip--pdf {
+  --sf-icon-bg: #fee2e2;
+  --sf-icon-fg: #b91c1c;
+}
+
+.sf-file-icon--doc,
+.sf-type-chip--doc {
+  --sf-icon-bg: #dbeafe;
+  --sf-icon-fg: #1d4ed8;
+}
+
+.sf-file-icon--xls,
+.sf-type-chip--xls {
+  --sf-icon-bg: #dcfce7;
+  --sf-icon-fg: #15803d;
+}
+
+.sf-file-icon--ppt,
+.sf-type-chip--ppt {
+  --sf-icon-bg: #ffedd5;
+  --sf-icon-fg: #c2410c;
+}
+
+.sf-file-icon--image,
+.sf-type-chip--image {
+  --sf-icon-bg: #f3e8ff;
+  --sf-icon-fg: #7e22ce;
+}
+
+.sf-file-icon--zip,
+.sf-type-chip--zip {
+  --sf-icon-bg: #fef3c7;
+  --sf-icon-fg: #a16207;
+}
+
+.sf-file-icon--txt,
+.sf-type-chip--txt {
+  --sf-icon-bg: #e0e7ff;
+  --sf-icon-fg: #4338ca;
+}
+
+.sf-file-icon--default,
+.sf-type-chip--default {
+  --sf-icon-bg: #f1f5f9;
+  --sf-icon-fg: #475569;
+}
+
+.sf-type-chip {
+  display: inline-block;
+  padding: 0.1875rem var(--tnxt-space-sm);
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: var(--sf-icon-bg, #f1f5f9);
+  color: var(--sf-icon-fg, #475569);
+  font-size: 10.0.3125rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+/* ================= STATUS BADGES (mock) ================= */
+.sf-status {
+  display: inline-block;
+  padding: 0.1875rem 0.5625rem;
+  border-radius: var(--tnxt-radius-full, 999px);
+  /* Fix: previously corrupted to "10.0.3125rem" by a bad merge, which made
+     the declaration invalid and left badges at the browser default size. */
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.sf-status--final {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.sf-status--approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.sf-status--pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.sf-status--draft {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.sf-status--superseded {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ================= STAGED SINGLE-FILE UPLOAD =================
+   Upload progress + Save action, matching the shared document managers'
+   upload UX: the file is read for real (progress to 100%), and the Save
+   action only appears after the whole file was read. */
+.sf-upload-stage {
+  margin: 0 var(--tnxt-font-size-xl) var(--tnxt-space-md);
+  padding: 0.625rem var(--tnxt-space-md);
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: #f8fafc;
+}
+
+.sf-upload-stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-md);
+  margin-bottom: 0.4375rem;
+}
+
+.sf-upload-stage-name {
+  font-weight: 600;
+  color: #334155;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-upload-stage-pct {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: var(--tnxt-primary, #2563eb);
+}
+
+.sf-upload-stage-track {
+  height: 0.5rem;
+  border-radius: var(--tnxt-radius-full, 999px);
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.sf-upload-stage-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tnxt-primary, #2563eb);
+  transition: width 0.15s ease;
+}
+
+.sf-upload-stage-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.4375rem;
+  margin-top: 0.5625rem;
+}
+
+.sf-upload-stage-status {
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* ================= ROW ACTION MENU =================
+   Fix: the trigger used to default to `opacity: 0` and only reveal itself
+   on row hover/focus. With no hover in effect (the common state for any
+   screenshot, touch device, or simple mouse-off moment) that read as the
+   control being clipped/missing at the far right of the row, immediately
+   after the Status column. It is now visible at all times - hover/focus
+   only changes its background/color, never its presence - and the touch
+   fallback below is redundant but left in place as a harmless no-op. */
+
+/* Fix (this update): View/Download are now their own visible icon buttons
+   next to the "more" trigger, instead of both living inside the dropdown -
+   this group lays the (up to) three buttons out right-aligned with a small
+   gap, sized to comfortably fit the wider Actions column below. */
+.sf-actions-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+}
+
+.sf-action-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.625rem;
+  height: 1.625rem;
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sf-action-icon-btn:hover {
+  background: #eef4fe;
+  color: #1c6ed4;
+}
+
+.sf-action-icon-btn:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: 1px;
+}
+
+.sf-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.625rem;
+  height: 1.625rem;
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  opacity: 1;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sf-row:hover .sf-menu-trigger,
+.sf-row:focus-within .sf-menu-trigger,
+.sf-menu-trigger.is-open,
+.sf-menu-trigger:focus-visible {
+  opacity: 1;
+}
+
+.sf-menu-trigger:hover,
+.sf-menu-trigger.is-open {
+  background: #e2e8f0;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+@media (hover: none) {
+  .sf-menu-trigger {
+    opacity: 1;
+  }
+}
+
+/* Portalled to <body>, so this is NOT nested under `.sf-panel`. */
+.sf-menu {
+  position: fixed;
+  z-index: 1400; /* below the modal backdrop (1500) */
+  padding: 0.3125rem;
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  box-shadow: 0 12px 30px rgba(10, 37, 64, 0.18);
+  font-family: var(--tnxt-font, "Inter", system-ui, sans-serif);
+  animation: sf-menu-in 0.14s ease-out;
+}
+
+.sf-menu,
+.sf-menu * {
+  box-sizing: border-box;
+}
+
+@keyframes sf-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-var(--tnxt-space-xs));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-menu {
+    animation: none;
+  }
+}
+
+.sf-menu-heading {
+  padding: 0.3125rem var(--tnxt-space-sm) 0.4375rem;
+  margin-bottom: var(--tnxt-space-xs);
+  border-bottom: 1px solid var(--tnxt-border-light, #f0f0f0);
+  font-size: 10.0.3125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-muted, #9ca3af);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+  width: 100%;
+  padding: 0.4375rem var(--tnxt-space-sm);
+  border: none;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #334155;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.sf-menu-item svg {
+  flex-shrink: 0;
+  color: #64748b;
+}
+
+.sf-menu-item:hover {
+  background: #f1f5f9;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sf-menu-item:hover svg {
+  color: var(--tnxt-primary, #2563eb);
+}
+
+.sf-menu-item.is-danger {
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.sf-menu-item.is-danger svg {
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.sf-menu-item.is-danger:hover {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  color: #991b1b;
+}
+
+.sf-menu-item-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-menu-item:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: -0.125rem;
+}
+
+/* ================= EMPTY STATES (requirement 7) ================= */
+.sf-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 2.5rem var(--tnxt-space-2xl) var(--tnxt-space-3xl);
+  text-align: center;
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+/* Standalone "no folder selected" card has no table above it. */
+.sf-empty-state--no-folder {
+  border-top: none;
+  padding: 2.125rem var(--tnxt-space-2xl);
+}
+
+.sf-empty-state--search {
+  padding: 1.625rem var(--tnxt-space-2xl);
+}
+
+.sf-empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--tnxt-primary-light, #dbeafe);
+  color: var(--tnxt-primary, #2563eb);
+}
+
+.sf-empty-state--search .sf-empty-icon,
+.sf-empty-state--no-folder .sf-empty-icon {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+
+.sf-empty-state h3 {
+  margin: 0.125rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sf-empty-state p {
+  margin: 0;
+  max-width: 25rem;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.sf-empty-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5625rem;
+  flex-wrap: wrap;
+  margin-top: var(--tnxt-space-xs);
+}
+
+/* The drop zone inside the empty state is centred and width-capped. */
+.sf-empty-state .sf-dropzone {
+  width: 100%;
+  max-width: 26.25rem;
+  margin: var(--tnxt-space-sm) 0 0;
+  text-align: left;
+}
+
+/* ==================================================================
+   CHILD FOLDERS GRID
+   Shown when the selected node (subject or folder) has child folders
+   but no direct files. Bridges the gap between the sidebar tree
+   (which shows subfolders) and the workspace (which previously
+   showed only the empty-file state, making the folder look empty).
+================================================================== */
+.sf-child-folders {
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-lg);
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+.sf-child-folders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+}
+
+.sf-child-folders-label {
+  font-size: var(--tnxt-space-md);
+  font-weight: 700;
+  color: var(--tnxt-text-secondary, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sf-child-folders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.375rem, 1fr));
+  gap: 0.625rem;
+}
+
+.sf-child-folder-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tnxt-radius-sm);
+  min-height: 6.25rem;
+  padding: var(--tnxt-font-size-base) 0.625rem;
+  background: #f8fafc;
+  border: 1px solid var(--tnxt-border-light, #e5e7eb);
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  text-align: center;
+  font-family: inherit;
+}
+
+.sf-child-folder-card:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  transform: translateY(-0.125rem);
+}
+
+.sf-child-folder-card:focus-visible {
+  outline: 0.125rem solid var(--tnxt-primary, #2563eb);
+  outline-offset: 0.125rem;
+}
+
+.sf-child-folder-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--tnxt-space-sm);
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.sf-child-folder-name {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  color: var(--tnxt-navy, #0a2540);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-child-folder-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem var(--tnxt-radius-sm);
+  border-radius: var(--tnxt-space-xs);
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ==================================================================
+   MODAL EXTRAS
+   The file modals reuse the `sxm-` shell from FolderModals.css; only the
+   file-specific pieces live here. Portalled to <body>, so these selectors
+   are intentionally NOT nested under `.sf-panel`.
+================================================================== */
+
+/* ---- preview modal shell ---- */
+.sf-preview-modal {
+  max-width: 35rem;
+}
+
+.sf-preview-heading {
+  min-width: 0;
+}
+
+.sf-preview-modal .sf-preview-heading h3 {
+  margin: 0;
+  font-size: 14.0.3125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--tnxt-navy, #0a2540);
+  overflow-wrap: anywhere;
+}
+
+.sf-preview-modal .sf-preview-heading p {
+  margin: 0.1875rem 0 0;
+  font-size: 0.6875rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+/* ---- preview surface ---- */
+.sf-preview-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10.5rem;
+  max-height: 18.75rem;
+  padding: var(--tnxt-font-size-base);
+  margin-bottom: var(--tnxt-font-size-base);
+  overflow: auto;
+  border: 1px solid var(--tnxt-border-light, #f0f0f0);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: #f8fafc;
+}
+
+.sf-preview-image {
+  max-width: 100%;
+  max-height: 16.75rem;
+  border-radius: var(--tnxt-radius-sm, var(--tnxt-radius-sm));
+  box-shadow: 0 2px 10px rgba(10, 37, 64, 0.14);
+}
+
+.sf-preview-text {
+  width: 100%;
+  margin: 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: #334155;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sf-preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.625rem;
+  text-align: center;
+  color: var(--sf-icon-fg, #475569);
+}
+
+.sf-preview-placeholder strong {
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 700;
+}
+
+.sf-preview-placeholder span {
+  max-width: 2rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+/* ---- metadata grid (requirement 3) ---- */
+.sf-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem var(--tnxt-font-size-base);
+  margin: 0;
+}
+
+.sf-detail-item {
+  min-width: 0;
+}
+
+.sf-detail-item dt {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.sf-detail-item dd {
+  margin: 0.1875rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tnxt-navy, #0a2540);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sf-detail-item dd.is-wrap {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ---- "no stored contents" note ---- */
+.sf-preview-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4375rem;
+  margin-top: var(--tnxt-space-md);
+  padding: 0.5625rem var(--tnxt-font-size-xs);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: #f1f5f9;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.sf-preview-note svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #64748b;
+}
+
+/* ---- preview footer: delete left, primary actions right ---- */
+.sf-preview-footer {
+  justify-content: space-between;
+}
+
+.sf-preview-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5625rem;
+  flex-wrap: wrap;
+}
+
+/* Ghost danger button, only used by the preview footer. */
+.sxm-btn--danger-ghost {
+  background: #fff;
+  border-color: #fecaca;
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.sxm-btn--danger-ghost:hover {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  border-color: #fca5a5;
+}
+
+/* ---- rename modal: fixed extension suffix ---- */
+.sf-rename-input {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--tnxt-border, #e5e7eb);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sf-rename-input:focus-within {
+  border-color: var(--tnxt-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.sf-rename-input.has-error {
+  border-color: var(--tnxt-danger, #dc2626);
+}
+
+.sf-rename-input.has-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+/* Specificity raised to beat both the `.sxm-field input` rule in
+   FolderModals.css and the global `.tnxt-compact` input override. */
+.sxm-modal .sf-rename-input input,
+.sxm-modal .sf-rename-input input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  padding: 0.5625rem 0.625rem 0.5625rem var(--tnxt-space-md);
+  font-family: inherit;
+  font-size: var(--tnxt-font-size-sm);
+  color: var(--tnxt-text, #111827);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+}
+
+.sf-rename-ext {
+  flex-shrink: 0;
+  padding: 0.5625rem var(--tnxt-space-md) 0.5625rem var(--tnxt-space-sm);
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 700;
+  color: var(--tnxt-text-secondary, #6b7280);
+  background: #f8fafc;
+  border-left: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+/* ---- delete dialog: target file summary ---- */
+.sf-delete-target {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: var(--tnxt-space-md);
+  padding: 0.625rem var(--tnxt-font-size-xs);
+  border-radius: var(--tnxt-radius-md, var(--tnxt-space-sm));
+  background: #f8fafc;
+  border: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+.sf-delete-target-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.sf-delete-target-text strong {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tnxt-navy, #0a2540);
+  overflow-wrap: anywhere;
+}
+
+.sf-delete-target-text span {
+  font-size: var(--tnxt-font-size-xs);
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+/* =================================================================
+   RESPONSIVE
+   Phase 7: one module-wide ladder - 1200 / 992 / 768 / 480.
+================================================================= */
+@media (max-width: 992px) {
+  .sf-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 768px) {
+  .sf-panel-header {
+    padding: var(--tnxt-font-size-base);
+  }
+
+  .sf-panel-actions {
+    width: 100%;
+  }
+
+  .sf-panel-actions .sf-btn {
+    flex: 1 1 auto;
+  }
+
+  .sf-alert,
+  .sf-toolbar,
+  .sf-dropzone {
+    margin-left: var(--tnxt-font-size-base);
+    margin-right: var(--tnxt-font-size-base);
+  }
+
+  .sf-toolbar {
+    padding: 0;
+  }
+
+  .sf-search {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .sf-toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Column widths come from `<colgroup>` now (`table-layout: fixed`), so a
+     per-cell min/max-width here would no longer do anything - narrower than
+     `.sf-panel .sf-table`'s 47.5rem min-width, `.sf-table-scroll` below takes
+     over and the row scrolls horizontally instead of any column being
+     squeezed. */
+
+  /* The horizontal table scroller must not bleed past the panel. */
+  .sf-table-scroll {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  .sf-detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sf-preview-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .sf-preview-footer-right {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .sf-preview-footer .sxm-btn {
+    width: 100%;
+  }
+
+  .sf-empty-state {
+    padding: 1.875rem var(--tnxt-space-lg) 1.625rem;
+  }
+
+  /* Stack the drop zone so its copy is not squeezed beside the icon. */
+  .sf-dropzone {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5625rem;
+  }
+
+  .sf-child-folders-grid {
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  }
+}
+
+/* ==================================================================
+   KPI STRIP INSIDE THE PANEL HEADER (Subject Files header clean-up)
+
+   The 4-tile FolderStatsBar now renders inside `.sf-panel-header` (beside
+   the "Subject Files" title) instead of as a separate strip below it, so
+   the tiles are compacted to header height and laid out beside the heading
+   and actions. Scoped to the header so the workspace-scope usage in
+   `pages/Sponsor/Subjects.js` keeps its standalone sizing. Long values
+   (storage sizes, large counts) are handled by the existing ellipsis rules
+   on `.sf-stat-value`/`.sf-stat-caption` - the tiles never grow past their
+   grid cell.
+================================================================== */
+.sf-panel-header .sf-stats {
+  flex: 1 1 23.75rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  gap: var(--tnxt-space-sm);
+}
+
+.sf-panel-header .sf-stat-tile {
+  min-height: 4rem;
+  padding: 0.625rem var(--tnxt-space-md);
+  gap: var(--tnxt-space-sm);
+}
+
+.sf-panel-header .sf-stat-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 1.75rem;
+}
+
+.sf-panel-header .sf-stat-value {
+  font-size: 1.0625rem;
+  line-height: 1.1;
+}
+
+.sf-panel-header .sf-stat-label {
+  margin-top: 0.1875rem;
+  font-size: 10.0.3125rem;
+}
+
+.sf-panel-header .sf-stat-caption {
+  margin-top: 0.125rem;
+  font-size: 0.625rem;
+}
+
+/* Once the heading block + the four tiles + the panel actions no longer
+   fit on one row, the strip drops to its own full-width row inside the
+   header instead of being squeezed between them. */
+@media (max-width: 992px) {
+  .sf-panel-header .sf-stats {
+    flex-basis: 100%;
+  }
+}
+
+/* ==================================================================
+   RIGHT-SIDE FILE DETAILS PANEL (Update 7)
+
+   "View Details" no longer opens the `.sf-preview-modal` popup above -
+   selecting a file now docks a details panel to the right of the table
+   instead (`.sf-body-details`, rendered by `FilePreviewModal.js` as
+   `.sf-details-panel`). The table (`.sf-body-list`) stays visible the
+   whole time.
+
+   Split ratio matches eISF's own split view as closely as possible
+   (`.eisf-module-grid.eisf-split-view` in
+   pages/shared/EISF/EISFModuleWorkspace.css): 45% list / 55% details.
+   Nothing here imports from eISF - only the layout numbers are mirrored.
+================================================================== */
+.sf-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 0;
+}
+
+/* Fix (this update): no gap at all between this column's children (the
+   drop zone, filter bar, and file table) - the drag-and-drop zone and the
+   table below it were touching directly, with only a 1px border to
+   separate them. */
+.sf-body-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-md);
+  min-width: 0;
+}
+
+.sf-body--split {
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  gap: var(--tnxt-font-size-base);
+  padding-right: var(--tnxt-font-size-base);
+  padding-bottom: var(--tnxt-font-size-base);
+}
+
+.sf-body--split .sf-body-list {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.sf-body-details {
+  min-width: 0;
+  min-height: 3rem;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--tnxt-border-light, #f0f0f0);
+  border-radius: var(--tnxt-radius-lg, var(--tnxt-space-md));
+  box-shadow: var(--sfx-shadow-card, 0 2px 12px rgba(10, 37, 64, 0.08));
+}
+
+/* ---- panel shell ---- */
+.sf-details-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: #fff;
+}
+
+.sf-details-panel--empty {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--tnxt-space-xs);
+  padding: 1.875rem;
+  color: var(--sfx-muted, #64748b);
+}
+
+.sf-details-empty-icon {
+  color: var(--sfx-faint, #9ca3af);
+}
+
+.sf-details-panel--empty h3 {
+  margin: 0.625rem 0 var(--tnxt-space-xs);
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 700;
+  color: var(--tnxt-navy, #0a2540);
+}
+
+.sf-details-panel--empty p {
+  margin: 0;
+  font-size: 0.75rem;
+  max-width: 16.25rem;
+  line-height: 1.5;
+}
+
+/* ---- fixed header: title + actions + metadata (never scrolls) ---- */
+.sf-details-panel-meta {
+  flex: 0 0 auto;
+  padding: var(--tnxt-space-lg) var(--tnxt-font-size-xl) var(--tnxt-font-size-base);
+  border-bottom: 1px solid var(--tnxt-border-light, #e6ecf3);
+  background: linear-gradient(180deg, #fbfdff 0%, #f6f9fc 100%);
+}
+
+.sf-details-panel-title {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--tnxt-font-size-xs);
+}
+
+.sf-details-panel-title-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sf-details-panel-title-text h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--tnxt-navy, #0a2540);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-details-panel-title-text span {
+  display: block;
+  margin-top: 0.1875rem;
+  font-size: var(--tnxt-space-md);
+  color: var(--sfx-muted, #64748b);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sf-details-panel-actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.4375rem;
+}
+
+.sf-details-panel-actions .sf-btn {
+  padding: var(--tnxt-radius-sm) var(--tnxt-font-size-xs);
+  min-height: 0;
+  font-size: var(--tnxt-space-md);
+}
+
+/* Ghost danger variant, used only by the details panel's Delete action. */
+.sf-btn--danger {
+  background: #fff;
+  border-color: #fecaca;
+  color: var(--tnxt-danger, #dc2626);
+}
+
+.sf-btn--danger:hover:not(:disabled) {
+  background: var(--tnxt-danger-bg, #fee2e2);
+  border-color: #fca5a5;
+}
+
+.sf-details-panel-close {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--tnxt-border, #e2e8f0);
+  border-radius: var(--tnxt-radius-sm, 0.3125rem);
+  background: #fff;
+  color: var(--sfx-muted, #64748b);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.sf-details-panel-close:hover {
+  background: #f1f5f9;
+  border-color: #c7d2e0;
+  color: #1e293b;
+}
+
+.sf-details-panel-close:focus-visible {
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.125rem;
+  box-shadow: var(--sfx-ring, 0 0 0 3px rgba(37, 99, 235, 0.18));
+}
+
+/* Overrides `.sf-detail-grid`'s 2-column layout: the panel is narrower
+   than the old 35rem modal, so fields wrap by available width instead. */
+.sf-details-panel-grid {
+  grid-template-columns: repeat(auto-fit, minmax(8.125rem, 1fr));
+  gap: var(--tnxt-space-md) var(--tnxt-space-lg);
+  margin-top: var(--tnxt-font-size-base);
+  padding-top: var(--tnxt-font-size-sm);
+  border-top: 1px solid var(--tnxt-border-light, #e9eef4);
+}
+
+/* ---- scrollable preview body ---- */
+.sf-details-panel-preview {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--tnxt-space-lg) var(--tnxt-font-size-xl) var(--tnxt-font-size-xl);
+  background: var(--sfx-surface-alt, #f4f6fa);
+}
+
+/* Overrides `.sf-preview-stage`'s fixed modal sizing so the preview fills
+   the scrollable pane below the metadata header instead. */
+.sf-details-panel-stage {
+  min-height: 13.75rem;
+  max-height: none;
+  height: 100%;
+  margin-bottom: var(--tnxt-space-md);
+}
+
+.sf-details-panel-preview .sf-preview-note {
+  margin-top: 0;
+}
+
+@media (max-width: 1200px) {
+  .sf-body--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sf-body-details {
+    min-height: 35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sf-body--split {
+    padding-right: 0;
+    padding-bottom: 0;
+    margin: 0 var(--tnxt-font-size-base) var(--tnxt-font-size-base);
+    gap: var(--tnxt-space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .sf-details-panel-actions .sf-btn span {
+    display: none;
+  }
+
+  .sf-details-panel-actions .sf-btn {
+    padding: var(--tnxt-radius-sm) var(--tnxt-space-sm);
+  }
+
+  .sf-details-panel-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,0 +1,112 @@
+.folder-template-overlay {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: var(--tnxt-space-xl);
+  position: fixed;
+  z-index: 3000;
+}
+
+.folder-template-modal {
+  background: #fff;
+  border-radius: var(--tnxt-space-md);
+  max-height: 90vh;
+  max-width: 47.5rem;
+  overflow: auto;
+  padding: var(--tnxt-space-xl);
+  width: 100%;
+}
+
+.folder-template-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--tnxt-space-md);
+}
+
+.folder-template-header h3 {
+  margin: 0;
+}
+
+.folder-template-header button {
+  background: #f3f4f6;
+  border: none;
+  border-radius: var(--tnxt-radius-sm);
+  cursor: pointer;
+  padding: var(--tnxt-radius-sm) var(--tnxt-space-md);
+}
+
+.folder-template-help,
+.folder-template-message,
+.folder-template-empty {
+  color: #64748b;
+  margin: 0 0 var(--tnxt-space-md);
+}
+
+.folder-template-message {
+  color: #2563eb;
+}
+
+.folder-template-form label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-radius-sm);
+  margin-bottom: var(--tnxt-space-md);
+}
+
+.folder-template-form input,
+.folder-template-form textarea {
+  border: 1px solid #d1d5db;
+  border-radius: var(--tnxt-space-sm);
+  font: inherit;
+  padding: 0.625rem var(--tnxt-space-md);
+}
+
+.folder-template-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-bottom: var(--tnxt-font-size-xl);
+}
+
+.folder-template-actions button,
+.folder-template-item-actions button {
+  background: #2563eb;
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  padding: var(--tnxt-space-sm) var(--tnxt-font-size-base);
+}
+
+.folder-template-item-actions button.danger {
+  background: #dc2626;
+}
+
+.folder-template-list h4 {
+  margin: 0 0 0.625rem;
+}
+
+.folder-template-item {
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--tnxt-space-sm);
+  display: flex;
+  gap: var(--tnxt-space-md);
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+  padding: var(--tnxt-space-md);
+}
+
+.folder-template-item small {
+  color: #64748b;
+  display: block;
+}
+
+.folder-template-item-actions {
+  display: flex;
+  gap: var(--tnxt-space-sm);
+}

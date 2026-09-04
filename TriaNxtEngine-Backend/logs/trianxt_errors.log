@@ -1,0 +1,15 @@
+[2026-09-02 14:00:00,604] ERROR django.request Internal Server Error: /api/accounts/register/
+[2026-09-02 14:42:27,821] ERROR django.request Internal Server Error: /api/accounts/register/
+[2026-09-04 03:53:40,192] ERROR tria_engine document upload failed
+Traceback (most recent call last):
+  File "D:\Desktop Files New Projects\Other Project\Site CTMS\TriaNxtEngine-Backend\tria_engine\apps\accounts\router.py", line 964, in document_upload
+    document, error = upload_document(
+                      ~~~~~~~~~~~~~~~^
+        db,
+        ^^^
+    ...<5 lines>...
+        request=_request_meta(request),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+TypeError: upload_document() takes 0 positional arguments but 1 positional argument (and 6 keyword-only arguments) were given

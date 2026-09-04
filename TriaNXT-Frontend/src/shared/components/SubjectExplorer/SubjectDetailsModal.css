@@ -1,0 +1,40 @@
+/* Additive rules only - FolderModals.css already styles `.sxm-*` for text
+   inputs; this file extends the same classes to <select>/date inputs and the
+   two-column date row used by SubjectFormModal, without touching the
+   shared stylesheet other subject/folder dialogs rely on. */
+
+.sxm-modal .sxm-field select,
+.sxm-modal .sxm-field input[type="date"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5625rem var(--tnxt-font-size-xs);
+  border: 1px solid #dbe2ea;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-sm);
+  color: #0f172a;
+  background: #fff;
+  font-family: inherit;
+}
+
+.sxm-modal .sxm-field select:focus,
+.sxm-modal .sxm-field input[type="date"]:focus {
+  outline: none;
+  border-color: #2f80ed;
+  box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.14);
+}
+
+.sxm-modal .sxm-field input[readOnly] {
+  background: #f8fafc;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.sxm-field-row {
+  display: flex;
+  gap: var(--tnxt-space-md);
+}
+
+.sxm-field-row .sxm-field {
+  flex: 1 1 0;
+  min-width: 0;
+}

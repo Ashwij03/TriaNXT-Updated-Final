@@ -1,0 +1,110 @@
+.clinical-site-quick-view-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tnxt-space-2xl);
+  background: rgba(15, 23, 42, 0.5);
+}
+
+.clinical-site-quick-view-modal {
+  width: 100%;
+  max-width: 40.625rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: var(--tnxt-space-md);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2);
+}
+
+.clinical-site-quick-view-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--tnxt-space-xl) var(--tnxt-space-2xl);
+  border-bottom: 1px solid #edf2f7;
+}
+
+.clinical-site-quick-view-header h2 {
+  margin: 0;
+  font-size: 1.3125rem;
+}
+
+.clinical-site-quick-view-header p {
+  margin: var(--tnxt-radius-sm) 0 0;
+  color: #64748b;
+}
+
+.clinical-site-quick-view-close {
+  border: none;
+  background: transparent;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.clinical-site-quick-view-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--tnxt-space-lg);
+  padding: var(--tnxt-space-2xl);
+}
+
+.clinical-site-quick-view-item {
+  padding: var(--tnxt-font-size-base);
+  border: 1px solid #edf2f7;
+  border-radius: var(--tnxt-space-sm);
+  background: #f8fafc;
+}
+
+.clinical-site-quick-view-item span {
+  display: block;
+  margin-bottom: var(--tnxt-radius-sm);
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+.clinical-site-quick-view-item strong {
+  color: #1e293b;
+  font-size: 0.9375rem;
+}
+
+.clinical-site-enrollment-section {
+  padding: 0 var(--tnxt-space-2xl) var(--tnxt-space-2xl);
+}
+
+.clinical-site-enrollment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+}
+
+.clinical-site-enrollment-track {
+  width: 100%;
+  height: 0.625rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.clinical-site-enrollment-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #2563eb;
+  transition: width 0.3s ease;
+}
+
+.clinical-site-enrollment-section p {
+  margin: var(--tnxt-space-sm) 0 0;
+  color: #64748b;
+  font-size: var(--tnxt-font-size-sm);
+}
+
+@media (max-width: 600px) {
+  .clinical-site-quick-view-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,59 @@
+.dashboard-widget-card {
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-border-light);
+  border-radius: var(--tnxt-radius-lg);
+  padding: var(--tnxt-space-xl);
+  box-shadow: var(--tnxt-shadow-card);
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-widget-header {
+  margin-bottom: var(--tnxt-space-lg);
+}
+
+.dashboard-widget-header h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tnxt-text);
+}
+
+.dashboard-widget-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.dashboard-widget-body > * {
+  flex: initial;
+}
+
+.upcoming-visits-full-width .dashboard-widget-body > .upcoming-visits-table {
+  align-self: stretch;
+  flex: 1 1 auto;
+  min-height: 28.75rem;
+  min-width: 0;
+}
+
+.settings-active-sessions-card .dashboard-widget-body > * {
+  flex: 0 0 auto;
+}
+
+.settings-active-sessions-card .dashboard-widget-body > .active-sessions-table-wrap {
+  flex: 1 1 auto;
+  min-height: 2rem;
+}
+
+@media screen and (max-width: 640px) {
+  .dashboard-widget-card {
+    padding: var(--tnxt-space-lg);
+  }
+
+  .dashboard-widget-body {
+    min-height: 8.75rem;
+  }
+}

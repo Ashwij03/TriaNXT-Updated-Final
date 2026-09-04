@@ -1,0 +1,21 @@
+/* ===== START F3 CHANGES ===== */
+
+.study-files-search {
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+.study-files-search label {
+  display: block;
+  margin-bottom: var(--tnxt-space-sm);
+}
+
+.study-files-search input {
+  width: 100%;
+  max-width: 21.875rem;
+  padding: var(--tnxt-space-sm) var(--tnxt-space-md);
+  border: 1px solid #d1d5db;
+  border-radius: var(--tnxt-radius-sm);
+  font-size: var(--tnxt-font-size-base);
+}
+
+/* ===== END F3 CHANGES ===== */

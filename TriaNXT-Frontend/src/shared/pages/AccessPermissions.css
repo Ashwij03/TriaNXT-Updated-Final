@@ -1,0 +1,351 @@
+/* ======================================================
+   Access Permissions Page
+====================================================== */
+
+.access-permissions-tabs {
+  display: flex;
+  gap: var(--tnxt-space-md);
+  margin: var(--tnxt-space-xl) 0;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: var(--tnxt-space-sm);
+}
+
+.access-tab {
+  border: none;
+  background: transparent;
+  padding: 0.625rem var(--tnxt-space-lg);
+  border-radius: var(--tnxt-space-sm);
+  cursor: pointer;
+  font-weight: 600;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+}
+
+.access-tab.active {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.access-tab-badge {
+  background: #2563eb;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.125rem var(--tnxt-space-sm);
+  font-size: var(--tnxt-space-md);
+}
+
+/* ======================================================
+   Action Buttons
+====================================================== */
+
+.access-action-link {
+  border: none;
+  background: #0ea5e9;
+  color: #ffffff;
+  padding: var(--tnxt-radius-sm) var(--tnxt-space-md);
+  border-radius: var(--tnxt-radius-sm);
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-sm);
+  margin-right: var(--tnxt-radius-sm);
+}
+
+.access-action-link:hover {
+  opacity: 0.92;
+}
+
+.access-action-link.edit {
+  background: #2563eb;
+}
+
+.access-action-link.revoke {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* ======================================================
+   Status Pills
+====================================================== */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border-radius: 999px;
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+}
+
+.status-pill.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-pill.revoked {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-pill.inactive {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+/* ======================================================
+   Edit Permission Modal
+====================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.permission-modal {
+  width: 35rem;
+  max-width: 92vw;
+  background: #ffffff;
+  border-radius: var(--tnxt-font-size-base);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.28);
+  overflow: hidden;
+  animation: permissionModalFade 0.18s ease-out;
+}
+
+@keyframes permissionModalFade {
+  from {
+    opacity: 0;
+    transform: translateY(var(--tnxt-radius-sm)) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.permission-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--tnxt-font-size-xl) 1.375rem;
+  background: #082b3d;
+  color: #ffffff;
+}
+
+.permission-modal-header h3 {
+  margin: 0;
+  font-size: var(--tnxt-font-size-xl);
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: var(--tnxt-space-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.permission-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--tnxt-font-size-base);
+  padding: 1.375rem;
+}
+
+.permission-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-radius-sm);
+  padding: var(--tnxt-space-md);
+  border: 1px solid #e2e8f0;
+  border-radius: 0.625rem;
+  background: #f8fafc;
+}
+
+.permission-field span {
+  font-size: var(--tnxt-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.permission-field strong {
+  color: #0f172a;
+  font-size: var(--tnxt-font-size-base);
+  word-break: break-word;
+}
+
+.permission-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--tnxt-space-lg) 1.375rem 1.375rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ======================================================
+   Access Level Checkboxes
+====================================================== */
+
+.access-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tnxt-radius-sm) var(--tnxt-space-md);
+  align-items: center;
+}
+
+.access-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tnxt-space-xs);
+  font-size: var(--tnxt-space-md);
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.access-checkbox-label input[type="checkbox"] {
+  width: var(--tnxt-font-size-base);
+  height: var(--tnxt-font-size-base);
+  accent-color: #2563eb;
+  cursor: pointer;
+  margin: 0;
+}
+
+.access-checkbox-label span {
+  font-size: var(--tnxt-space-md);
+  line-height: 1.2;
+}
+
+.access-full-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--tnxt-space-xs) 0.625rem;
+  border-radius: 999px;
+  font-size: var(--tnxt-space-md);
+  font-weight: 600;
+  background: #dcfce7;
+  color: #166534;
+  white-space: nowrap;
+}
+
+/* ======================================================
+   Responsive
+====================================================== */
+
+@media (max-width: 640px) {
+  .permission-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .access-permissions-tabs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* Subscription enforcement error banner (approve-signup blocks) */
+.access-permissions-error {
+  margin: 0 0 0.875rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* --- Admin scope assignment (RBAC site/study scope editor) --- */
+.user-scope-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  max-width: 280px;
+}
+.user-scope-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+}
+.user-scope-field span {
+  min-width: 46px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.user-scope-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #0f172a;
+  background: #fff;
+}
+.user-scope-field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+.user-scope-editor .permission-save-btn {
+  margin-top: 2px;
+  padding: 3px 10px;
+  border: 1px solid #2563eb;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.user-scope-editor .permission-save-btn:hover {
+  background: #1d4ed8;
+}
+.user-scope-editor .permission-save-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+.scope-sync-note {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.68rem;
+  color: #b45309;
+  max-width: 230px;
+  line-height: 1.3;
+}
+.scope-sync-note--ok {
+  color: #15803d;
+}
+.scope-wildcard-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #15803d;
+}
+.scope-empty {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}

@@ -1,0 +1,127 @@
+.pst-page{
+    padding:var(--tnxt-space-2xl) var(--tnxt-space-2xl) 0;
+}
+
+.pst-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:var(--tnxt-space-xl);
+}
+
+.pst-header h2{
+    margin:0;
+    color:#082b3d;
+}
+
+.pst-upload-btn{
+    background:#0d6efd;
+    color:#fff;
+    border:none;
+    padding:0.625rem var(--tnxt-font-size-xl);
+    border-radius:var(--tnxt-radius-sm);
+    cursor:pointer;
+}
+
+.pst-toolbar{
+    margin-bottom:var(--tnxt-space-xl);
+}
+
+.pst-toolbar input{
+    width:18.75rem;
+    padding:0.625rem;
+    border:1px solid #ccc;
+    border-radius:var(--tnxt-radius-sm);
+}
+
+.pst-table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+}
+
+.pst-table th{
+    background:#082b3d;
+    color:#fff;
+    padding:var(--tnxt-space-md);
+    text-align:left;
+}
+
+.pst-table td{
+    padding:var(--tnxt-space-md);
+    border-bottom:1px solid #e5e5e5;
+}
+
+.pst-page .status-badge{
+    padding:0.3125rem 0.625rem;
+    border-radius:var(--tnxt-font-size-base);
+    color:#fff;
+    font-size:var(--tnxt-font-size-sm);
+}
+
+.pst-page .status-badge.approved{
+    background:#28a745;
+}
+
+.pst-page .status-badge.draft{
+    background:#ff9800;
+}
+
+.pst-page .status-badge.pending{
+    background:#dc3545;
+}
+
+.action-btn{
+    margin-right:var(--tnxt-space-sm);
+    padding:var(--tnxt-radius-sm) var(--tnxt-space-md);
+    border:none;
+    border-radius:0.3125rem;
+    background:#0d6efd;
+    color:#fff;
+    cursor:pointer;
+}
+
+.action-btn:hover{
+    opacity:.9;
+}
+.pst-sections{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.625rem;
+    margin:var(--tnxt-space-xl) 0;
+}
+
+.pst-section{
+    display:flex;
+    align-items:center;
+    gap:0.625rem;
+    padding:0.625rem var(--tnxt-space-lg);
+    border:1px solid #ddd;
+    border-radius:var(--tnxt-space-sm);
+    background:#fff;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.pst-section:hover{
+    background:#f5f7fb;
+}
+
+.pst-section.active{
+    background:#1976d2;
+    color:#fff;
+    border-color:#1976d2;
+}
+
+.pst-section .count{
+    background:#eee;
+    color:#333;
+    padding:0.125rem var(--tnxt-space-sm);
+    border-radius:var(--tnxt-space-xl);
+    font-size:var(--tnxt-space-md);
+}
+
+.pst-section.active .count{
+    background:white;
+    color:#1976d2;
+}

@@ -1,0 +1,772 @@
+/* NEW FILE — Dynamic Subscription & Plan Catalog System.
+   Page-specific rules for MyLicense.js / SubscriptionManagement.js /
+   SubscriptionUsagePanel.js, layered on top of the shared AdminPage.css
+   (admin-page / admin-page-title / page-section-highlight conventions) and
+   the DashboardCard / KPICard / DataTable component styles. Reuses the
+   existing --tnxt-* design tokens — no new variables introduced. */
+
+/* ------------------------------------------------------------------ */
+/* Subscription status badge (MyLicense + SubscriptionManagement)      */
+/* ------------------------------------------------------------------ */
+
+.subscription-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.subscription-status-badge--active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.subscription-status-badge--suspended {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.subscription-status-badge--expired {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared usage KPI row (SubscriptionUsagePanel)                       */
+/* ------------------------------------------------------------------ */
+
+.subscription-usage-kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tnxt-space-md, 0.875rem);
+  width: 100%;
+}
+
+.subscription-usage-kpi-row .enterprise-kpi {
+  flex: 1 1 13.75rem;
+  min-width: 12.5rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* My License page                                                     */
+/* ------------------------------------------------------------------ */
+
+.license-plan-card .dashboard-widget-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-lg, 1rem);
+}
+
+.license-plan-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-md, 0.875rem);
+  flex-wrap: wrap;
+}
+
+.license-plan-name {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--tnxt-text, #0f172a);
+  margin: 0;
+}
+
+.license-plan-price {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+  font-weight: 600;
+}
+
+.license-plan-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
+  gap: var(--tnxt-space-md, 0.875rem);
+  padding-top: var(--tnxt-space-md, 0.875rem);
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+.license-plan-meta-item span {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tnxt-text-muted, #9ca3af);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.license-plan-meta-item strong {
+  font-size: 0.9375rem;
+  color: var(--tnxt-text, #0f172a);
+}
+
+.license-plan-features {
+  margin: 0;
+  padding: 0 0 0 1.125rem;
+  display: grid;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.license-contact-admin-note {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+/* ------------------------------------------------------------------ */
+/* Subscription Management page (Admin)                                */
+/* ------------------------------------------------------------------ */
+
+.subscription-management-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--tnxt-space-md, 0.875rem);
+  margin-bottom: var(--tnxt-space-md, 0.875rem);
+}
+
+.subscription-add-plan-btn {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 0.5rem 1.125rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.subscription-add-plan-btn:hover {
+  background: #1d4ed8;
+}
+
+.subscription-plan-default-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.plan-edit-btn,
+.plan-delete-btn {
+  border: none;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.plan-edit-btn {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.plan-edit-btn:hover {
+  background: #dbeafe;
+}
+
+.plan-delete-btn {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.plan-delete-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.subscription-active-card .dashboard-widget-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-lg, 1rem);
+}
+
+.subscription-active-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-md, 0.875rem);
+  flex-wrap: wrap;
+}
+
+.subscription-active-plan-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--tnxt-text, #0f172a);
+  margin-right: 0.625rem;
+}
+
+.subscription-edit-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1.125rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.subscription-edit-btn:hover {
+  background: #1d4ed8;
+}
+
+.subscription-assign-row {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md, 0.875rem);
+  flex-wrap: wrap;
+}
+
+.subscription-assign-row label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.subscription-assign-row select {
+  flex: 0 1 18.75rem;
+  min-width: 12.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  background: #ffffff;
+}
+
+.subscription-assign-row select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.subscription-assign-btn {
+  border: 1px solid #2563eb;
+  background: #ffffff;
+  color: #2563eb;
+  padding: 0.4375rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.subscription-assign-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.subscription-assign-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--tnxt-text-muted, #9ca3af);
+}
+
+.subscription-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
+  gap: var(--tnxt-space-md, 0.875rem);
+  padding-top: var(--tnxt-space-md, 0.875rem);
+  border-top: 1px solid var(--tnxt-border-light, #f0f0f0);
+}
+
+.subscription-meta-grid-item span {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tnxt-text-muted, #9ca3af);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.subscription-meta-grid-item strong {
+  font-size: 0.9375rem;
+  color: var(--tnxt-text, #0f172a);
+}
+
+.subscription-management-banner {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.subscription-management-banner--error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.subscription-management-banner--success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+/* Plan form modal — reuses .subscription-modal-* classes from
+   Sponsor/styles/SubscriptionEditModal.css; only page-specific extras here. */
+.plan-form-features textarea {
+  width: 100%;
+  min-height: 6.25rem;
+  resize: vertical;
+}
+
+/* ------------------------------------------------------------------ */
+/* Loading / retry / banner extras                                     */
+/* ------------------------------------------------------------------ */
+
+.subscription-loading-state {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 0;
+  color: var(--tnxt-text-secondary, #6b7280);
+  font-size: 0.875rem;
+}
+
+.subscription-loading-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--tnxt-border-light, #e5e7eb);
+  border-top-color: var(--tnxt-primary, #2563eb);
+  border-radius: 50%;
+  animation: subscription-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes subscription-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.subscription-management-banner--info {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.subscription-retry-btn,
+.license-load-error button {
+  margin-left: 0.5rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------------ */
+/* My License CTA + guard reasons                                      */
+/* ------------------------------------------------------------------ */
+
+.license-plan-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md, 0.875rem);
+  flex-wrap: wrap;
+}
+
+.license-cta-btn {
+  border: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 0.5625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.license-cta-btn:hover {
+  background: #1d4ed8;
+}
+
+.license-guard-reasons {
+  margin: 0.625rem 0 0;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.license-guard-reasons-title {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.license-guard-reasons ul {
+  margin: 0.375rem 0 0;
+  padding-left: 1.125rem;
+}
+
+.license-guard-reasons li {
+  font-size: 0.8125rem;
+  color: #92400e;
+  margin: 0.25rem 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Subscription Management header actions                              */
+/* ------------------------------------------------------------------ */
+
+.subscription-active-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-md, 0.875rem);
+  flex-wrap: wrap;
+}
+
+.subscription-upgrade-btn {
+  border: 1px solid #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 0.5rem 1.125rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.subscription-upgrade-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+/* ------------------------------------------------------------------ */
+/* Plan picker (PlanPickerModal)                                       */
+/* ------------------------------------------------------------------ */
+
+.plan-picker-overlay {
+  z-index: 60;
+}
+
+.plan-picker-modal {
+  max-width: 60rem;
+  width: min(92vw, 60rem);
+}
+
+.plan-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tnxt-space-md, 0.875rem);
+}
+
+.plan-picker-close-btn {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--tnxt-text-muted, #9ca3af);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.plan-picker-close-btn:hover {
+  color: var(--tnxt-text, #0f172a);
+}
+
+.plan-picker-intro {
+  margin: 0 0 0.875rem;
+  font-size: 0.8125rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.plan-picker-error {
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  margin-bottom: 0.875rem;
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.plan-picker-empty {
+  padding: 2rem 0;
+  text-align: center;
+  color: var(--tnxt-text-muted, #9ca3af);
+  font-size: 0.875rem;
+}
+
+.plan-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: var(--tnxt-space-md, 0.875rem);
+}
+
+.plan-picker-card {
+  border: 1px solid var(--tnxt-border-light, #e5e7eb);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.plan-picker-card:hover {
+  border-color: #bfdbfe;
+}
+
+.plan-picker-card--current {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.plan-picker-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.plan-picker-card-head h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--tnxt-text, #0f172a);
+}
+
+.plan-picker-current-badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.plan-picker-price {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--tnxt-primary, #2563eb);
+}
+
+.plan-picker-features {
+  margin: 0;
+  padding-left: 1.125rem;
+  font-size: 0.8125rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+  display: grid;
+  gap: 0.25rem;
+}
+
+.plan-picker-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.plan-picker-btn {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.plan-picker-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.plan-picker-btn--primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.plan-picker-btn--primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.plan-picker-btn--secondary {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.plan-picker-btn--secondary:hover:not(:disabled) {
+  background: #dbeafe;
+}
+
+.plan-picker-footer {
+  justify-content: flex-end;
+}
+
+.plan-picker-confirm {
+  max-width: 28rem;
+  width: min(92vw, 28rem);
+}
+
+.plan-picker-confirm-text {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+/* ------------------------------------------------------------------ */
+/* Payment modal (PaymentModal)                                        */
+/* ------------------------------------------------------------------ */
+
+.payment-modal-overlay {
+  z-index: 70;
+}
+
+.payment-modal {
+  max-width: 30rem;
+  width: min(92vw, 30rem);
+}
+
+.payment-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-md, 0.875rem);
+}
+
+.payment-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.375rem 0.875rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.5rem;
+  background: var(--tnxt-bg-subtle, #f8fafc);
+  border: 1px solid var(--tnxt-border-light, #e5e7eb);
+  font-size: 0.875rem;
+}
+
+.payment-summary span {
+  color: var(--tnxt-text-muted, #9ca3af);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.payment-summary strong {
+  color: var(--tnxt-text, #0f172a);
+}
+
+.payment-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.payment-phase p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--tnxt-text-secondary, #6b7280);
+}
+
+.payment-phase--busy {
+  flex-direction: row;
+  align-items: center;
+}
+
+.payment-spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--tnxt-border-light, #e5e7eb);
+  border-top-color: var(--tnxt-primary, #2563eb);
+  border-radius: 50%;
+  animation: subscription-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.payment-phase--error p {
+  color: #991b1b;
+}
+
+.payment-phase--info {
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.payment-phase--info p {
+  color: #1e40af;
+}
+
+.payment-phase--demo {
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  background: #fefce8;
+  border: 1px solid #fde047;
+}
+
+.payment-demo-badge {
+  display: inline-block;
+  padding: 0.1875rem 0.625rem;
+  border-radius: 999px;
+  background: #fef08a;
+  color: #713f12;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+
+.payment-demo-pay-btn {
+  align-self: flex-start;
+}
+
+.payment-modal-footer {
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--tnxt-space-md, 0.875rem);
+}
+
+.payment-secure-note {
+  margin: 0;
+  font-size: 0.6875rem;
+  color: var(--tnxt-text-muted, #9ca3af);
+  text-align: right;
+}

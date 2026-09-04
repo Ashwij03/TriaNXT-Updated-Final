@@ -1,0 +1,208 @@
+/* ============================= */
+/* BASIC LAYOUT */
+/* ============================= */
+
+.subjects-wrapper {
+  font-family: Arial, sans-serif;
+}
+
+/* ============================= */
+/* LEGEND */
+/* ============================= */
+
+.legend-row {
+  display: flex;
+  gap: var(--tnxt-space-md);
+  margin-bottom: 0.625rem;
+  font-size: var(--tnxt-space-md);
+}
+
+.lg {
+  padding: 0.1875rem var(--tnxt-space-sm);
+  border-radius: 0.625rem;
+  color: #fff;
+}
+
+.scheduled { background: #9ca3af; }
+.partial   { background: #eab308; }
+.fail      { background: #dc2626; }
+.completed { background: #65a30d; }
+.paused    { background: #6b7280; }
+.progress  { background: #2563eb; }
+.cancelled { background: #7c2d12; }
+
+/* ============================= */
+/* TABLE + SCROLL */
+/* ============================= */
+
+.timeline-scroll {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+}
+
+.timeline-table {
+  border-collapse: collapse;
+  min-width: 1rem;
+  width: 100%;
+}
+
+/* IMPORTANT: let tooltips escape table */
+.timeline-table tr,
+.timeline-table td {
+  overflow: visible;
+}
+
+/* Reset any cell backgrounds */
+.timeline-table th,
+.timeline-table td {
+  background-color: transparent;
+}
+
+/* ============================= */
+/* HEADERS */
+/* ============================= */
+
+.timeline-table th {
+  border-bottom: 1px dashed #ccc;
+  font-size: var(--tnxt-space-md);
+  text-align: center;
+}
+
+.group-header th {
+  height: 2.5rem;
+  font-weight: 600;
+}
+
+.column-header th {
+  height: 8.75rem;
+  vertical-align: bottom;
+}
+
+/* Vertical header text */
+.column-header span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* ============================= */
+/* SUBJECT / STATUS */
+/* ============================= */
+
+.subject-col {
+  min-width: 7.5rem;
+  font-weight: 600;
+}
+
+.status-col {
+  min-width: 7.5rem;
+}
+
+.status-text {
+  font-size: var(--tnxt-space-md);
+}
+
+.fail-text { color: #dc2626; }
+.progress-text { color: #2563eb; }
+
+/* ============================= */
+/* BODY CELLS */
+/* ============================= */
+
+.timeline-table td {
+  height: 2.75rem;
+  text-align: center;
+  border-bottom: 1px dashed #e0e0e0;
+}
+
+/* Icons only – NO background here */
+.cell {
+  font-size: var(--tnxt-font-size-base);
+}
+
+.cell.completed { color: #4d7c0f; }
+.cell.partial   { color: #ca8a04; }
+.cell.fail      { color: #dc2626; }
+.cell.empty     { color: transparent; }
+
+/* ============================= */
+/* COLUMN COLORS (COLGROUP) */
+/* ============================= */
+
+col.col-subject   { background-color: #fafafa; }
+col.col-status    { background-color: #fafafa; }
+
+col.col-prescreen { background-color: #ebe7f6; } /* purple */
+col.col-screening { background-color: #f6f3c4; } /* yellow */
+col.col-day       { background-color: #f7e7d9; } /* orange */
+col.col-month     { background-color: #e9eff9; } /* blue */
+
+/* ============================= */
+/* VISIT TOOLTIP */
+/* ============================= */
+
+.visit-cell {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Tooltip box */
+.visit-tooltip {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -115%);
+  width: 16.25rem;
+
+  background: #ffffff;
+  border-radius: var(--tnxt-space-sm);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  padding: var(--tnxt-space-md);
+
+  font-size: var(--tnxt-space-md);
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Tooltip arrow */
+.visit-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: var(--tnxt-space-sm);
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+/* Show on hover */
+.visit-cell:hover .visit-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Tooltip text */
+.tooltip-title {
+  font-weight: 600;
+  margin-bottom: var(--tnxt-radius-sm);
+}
+
+.tooltip-date {
+  color: #444;
+  margin-bottom: 0.625rem;
+}
+
+.tooltip-link {
+  color: #2563eb;
+  font-weight: 500;
+  cursor: pointer;
+}

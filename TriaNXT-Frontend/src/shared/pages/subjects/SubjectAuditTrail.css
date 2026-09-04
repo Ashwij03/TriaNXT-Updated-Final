@@ -1,0 +1,60 @@
+/* newly added */
+
+.subject-tab-card {
+  background: #fff;
+  border-radius: var(--tnxt-space-lg);
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,.08);
+}
+
+.audit-header {
+  margin-bottom: var(--tnxt-space-2xl);
+}
+
+.audit-header h2 {
+  font-size: 2.125rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.subject-tab-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.subject-tab-card thead {
+  background: #042c40;
+}
+
+.subject-tab-card th {
+  color: white;
+  padding: var(--tnxt-space-lg);
+  text-align: left;
+}
+
+.subject-tab-card td {
+  padding: var(--tnxt-space-lg);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.subject-tab-card tbody tr:hover {
+  background: #f8fafc;
+}
+
+.no-audit-data {
+  text-align: center;
+  padding: 2.5rem;
+  color: #64748b;
+}
+
+@media(max-width:768px){
+
+  .subject-tab-card{
+    overflow-x:auto;
+  }
+
+  .subject-tab-card table{
+    min-width:43.75rem;
+  }
+
+}

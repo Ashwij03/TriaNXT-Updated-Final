@@ -1,0 +1,136 @@
+@import "./shared/styles/design-system.css";
+@import "./shared/styles/ctms-global.css";
+@import "./shared/styles/ctms-tables.css";
+@import "./shared/styles/ctms-compact.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== START ITEM B: Global 100%-zoom density fix ===== */
+html {
+  /* 54% of the browser default 16px = 8.64px root.
+     At 100% browser zoom this gives the same visual density
+     the user sees at 110% zoom — matching the reference. */
+  font-size: 60%;
+}
+/* ===== END ITEM B ===== */
+
+body {
+  margin: 0;
+  font-family: var(--tnxt-font);
+  background-color: var(--tnxt-bg);
+  color: var(--tnxt-text);
+  font-size: var(--tnxt-font-size-base);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Shared edit action button */
+.btn-edit {
+  align-items: center;
+  background: var(--tnxt-card);
+  border: 1px solid var(--tnxt-primary);
+  border-radius: var(--tnxt-radius-md);
+  color: var(--tnxt-primary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--tnxt-font-size-sm);
+  font-weight: 600;
+  gap: var(--tnxt-radius-sm);
+  justify-content: center;
+  line-height: 1.2;
+  padding: 0.625rem var(--tnxt-space-lg);
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-edit:hover {
+  background: var(--tnxt-primary);
+  border-color: var(--tnxt-primary);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+  color: var(--tnxt-text-inverse);
+  transform: translateY(-1px);
+}
+
+.btn-edit svg {
+  flex-shrink: 0;
+  height: var(--tnxt-space-lg);
+  width: var(--tnxt-space-lg);
+}
+
+/* ==========================================
+   PAGE SECTION HIGHLIGHT (Task 6)
+   Reusable highlighted-header treatment
+   for page titles, toolbars, and summary
+   rows across all pages.
+========================================== */
+.page-section-highlight {
+  background: #0d6efd;
+  border: 1px solid #d6e4f5;
+  border-radius: var(--tnxt-radius-lg);
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .subject-profile-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  .navbar,
+  .study-tabs,
+  button {
+    display: none;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #000;
+    padding: var(--tnxt-space-sm);
+  }
+}

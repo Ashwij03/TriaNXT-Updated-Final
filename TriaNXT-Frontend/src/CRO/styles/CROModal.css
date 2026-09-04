@@ -1,0 +1,170 @@
+.cro-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15,23,42,.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  overflow-y: auto;
+
+  padding-top: 4.375rem;     /* pushes modal below navbar */
+  padding-bottom: 1.875rem;
+
+  z-index: 99999;
+}
+
+.cro-modal {
+  width: 100%;
+  max-width: 32.5rem;
+
+  background: #fff;
+  border-radius: var(--tnxt-font-size-xl);
+
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
+
+  box-shadow: 0 25px 60px rgba(0,0,0,.25);
+
+  position: relative;
+}
+.cro-modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: var(--tnxt-font-size-xl);
+
+  width: 100%;
+  max-width: 32.5rem;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  margin: 3.75rem auto 1.875rem auto;   /* <-- important */
+}
+
+.cro-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--tnxt-space-xl) var(--tnxt-space-2xl) 0;
+}
+
+.cro-modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.cro-modal-close {
+  position: absolute;
+  top: var(--tnxt-space-xl);
+  right: var(--tnxt-space-xl);
+  font-size: var(--tnxt-space-2xl);
+  cursor: pointer;
+}
+
+.cro-modal-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.cro-modal-body {
+  padding: var(--tnxt-space-lg) var(--tnxt-space-2xl) var(--tnxt-space-2xl);
+}
+
+.cro-modal-body p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #334155;
+  white-space: pre-line;
+}
+
+.cro-modal-footer {
+  padding: 0 var(--tnxt-space-2xl) var(--tnxt-space-xl);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cro-modal-btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 0.625rem var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cro-modal-btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.cro-modal-btn-secondary {
+  background: #fff;
+  color: #334155;
+  border: 1px solid #d1d5db;
+  padding: 0.625rem var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cro-modal-btn-secondary:hover {
+  background: #f8fafc;
+}
+
+.cro-modal--large {
+  max-width: 4rem;
+}
+
+.cro-modal--form .cro-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tnxt-space-md);
+}
+
+.cro-modal--form .cro-input {
+  width: 100%;
+  padding: 0.625rem var(--tnxt-space-md);
+  border: 1px solid #d1d5db;
+  border-radius: var(--tnxt-space-sm);
+  font-size: 0.9375rem;
+  box-sizing: border-box;
+}
+
+.cro-modal--form .cro-modal-footer {
+  gap: 0.625rem;
+}
+
+.cro-btn {
+  padding: 0.625rem var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cro-btn-primary {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+}
+
+.cro-btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.cro-btn-secondary {
+  background: #fff;
+  color: #334155;
+  border: 1px solid #d1d5db;
+}
+
+.cro-btn-secondary:hover {
+  background: #f8fafc;
+}

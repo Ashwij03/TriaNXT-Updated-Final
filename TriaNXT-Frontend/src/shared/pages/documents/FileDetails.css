@@ -1,0 +1,192 @@
+.file-details-page {
+  padding: var(--tnxt-space-xl);
+  position: relative;
+}
+
+/* CARD */
+.file-card {
+  background: white;
+  padding: var(--tnxt-space-xl);
+  border-radius: var(--tnxt-space-sm);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.file-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.625rem;
+}
+
+.file-actions {
+  position: absolute;
+  right: var(--tnxt-space-xl);
+  top: var(--tnxt-space-xl);
+}
+
+.link {
+  margin-right: 0.9375rem;
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* A BUTTON */
+.annotation-btn {
+  display: inline-block;
+  background: #2f4f6f;
+  color: white;
+  padding: var(--tnxt-radius-sm) 0.625rem;
+  border-radius: var(--tnxt-space-xs);
+  cursor: pointer;
+}
+
+/* SIDEBAR */
+.annotation-sidebar {
+  position: absolute;
+  right: 0;
+  top: 7.5rem;
+  width: 18.75rem;
+  background: #3e5c76;
+  color: white;
+  padding: 0.9375rem;
+  border-radius: var(--tnxt-space-sm);
+}
+
+/* HEADER */
+.annotation-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.625rem;
+}
+
+/* ITEM */
+.annotation-item {
+  display: flex;
+  align-items: center;
+  background: #4f6d8a;
+  padding: 0.625rem;
+  border-radius: var(--tnxt-space-sm);
+  margin-bottom: 0.625rem;
+}
+
+.circle {
+  background: #5aa9e6;
+  color: white;
+  border-radius: 50%;
+  width: 1.5625rem;
+  height: 1.5625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.625rem;
+}
+
+.time {
+  margin-left: auto;
+  font-size: var(--tnxt-space-md);
+}
+/* ===== ANNOTATION STYLES ===== */
+/* ===== FIXED ANNOTATION ===== */
+/* ===== TABLE FIX ===== */
+.report-table {
+  width: 70%;
+  margin-top: var(--tnxt-space-xl);
+  border-collapse: collapse;
+}
+
+.report-table th {
+  text-align: left;
+  padding: 0.625rem;
+  font-weight: bold;
+}
+
+.report-table td {
+  padding: 0.9375rem 0.625rem;
+  position: relative;
+}
+
+/* ===== VALUE ===== */
+.value {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== DOT ===== */
+.annotation-dot {
+  position: absolute;
+  top: 0.3125rem;
+  left: 2.1875rem;
+  background: #3aa0ff;
+  color: white;
+  border-radius: 50%;
+  width: 1.375rem;
+  height: 1.375rem;
+  font-size: var(--tnxt-space-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== TOOLTIP ===== */
+.annotation-tooltip {
+  position: absolute;
+  top: -2.8125rem;
+  left: 3.75rem;
+  background: white;
+  border: 1px solid #ccc;
+  padding: var(--tnxt-radius-sm) var(--tnxt-space-md);
+  border-radius: 0.625rem;
+  font-size: var(--tnxt-space-md);
+  display: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ARROW */
+.annotation-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -var(--tnxt-radius-sm);
+  left: 0.9375rem;
+  border-width: var(--tnxt-radius-sm);
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* SHOW ON HOVER */
+.cell-with-annotation:hover .annotation-tooltip {
+  display: block;
+}
+.file-card {
+  position: relative;
+  background: #fff;
+  padding: var(--tnxt-space-xl);
+  border-radius: 0.625rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 🔥 TOP RIGHT POSITION */
+.file-actions {
+  position: absolute;
+  top: var(--tnxt-space-xl);
+  right: var(--tnxt-space-xl);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+/* LINKS STYLE */
+.action-link {
+  color: #1a73e8;
+  cursor: pointer;
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 500;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+/* DIVIDER */
+.divider {
+  color: #999;
+}

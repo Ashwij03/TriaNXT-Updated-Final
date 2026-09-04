@@ -1,0 +1,354 @@
+.subscription-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(0.3125rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 1.875rem;
+}
+
+.subscription-modal {
+  width: 47.5rem;
+  max-width: 96%;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: var(--tnxt-space-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0,0,0,.20);
+}
+
+.subscription-modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+}
+
+.subscription-modal-close{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:2.25rem;
+    height:2.25rem;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+
+
+.subscription-modal-body {
+  padding: 1.75rem 1.875rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.subscription-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 1.375rem;
+}
+
+.subscription-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.subscription-form-group-wide {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--tnxt-font-size-xl);
+}
+
+.subscription-form-fiel.subscription-form-group label{
+    font-size:0.9375rem;
+    font-weight:600;
+    color:#334155;
+}
+
+.subscription-form-group input,
+.subscription-form-group select,
+.subscription-form-group textarea{
+    width:100%;
+    padding:0.625rem var(--tnxt-space-md);
+    border:1px solid #d1d5db;
+    border-radius:var(--tnxt-space-sm);
+    font-size:var(--tnxt-font-size-base);
+    background:#fff;
+    transition:0.2s;
+    box-sizing:border-box;
+}
+
+.subscription-form-group-wide textarea {
+  flex: 1;
+  min-height: 7.5rem;
+}
+
+.subscription-form-group input:focus,
+.subscription-form-group select:focus,
+.subscription-form-group textarea:focus{
+    border-color:#2563eb;
+    outline:none;
+    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+}
+
+.subscription-field-error {
+
+  margin-top: var(--tnxt-radius-sm);
+
+  color: #dc2626;
+
+  font-size: var(--tnxt-space-md);
+}
+
+/* Toggle */
+
+.subscription-toggle-field {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--tnxt-font-size-xl);
+  margin-top: 1.75rem;
+}
+
+.subscription-toggle-field label {
+  font-size: var(--tnxt-space-lg);
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.subscription-toggle input {
+  width: 1.375rem;
+  height: 1.375rem;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+.subscription-toggle-slider {
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 1.875rem;
+
+  background: #cbd5e1;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.subscription-toggle-slider::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: var(--tnxt-space-xl);
+
+  height: var(--tnxt-space-xl);
+
+  left: 0.1875rem;
+
+  bottom: 0.1875rem;
+
+  border-radius: 50%;
+
+  background: white;
+
+  transition: .3s;
+}
+
+.subscription-toggle input:checked + .subscription-toggle-slider {
+
+  background: #2563eb;
+}
+
+.subscription-toggle input:checked + .subscription-toggle-slider::before {
+
+  transform: translateX(1.375rem);
+}
+
+/* Footer */
+
+.subscription-modal-footer {
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 0.9375rem;
+
+  padding: 1.375rem 1.875rem;
+
+  border-top: 1px solid #e5e7eb;
+
+  background: white;
+
+  position: sticky;
+
+  bottom: 0;
+
+  z-index: 2;
+}
+
+/* Buttons */
+
+.subscription-btn-primary{
+
+background:linear-gradient(135deg,#2563eb,#4f46e5);
+
+padding:var(--tnxt-font-size-sm) var(--tnxt-space-3xl);
+
+border-radius:var(--tnxt-space-md);
+
+font-size:0.9375rem;
+
+font-weight:700;
+}
+
+.subscription-btn-secondary{
+
+background:#f1f5f9;
+
+border:1px solid #dbe4f0;
+
+padding:var(--tnxt-font-size-sm) 1.75rem;
+
+border-radius:var(--tnxt-space-md);
+
+font-size:0.9375rem;
+
+font-weight:700;
+}
+
+.subscription-btn-primary:hover {
+
+  transform: translateY(-0.125rem);
+
+  box-shadow: 0 16px 35px rgba(37,99,235,.35);
+}
+
+.subscription-btn-primary:disabled {
+
+  opacity: .6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/* Responsive */
+
+@media (max-width:768px){
+
+.subscription-modal{
+
+width:100%;
+
+max-height:95vh;
+
+border-radius:var(--tnxt-space-lg);
+}
+
+.subscription-modal-header{
+
+padding:var(--tnxt-font-size-xl) var(--tnxt-space-xl);
+}
+
+.subscription-modal-body{
+    background:#fafcff;
+}
+
+.subscription-form-grid{
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:var(--tnxt-space-lg);
+    padding:var(--tnxt-space-2xl);
+    gap:var(--tnxt-space-2xl);
+}
+
+.subscription-form-field-wide{
+
+grid-column:auto;
+}
+
+.subscription-modal-footer{
+
+flex-direction:column;
+}
+
+.subscription-btn-primary,
+.subscription-btn-secondary{
+
+width:100%;
+}
+}
+.subscription-form-group-wide{
+    grid-column:1/-1;
+}
+
+.subscription-form-group-wide textarea{
+    width:100%;
+    min-height:5.625rem;
+    resize:vertical;
+}
+
+.subscription-form-group-checkbox{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    margin-top:1.75rem;
+     margin-left:-12.5rem;
+}
+
+.checkbox-label{
+    display:flex;
+    align-items:center;
+    gap:var(--tnxt-space-sm);
+    font-weight:500;
+    cursor:pointer;
+}
+
+.checkbox-label input{
+    width:var(--tnxt-font-size-xl);
+    height:var(--tnxt-font-size-xl);
+}
+
+.subscription-btn-save{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:0.625rem var(--tnxt-font-size-xl);
+    border-radius:var(--tnxt-space-sm);
+    cursor:pointer;
+    font-weight:600;
+}
+
+.subscription-btn-save:hover{
+    background:#1d4ed8;
+}
+
+.subscription-btn-cancel{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:0.625rem var(--tnxt-font-size-xl);
+    border-radius:var(--tnxt-space-sm);
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+
+.subscription-btn-cancel:hover{
+    background:#1d4ed8;
+}

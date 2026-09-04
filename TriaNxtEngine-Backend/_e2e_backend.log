@@ -1,0 +1,37 @@
+DEBUG Using proactor: IocpProactor
+INFO Tria Engine (FastAPI) starting — env=development
+INFO Database connection OK
+INFO 127.0.0.1:56179 - "GET /api/health/ready/ HTTP/1.1" 200
+INFO 127.0.0.1:56180 - "GET /api/health/ready/ HTTP/1.1" 200
+INFO 127.0.0.1:56182 - "POST /api/accounts/register/ HTTP/1.1" 400
+INFO {'event': 'user_registered', 'status': 'success', 'user_id': 10, 'user_email': 'e2esmoke1@example.com', 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/register/', 'method': 'POST', 'details': {}}
+INFO 127.0.0.1:56183 - "POST /api/accounts/register/ HTTP/1.1" 201
+INFO 127.0.0.1:56184 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:56185 - "GET /api/accounts/check-session/ HTTP/1.1" 400
+INFO 127.0.0.1:56186 - "GET /api/accounts/documents/ HTTP/1.1" 200
+INFO 127.0.0.1:56189 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:56190 - "GET /api/accounts/check-session/?username=e2esmoke1 HTTP/1.1" 200
+INFO 127.0.0.1:56192 - "GET /api/accounts/documents/ HTTP/1.1" 200
+INFO 127.0.0.1:56193 - "GET /api/accounts/documents/download/?document_number= HTTP/1.1" 400
+INFO 127.0.0.1:56194 - "GET /api/accounts/audit-logs/?page=1 HTTP/1.1" 200
+INFO 127.0.0.1:56195 - "DELETE /api/accounts/documents/delete/?user_id=10&document_number= HTTP/1.1" 400
+INFO 127.0.0.1:56196 - "POST /api/accounts/logout/ HTTP/1.1" 200
+INFO 127.0.0.1:56198 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO {'event': 'document_uploaded', 'status': 'success', 'user_id': 10, 'user_email': 'e2esmoke1@example.com', 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/documents/upload/', 'method': 'POST', 'details': {'user_id': 10, 'document_number': 1, 'file_name': '_e2e_doc.txt'}}
+INFO 127.0.0.1:56199 - "POST /api/accounts/documents/upload/ HTTP/1.1" 201
+INFO 127.0.0.1:56200 - "GET /api/accounts/documents/ HTTP/1.1" 200
+INFO 127.0.0.1:56202 - "GET /api/accounts/documents/download/?document_number=1 HTTP/1.1" 200
+INFO 127.0.0.1:56203 - "GET /api/accounts/audit-logs/?page=1 HTTP/1.1" 200
+INFO {'event': 'document_deleted', 'status': 'success', 'user_id': 10, 'user_email': 'e2esmoke1@example.com', 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/documents/delete/', 'method': 'DELETE', 'details': {'user_id': 10, 'document_number': 1, 'file_name': '_e2e_doc.txt'}}
+INFO 127.0.0.1:56204 - "DELETE /api/accounts/documents/delete/?user_id=10&document_number=1 HTTP/1.1" 200
+INFO 127.0.0.1:56228 - "GET /api/health/ready/ HTTP/1.1" 200
+INFO 127.0.0.1:56229 - "OPTIONS /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:56228 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:56228 - "GET /api/accounts/check-session/?username=e2esmoke1 HTTP/1.1" 200
+INFO {'event': 'document_uploaded', 'status': 'success', 'user_id': 10, 'user_email': 'e2esmoke1@example.com', 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/documents/upload/', 'method': 'POST', 'details': {'user_id': 10, 'document_number': 1, 'file_name': 'browser-e2e.txt'}}
+INFO 127.0.0.1:56228 - "POST /api/accounts/documents/upload/ HTTP/1.1" 201
+INFO 127.0.0.1:56228 - "GET /api/accounts/documents/ HTTP/1.1" 200
+INFO 127.0.0.1:56229 - "OPTIONS /api/accounts/documents/delete/?user_id=10&document_number=1 HTTP/1.1" 200
+INFO {'event': 'document_deleted', 'status': 'success', 'user_id': 10, 'user_email': 'e2esmoke1@example.com', 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/documents/delete/', 'method': 'DELETE', 'details': {'user_id': 10, 'document_number': 1, 'file_name': 'browser-e2e.txt'}}
+INFO 127.0.0.1:56228 - "DELETE /api/accounts/documents/delete/?user_id=10&document_number=1 HTTP/1.1" 200
+INFO 127.0.0.1:56276 - "GET /api/health/ HTTP/1.1" 200

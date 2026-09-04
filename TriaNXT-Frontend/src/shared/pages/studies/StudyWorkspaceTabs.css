@@ -1,0 +1,70 @@
+.workspace-header {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-xl);
+  margin: 1.5625rem 0;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--tnxt-space-sm);
+
+  border: none;
+  background: #0b3558;
+  color: white;
+
+  padding: var(--tnxt-space-md) var(--tnxt-font-size-xl);
+
+  border-radius: 0.625rem;
+
+  cursor: pointer;
+
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #0f4a78;
+  transform: translateY(-0.125rem);
+}
+
+.workspace-tabs {
+  display: flex;
+  gap: var(--tnxt-font-size-base);
+  flex-wrap: wrap;
+}
+
+.workspace-tab {
+  border: none;
+
+  padding: var(--tnxt-space-md) var(--tnxt-space-2xl);
+
+  background: white;
+
+  border-radius: var(--tnxt-space-md);
+
+  font-size: 0.9375rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  box-shadow:
+    0 0.125rem var(--tnxt-space-sm) rgba(0,0,0,0.08);
+}
+
+.workspace-tab:hover {
+  transform: translateY(-0.125rem);
+
+  box-shadow:
+    0 var(--tnxt-radius-sm) var(--tnxt-space-xl) rgba(0,0,0,0.12);
+}
+
+.workspace-tab.active {
+  background: #0b3558;
+  color: white;
+}

@@ -1,0 +1,315 @@
+/* ==========================================
+   SUBJECT VISITS
+========================================== */
+
+.subject-tab-card {
+  background: #ffffff;
+  border-radius: var(--tnxt-font-size-xl);
+  padding: var(--tnxt-space-3xl);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-top: var(--tnxt-space-xl);
+}
+
+.visits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.visits-header h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+/* ==========================================
+   ADD VISIT BUTTON
+========================================== */
+
+.add-visit-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: var(--tnxt-space-md);
+  padding: var(--tnxt-font-size-base) var(--tnxt-space-2xl);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.add-visit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-0.125rem);
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.subject-tab-card table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--tnxt-font-size-base);
+  overflow: hidden;
+}
+
+.subject-tab-card thead {
+  background: #042c40;
+}
+
+.subject-tab-card th {
+  color: white;
+  padding: var(--tnxt-font-size-xl);
+  text-align: left;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.subject-tab-card td {
+  padding: var(--tnxt-font-size-xl);
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+.subject-tab-card tbody tr {
+  transition: all 0.2s ease;
+}
+
+.subject-tab-card tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.visit-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.view-visit-btn,
+.edit-visit-btn,
+.delete-visit-btn {
+  min-width: 5.625rem;
+  height: 2.5rem;
+  border: none;
+  border-radius: var(--tnxt-space-sm);
+  font-size: var(--tnxt-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* View */
+
+.view-visit-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.view-visit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-0.125rem);
+}
+
+/* Edit */
+
+.edit-visit-btn {
+  min-height: 2.25rem;
+}
+
+/* Delete */
+
+.delete-visit-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-visit-btn:hover {
+  background: #dc2626;
+  transform: translateY(-0.125rem);
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.no-visits {
+  text-align: center;
+  padding: 2.5rem;
+  color: #64748b;
+  font-size: 0.9375rem;
+}
+
+/* ==========================================
+   MODAL OVERLAY
+========================================== */
+
+.visit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* ==========================================
+   MODAL
+========================================== */
+
+.visit-modal {
+  background: white;
+  width: 34.375rem;
+  max-width: 95%;
+  border-radius: var(--tnxt-font-size-xl);
+  padding: 1.875rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+}
+
+.visit-modal h3 {
+  font-size: var(--tnxt-space-3xl);
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.9375rem;
+}
+
+.visit-modal p {
+  color: #475569;
+  margin-bottom: var(--tnxt-space-xl);
+}
+
+/* Inputs */
+
+.visit-modal input,
+.visit-modal select,
+.visit-modal textarea {
+  width: 100%;
+  padding: var(--tnxt-font-size-base);
+  border: 1px solid #dbe2ea;
+  border-radius: 0.625rem;
+  margin-bottom: var(--tnxt-space-lg);
+  font-size: var(--tnxt-font-size-base);
+  transition: all 0.2s ease;
+}
+
+.visit-modal textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.visit-modal input:focus,
+.visit-modal select:focus,
+.visit-modal textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+
+/* ==========================================
+   MODAL ACTION BUTTONS
+========================================== */
+
+.visit-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--tnxt-space-md);
+  margin-top: 1.5625rem;
+}
+
+.visit-modal-actions button {
+  min-width: 7.5rem;
+  height: 2.875rem;
+  border: none;
+  border-radius: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+/* Cancel */
+
+.visit-cancel-btn {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.visit-cancel-btn:hover {
+  background: #cbd5e1;
+}
+
+/* Save */
+
+.visit-save-btn {
+  background: #16a34a;
+  color: white;
+}
+
+.visit-save-btn:hover {
+  background: #15803d;
+}
+
+/* Delete */
+
+.visit-delete-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.visit-delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .subject-tab-card {
+    padding: var(--tnxt-space-xl);
+  }
+
+  .visits-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9375rem;
+  }
+
+  .visits-header h2 {
+    font-size: 2.125rem;
+  }
+
+  .subject-tab-card table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .visit-modal {
+    width: 95%;
+    padding: var(--tnxt-space-2xl);
+  }
+
+  .visit-modal h3 {
+    font-size: 1.625rem;
+  }
+
+  .visit-actions {
+    flex-direction: column;
+  }
+
+  .view-visit-btn,
+  .edit-visit-btn,
+  .delete-visit-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,185 @@
+.dashboard-shell {
+  display: flex;
+  align-items: stretch;
+  height: 100vh;
+  background: var(--tnxt-bg);
+  justify-content:flex-start;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  position: relative;
+}
+
+.dashboard-shell .dashboard-main {
+  box-shadow: inset 1px 0 0 var(--tnxt-sidebar-navbar-separator);
+}
+
+.dashboard-main {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+  overflow: hidden;
+  align-items:stretch;
+  margin: 0;
+  padding: 0;
+}
+.dashboard-main-scaled {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: var(--tnxt-font-size-base);
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  overflow:visible;
+}
+
+.dashboard-content{
+    flex:1;
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    padding:0;
+    background: var(--tnxt-bg);
+
+    display:flex;
+    flex-direction:column;
+    gap:var(--tnxt-space-2xl);
+}
+
+.dashboard-header-wrap {
+  flex: 0 0 auto;
+  overflow: visible;
+  position: relative;
+  transition:
+    max-height 0.25s ease,
+    opacity 0.25s ease,
+    margin 0.25s ease,
+    padding 0.25s ease;
+  will-change: max-height;
+  z-index: 1100;
+}
+
+.dashboard-header-wrap.header-hidden {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: hidden;
+}
+
+.sidebar-backdrop {
+  background: rgba(10, 37, 64, 0.55);
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 0.2s ease;
+  z-index: 900;
+}
+
+.sidebar-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dashboard-sidebar-wrap {
+  flex-shrink: 0;
+  height: 100vh;
+  position: relative;
+  transition:
+    width 0.25s ease,
+    min-width 0.25s ease,
+    transform 0.25s ease;
+  z-index: 950;
+}
+
+@media screen and (min-width: 1025px) {
+  .dashboard-sidebar-wrap {
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .dashboard-sidebar-wrap.is-collapsed{
+    width:4.5rem;
+    flex:0 0 4.5rem;
+}
+
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar {
+    width: 4.5rem;
+    min-width: 4.5rem;
+    flex-basis: 4.5rem;
+    padding: var(--tnxt-space-sm) var(--tnxt-space-xs);
+  }
+
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .sidebar-link span,
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .sidebar-folder span,
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .sidebar-nav-badge,
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .trianxt-logo {
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    overflow: hidden;
+  }
+
+  /* The study tree/comments submenu must lose its HEIGHT too, not just its
+     width/opacity - otherwise it keeps reserving vertical space while
+     invisible, which shoves every nav item below it (Site Performance,
+     Reports, Settings, etc.) out of view. This was the "extra empty space"
+     bug when collapsing the sidebar. */
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .sidebar-submenu {
+    display: none;
+  }
+
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .sidebar-link,
+  .dashboard-sidebar-wrap.is-collapsed .enterprise-sidebar .sidebar-folder {
+    justify-content: center;
+    padding: 0.5rem var(--tnxt-space-xs);
+  }
+
+  .dashboard-sidebar-wrap.is-collapsed .sidebar-resize-handle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .dashboard-sidebar-wrap {
+    bottom: 0;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+  }
+
+  .dashboard-sidebar-wrap.is-open {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-shell {
+    flex-direction: column;
+  }
+
+  .dashboard-main {
+    height: 100vh;
+  }
+
+  .dashboard-content {
+    padding: var(--tnxt-space-md);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .dashboard-content {
+    padding: var(--tnxt-space-sm);
+  }
+}
