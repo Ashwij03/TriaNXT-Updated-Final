@@ -403,3 +403,120 @@ def test_ai_advisory_writes_and_rbac(client):
     assert client.post("/ai-review/documents/DOC-2/qc").status_code == 403
     _login(client, sponsor)
     assert client.post("/ai-review/documents/DOC-2/qc").status_code == 200
+
+
+# ===========================================================================
+# CRO role per the RBAC matrix (rbac.py PERMISSION_MATRIX)
+#
+#   safety:    create/update exclude CRO  -> read-only oversight on the
+#              Safety Center surface
+#   monitoring:create = {ADMIN, CRO, SPONSOR, PI} -> CRO may REQUEST access;
+#              update (decisions) = {ADMIN, SITE_STAFF}, delete = {ADMIN}
+#              -> approve/reject/revoke stay 403 for the requester
+# ===========================================================================
+
+
+def test_cro_readonly_on_safety_center(client):
+    """CRO can view the whole Safety Center surface but none of its writes.
+
+    Every GET (list/summary/detail) succeeds and is org-scoped; POST create,
+    PATCH update and the reconcile action all resolve to 403 with the
+    server-side role in the detail (G9), and no state changes result.
+    """
+    # Dedicated org so the CRO's list starts clean (the shared "Test Org"
+    # accumulates rows across tests in this module).
+    _org("CROOrg")
+    sponsor = _seed_user("Sponsor", "CROOrg")
+    cro = _seed_user("CRO", "CROOrg")
+
+    # Sponsor (allowed on safety) files a case the CRO will then inspect.
+    _login(client, sponsor)
+    created = _mk_case(client, study="STUDY-CRO", subject="S-CRO1")
+    assert created.status_code == 201, created.text
+    case_id = created.json()["id"]
+
+    _login(client, cro)
+    # Reads: bare-array list, {"data":...} summary, detail by id — all 200.
+    rows = client.get("/safety/ae-cases/").json()
+    assert isinstance(rows, list) and [r["id"] for r in rows] == [case_id]
+    summary = client.get("/safety/ae-cases/summary/").json()["data"]
+    assert summary["total"] == 1 and summary["open"] == 1
+    assert client.get(f"/safety/ae-cases/{case_id}/").status_code == 200
+
+    # Writes: create / update / reconcile are outside CRO's matrix set.
+    res = _mk_case(client, study="STUDY-CRO", subject="S-CRO2")
+    assert res.status_code == 403, res.text
+    body = res.json()
+    assert "Forbidden" in body["detail"] and "role=CRO" in body["detail"]
+    assert client.patch(
+        f"/safety/ae-cases/{case_id}/", json={"outcome": "Resolved"}
+    ).status_code == 403
+    assert client.post(
+        f"/safety/ae-cases/{case_id}/reconcile/", json={"pv_case_reference": "PV-77"}
+    ).status_code == 403
+
+    # No side effects: still one case, untouched by the rejected writes.
+    rows = client.get("/safety/ae-cases/").json()
+    assert len(rows) == 1
+    case = client.get(f"/safety/ae-cases/{case_id}/")
+    assert case.json()["outcome"] is None
+    assert case.json()["status"] == "Open"
+    assert case.json()["pv_case_reference"] is None
+
+
+def test_cro_request_rights_on_monitoring_access(client):
+    """CRO may REQUEST monitoring access but never decide on it.
+
+    POST /monitoring/requests/ is allowed (create includes CRO), the CRO sees
+    the pending row in the list and can run the access-check; approve/reject/
+    revoke (monitoring update) return 403. Once Site Staff approves, the
+    CRO's own request pays off — access-check flips to allowed.
+    """
+    org_id, _ = _org("CROMonOrg")
+    cro = _seed_user("CRO", "CROMonOrg")
+    staff = _seed_user("Site Staff", "CROMonOrg")
+    window_end = date.today() + timedelta(days=3)
+
+    _login(client, cro)
+    # Request rights: picker + create + own-list + access-check all succeed.
+    orgs = client.get("/organizations/").json()
+    assert str(org_id) in [o["id"] for o in orgs]
+    assert client.get("/monitoring/requests/").json() == []
+
+    res = client.post(
+        "/monitoring/requests/",
+        json=_mon_payload(
+            str(org_id), start=date.today().isoformat(), end=window_end.isoformat()
+        ),
+    )
+    assert res.status_code == 201, res.text
+    req = res.json()
+    assert req["status"] == "pending"
+    assert req["requester_role"] == "CRO"  # resolved server-side (G9)
+    assert req["site_name"] == "CROMonOrg"
+
+    rows = client.get("/monitoring/requests/").json()
+    assert len(rows) == 1 and rows[0]["id"] == req["id"]
+    check = client.get(
+        "/monitoring/access-check/", params={"site": str(org_id)}
+    ).json()["data"]
+    assert check["allowed"] is False  # pending request grants no entry yet
+
+    # No decision rights: the role gate fires before any business-rule check.
+    for action in ("approve", "reject", "revoke"):
+        res = client.put(f"/monitoring/requests/{req['id']}/{action}/", json={"note": "x"})
+        assert res.status_code == 403, (action, res.text)
+        assert "role=CRO" in res.json()["detail"]
+
+    # An approver (Site Staff, same org) approves the CRO's request; the CRO
+    # then has live access — request rights, not just the ability to file.
+    _login(client, staff)
+    assert client.put(
+        f"/monitoring/requests/{req['id']}/approve/", json={"note": "ok"}
+    ).status_code == 200
+    _login(client, cro)
+    check = client.get(
+        "/monitoring/access-check/", params={"site": str(org_id)}
+    ).json()["data"]
+    assert check["allowed"] is True
+    assert check["valid_until"] == window_end.isoformat()

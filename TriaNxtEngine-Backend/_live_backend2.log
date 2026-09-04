@@ -1,0 +1,37 @@
+DEBUG Using proactor: IocpProactor
+INFO Tria Engine (FastAPI) starting — env=development
+INFO Database connection OK
+INFO 127.0.0.1:63916 - "GET /api/health HTTP/1.1" 200
+INFO 127.0.0.1:63917 - "OPTIONS /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:63942 - "OPTIONS /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:63944 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:63943 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:63967 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:63968 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:63977 - "GET /api/site/subjects/ HTTP/1.1" 401
+INFO 127.0.0.1:63977 - "GET /api/site/visits/ HTTP/1.1" 401
+INFO 127.0.0.1:64003 - "OPTIONS /api/site/subjects/sync HTTP/1.1" 200
+INFO 127.0.0.1:64004 - "POST /api/site/subjects/sync HTTP/1.1" 200
+INFO 127.0.0.1:64006 - "OPTIONS /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:64007 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:64007 - "GET /api/site/amendments/ HTTP/1.1" 200
+INFO 127.0.0.1:64011 - "GET /api/site/subjects/ HTTP/1.1" 200
+INFO 127.0.0.1:64010 - "GET /api/site/irb/ HTTP/1.1" 200
+INFO 127.0.0.1:64009 - "GET /api/site/ip/lots HTTP/1.1" 200
+INFO 127.0.0.1:64012 - "GET /api/site/visits/ HTTP/1.1" 200
+INFO 127.0.0.1:64012 - "GET /api/site/subjects/ HTTP/1.1" 200
+INFO 127.0.0.1:64012 - "GET /api/site/visits/ HTTP/1.1" 200
+INFO 127.0.0.1:64018 - "POST /api/site/subjects/sync HTTP/1.1" 200
+INFO 127.0.0.1:64021 - "GET /api/site/subjects/ HTTP/1.1" 200
+INFO 127.0.0.1:64021 - "GET /api/site/visits/ HTTP/1.1" 200
+INFO 127.0.0.1:64031 - "POST /api/site/subjects/sync HTTP/1.1" 200
+INFO 127.0.0.1:64033 - "GET /api/site/subjects/?studyId=TNX-E2E-02 HTTP/1.1" 200
+INFO 127.0.0.1:64033 - "GET /api/site/visits/?studyId=TNX-E2E-02 HTTP/1.1" 200
+INFO 127.0.0.1:64075 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO 127.0.0.1:64076 - "POST /api/accounts/login/ HTTP/1.1" 200
+INFO {'event': 'login_failed', 'status': 'failed', 'user_id': None, 'user_email': None, 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/login/', 'method': 'POST', 'details': {'email': 'admin1@trianxt.com'}}
+INFO 127.0.0.1:64083 - "POST /api/accounts/login/ HTTP/1.1" 401
+INFO {'event': 'login_failed', 'status': 'failed', 'user_id': None, 'user_email': None, 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/login/', 'method': 'POST', 'details': {'email': 'admin1@trianxt.com'}}
+INFO 127.0.0.1:64092 - "POST /api/accounts/login/ HTTP/1.1" 401
+INFO {'event': 'login_failed', 'status': 'failed', 'user_id': None, 'user_email': None, 'patient_id': None, 'patient_code': None, 'ip': '127.0.0.1', 'path': '/api/accounts/login/', 'method': 'POST', 'details': {'email': 'admin1@trianxt.com'}}
+INFO 127.0.0.1:64093 - "POST /api/accounts/login/ HTTP/1.1" 401
