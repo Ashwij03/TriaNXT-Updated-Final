@@ -3,6 +3,11 @@ import DOCUMENT_STATUS from "../Constants/documentStatus";
 import { formatFileSize } from "../utils/fileUtils";
 import { getStorageItem, setStorageItem } from "../utils/storageUtils";
 import { filterDocuments as filterDocumentList, sortDocuments as sortDocumentList } from "../utils/searchUtils";
+import {
+  signatureSummary,
+  attachSignatureToRecord,
+  recordSignatureLedgerEntry,
+} from "../../../services/actionSignatureService";
 
 const DEFAULT_USER = "Current User";
 export const EISF_DOCUMENTS_EVENT = "trianxt-eisf-documents-updated";
@@ -200,10 +205,13 @@ export function initializeModuleDocuments(moduleConfig, studyCode, initialDocume
   return readStoredModuleDocuments(moduleConfig, studyCode, seedDocuments);
 }
 
-export function createUploadedDocument(formData: any = {},section: any = {},moduleConfig: any = {}, studyCode = "", user = DEFAULT_USER) {
+export function createUploadedDocument(formData: any = {},section: any = {},moduleConfig: any = {}, studyCode = "", user = DEFAULT_USER, signature = null) {
   const documentName = formData.documentName || formData.file?.name || "Uploaded Document";
   const category = formData.category || section.title || moduleConfig.title;
   const now = formatDate();
+  // Mandatory E-Signature: the printed name on the signature is who
+  // uploaded the document (never an anonymous default).
+  const actor = signature?.printedName || user;
 
   const document = normalizeDocument(
     {
@@ -220,8 +228,8 @@ export function createUploadedDocument(formData: any = {},section: any = {},modu
       documentType: category,
       version: formData.version || "1.0",
       status: DOCUMENT_STATUS.DRAFT,
-      uploadedBy: user,
-      createdBy: user,
+      uploadedBy: actor,
+      createdBy: actor,
       approvedBy: "-",
       modifiedDate: now,
       expiryDate: "-",
@@ -233,7 +241,7 @@ export function createUploadedDocument(formData: any = {},section: any = {},modu
     moduleConfig
   );
 
-  return {
+  const base = {
     ...document,
 
     // Business scope
@@ -251,12 +259,48 @@ export function createUploadedDocument(formData: any = {},section: any = {},modu
       formData.comments || "Document uploaded."
     ),
   };
+
+  // The upload E-Signature is bound to the new record: stored on the
+  // record itself (signatures[]) and visible in the audit trail.
+  if (!signature) return base;
+
+  const signedHistory = [
+    {
+      version: document.version || "1.0",
+      date: now,
+      user: actor,
+      status: document.status || DOCUMENT_STATUS.DRAFT,
+    },
+    ...(Array.isArray(base.history) ? base.history.filter((h) => h.user !== actor) : []),
+  ];
+  return {
+    ...base,
+    uploadedBy: actor,
+    createdBy: actor,
+    history: signedHistory,
+    versions: signedHistory,
+    auditTrail: [
+      {
+        date: signature.signedAt || now,
+        user: actor,
+        action: "Uploaded",
+        remarks: signatureSummary(signature, "Uploaded"),
+      },
+      ...(Array.isArray(base.auditTrail) ? base.auditTrail : []),
+    ],
+    signatures: [signature],
+    lastSignature: signature,
+  };
 }
 
 export function updateDocumentRecord(originalDocument: any = {},updatedDocument: any = {},
-  user = DEFAULT_USER
+  user = DEFAULT_USER,
+  signature = null
 ) {
   const modifiedDate = formatDate();
+  // Mandatory E-Signature: the printed name on the signature is who made
+  // this edit (never an anonymous default).
+  const actor = signature?.printedName || user;
 
   const document = {
     ...originalDocument,
@@ -281,13 +325,13 @@ export function updateDocumentRecord(originalDocument: any = {},updatedDocument:
     uploadedBy:
       updatedDocument.uploadedBy ||
       originalDocument.uploadedBy ||
-      user,
+      actor,
   };
 
   const versionEntry = {
     version: document.version || "1.0",
     date: modifiedDate,
-    user,
+    user: actor,
     status: document.status,
   };
 
@@ -328,12 +372,14 @@ export function updateDocumentRecord(originalDocument: any = {},updatedDocument:
 
   const auditEntry = {
     date: modifiedDate,
-    user,
+    user: actor,
     action: "Edited",
-    remarks: "Document metadata updated.",
+    remarks: signature
+      ? signatureSummary(signature, "Edited")
+      : "Document metadata updated.",
   };
 
-  return {
+  const record = {
     ...document,
     history,
     versions: history,
@@ -341,6 +387,19 @@ export function updateDocumentRecord(originalDocument: any = {},updatedDocument:
       auditEntry,
       ...(originalDocument.auditTrail || []),
     ],
+  };
+
+  // The edit E-Signature travels with the record (signatures[] + the
+  // audit entry above) so the history shows who changed it and when.
+  if (!signature) return record;
+
+  const existingSignatures = Array.isArray(originalDocument.signatures)
+    ? originalDocument.signatures
+    : [];
+  return {
+    ...record,
+    signatures: [...existingSignatures, signature],
+    lastSignature: signature,
   };
 }
 

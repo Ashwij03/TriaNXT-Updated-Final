@@ -151,6 +151,16 @@ PERMISSION_MATRIX: dict[str, dict[str, set[str]]] = {
         "update": {ADMIN, SITE_STAFF, PI, SPONSOR},
         "delete": {ADMIN},
     },
+    # eISF Regulatory Document Repository. Reads are org/study-scoped for
+    # every authenticated role (no row here); filing (upload/update) is a
+    # site + sponsor duty, deletion is Admin-only, and Part 11 signing is
+    # open to every document-owning role (CRO/Monitor stays read-only).
+    "eisf": {
+        "create": {ADMIN, SITE_STAFF, PI, SPONSOR},
+        "update": {ADMIN, SITE_STAFF, PI, SPONSOR},
+        "delete": {ADMIN},
+        "sign": {ADMIN, SITE_STAFF, PI, SPONSOR},
+    },
 }
 
 

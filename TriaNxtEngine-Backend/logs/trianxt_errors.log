@@ -575,6 +575,9 @@ ConnectionError: smtp unreachable
 [2026-09-05 13:36:23,748] ERROR uvicorn.error Exception in ASGI application
 Traceback (most recent call last):
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+[2026-09-04 21:36:58,781] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
     self.dialect.do_execute(
     ~~~~~~~~~~~~~~~~~~~~~~~^
         cursor, str_statement, effective_parameters, context
@@ -1320,6 +1323,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 sqlite3.OperationalError: no such table: ctms_subject
@@ -1328,6 +1332,7 @@ The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
   File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 422, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         self.scope, self.receive, self.send
@@ -1387,6 +1392,59 @@ Traceback (most recent call last):
     response = await f(request)
                ^^^^^^^^^^^^^^^^
   File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 706, in app
     raw_response = await run_endpoint_function(
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ...<3 lines>...
@@ -1399,6 +1457,13 @@ Traceback (most recent call last):
     return await anyio.to_thread.run_sync(func)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
     return await get_async_backend().run_sync_in_worker_thread(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
@@ -1416,6 +1481,17 @@ Traceback (most recent call last):
     return [dict(r.data) for r in db.execute(stmt).scalars().all()]
                                   ~~~~~~~~~~^^^^^^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_subjects.py", line 35, in subject_list
+    records = list_records(db, CtmsSubject, user)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
     return self._execute_internal(
            ~~~~~~~~~~~~~~~~~~~~~~^
         statement,
@@ -1426,6 +1502,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
     result: Result[Any] = compile_state_cls.orm_execute_statement(
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
         self,
@@ -1440,12 +1517,18 @@ Traceback (most recent call last):
         statement, params or {}, execution_options=execution_options
     )
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
     return meth(
         self,
         distilled_parameters,
         execution_options or NO_OPTIONS,
     )
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
     return connection._execute_clauseelement(
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
         self, distilled_params, execution_options
@@ -1453,12 +1536,14 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
     ret = self._execute_context(
         dialect,
     ...<8 lines>...
         cache_hit=cache_hit,
     )
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
     return self._exec_single_context(
            ~~~~~~~~~~~~~~~~~~~~~~~~~^
         dialect, context, statement, parameters
@@ -1466,6 +1551,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
     self._handle_dbapi_exception(
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
         e, str_statement, effective_parameters, cursor, context
@@ -1475,6 +1561,9 @@ Traceback (most recent call last):
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
     self.dialect.do_execute(
     ~~~~~~~~~~~~~~~~~~~~~~~^
         cursor, str_statement, effective_parameters, context
@@ -1482,6 +1571,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_subject
@@ -1572,6 +1662,12 @@ starlette.websockets.WebSocketDisconnect
 [2026-09-05 19:23:10,062] ERROR uvicorn.error Exception in ASGI application
 Traceback (most recent call last):
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+WHERE ctms_subject.organization_id = ? ORDER BY ctms_subject.created_at DESC, ctms_subject.id DESC]
+[parameters: (5,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-04 21:36:58,847] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
     self.dialect.do_execute(
     ~~~~~~~~~~~~~~~~~~~~~~~^
         cursor, str_statement, effective_parameters, context
@@ -2137,6 +2233,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 sqlite3.OperationalError: no such table: ctms_visit
@@ -2145,6 +2242,7 @@ The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
   File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 422, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         self.scope, self.receive, self.send
@@ -2204,6 +2302,59 @@ Traceback (most recent call last):
     response = await f(request)
                ^^^^^^^^^^^^^^^^
   File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\routing.py", line 670, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 706, in app
     raw_response = await run_endpoint_function(
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ...<3 lines>...
@@ -2216,6 +2367,13 @@ Traceback (most recent call last):
     return await anyio.to_thread.run_sync(func)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
     return await get_async_backend().run_sync_in_worker_thread(
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
@@ -2233,6 +2391,17 @@ Traceback (most recent call last):
     return [dict(r.data) for r in db.execute(stmt).scalars().all()]
                                   ~~~~~~~~~~^^^^^^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_visits.py", line 35, in visit_list
+    records = list_records(db, CtmsVisit, user)
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2373, in execute
     return self._execute_internal(
            ~~~~~~~~~~~~~~~~~~~~~~^
         statement,
@@ -2243,6 +2412,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
     result: Result[Any] = compile_state_cls.orm_execute_statement(
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
         self,
@@ -2257,12 +2427,18 @@ Traceback (most recent call last):
         statement, params or {}, execution_options=execution_options
     )
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
     return meth(
         self,
         distilled_parameters,
         execution_options or NO_OPTIONS,
     )
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
     return connection._execute_clauseelement(
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
         self, distilled_params, execution_options
@@ -2270,12 +2446,14 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
     ret = self._execute_context(
         dialect,
     ...<8 lines>...
         cache_hit=cache_hit,
     )
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
     return self._exec_single_context(
            ~~~~~~~~~~~~~~~~~~~~~~~~~^
         dialect, context, statement, parameters
@@ -2283,6 +2461,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
     self._handle_dbapi_exception(
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
         e, str_statement, effective_parameters, cursor, context
@@ -2292,6 +2471,9 @@ Traceback (most recent call last):
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
     self.dialect.do_execute(
     ~~~~~~~~~~~~~~~~~~~~~~~^
         cursor, str_statement, effective_parameters, context
@@ -2299,6 +2481,7 @@ Traceback (most recent call last):
     )
     ^
   File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+  File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_visit
@@ -2807,3 +2990,6 @@ Traceback (most recent call last):
   File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
     raise ConnectionError("smtp unreachable")
 ConnectionError: smtp unreachable
+WHERE ctms_visit.organization_id = ? ORDER BY ctms_visit.created_at DESC, ctms_visit.id DESC]
+[parameters: (5,)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

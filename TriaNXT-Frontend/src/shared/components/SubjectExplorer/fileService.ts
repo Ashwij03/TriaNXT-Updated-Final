@@ -33,6 +33,17 @@ import {
 } from "./fileTypes";
 import { formatDateUTC, formatDateTimeUTC } from "../../utils/dateTime";
 import { getAllSubjects } from "../../services/subjectService";
+import {
+  signatureSummary,
+  recordSignatureLedgerEntry,
+} from "../../services/actionSignatureService";
+
+/** True when the caller supplied a completed E-Signature record. */
+function hasSignature(signature) {
+  return Boolean(
+    signature && signature.signatureStamp && signature.printedName && signature.signedAt,
+  );
+}
 
 /* ==================================================================
    CONSTANTS
@@ -660,8 +671,20 @@ function readFileContent(file) {
  * Resolves with:
  *   { ok, store, added: File[], rejected: [{ name, error }], warning? }
  */
-export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy) {
+export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy, signature = null) {
   const incoming = Array.from(fileList || []) as any[];
+
+  // Mandatory E-Signature: uploads never persist without a completed
+  // signature (the UI always gates through the E-Signature modal first).
+  if (!hasSignature(signature)) {
+    return {
+      ok: false,
+      store,
+      added: [],
+      rejected: [],
+      error: "E-Signature is required before files can be uploaded.",
+    };
+  }
 
   if (!folderId) {
     return {
@@ -686,6 +709,7 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
   const working = { ...store, [folderId]: listFiles(store, folderId) };
   const added = [];
   const rejected = [];
+  const actor = signature?.printedName || uploadedBy || "Unknown user";
 
   for (const raw of incoming as any[]) {
     const candidate = validateUploadCandidate(raw);
@@ -720,18 +744,21 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
         modifiedAt: raw.lastModified
           ? new Date(raw.lastModified).toISOString()
           : now,
-        uploadedBy: uploadedBy || "Unknown user",
+        uploadedBy: actor,
         status: "Pending Review",
         hasContent: Boolean(dataUrl),
         ...(dataUrl ? { dataUrl } : {}),
         auditTrail: [
           {
-            date: now,
-            user: uploadedBy || "Unknown user",
+            date: signature?.signedAt || now,
+            user: actor,
             action: "Uploaded",
-            remarks: `File uploaded: ${raw.name.trim()}`,
+            remarks: `${signatureSummary(signature, "Uploaded")} — ${raw.name.trim()}`,
           },
         ],
+        // The E-Signature that authorized this upload stays on the record.
+        signatures: [signature],
+        lastSignature: signature,
       },
       folderId
     );
@@ -771,7 +798,7 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
 export { readFileWithProgress } from "../../utils/fileReadProgress";
 
 /** Rename a file inside its folder (requirement 4). */
-export function renameFile(studyId, store, folderId, fileId, name, modifiedBy) {
+export function renameFile(studyId, store, folderId, fileId, name, modifiedBy, signature = null) {
   const files = listFiles(store, folderId);
   const target = files.find((file) => file.id === fileId);
 
@@ -779,24 +806,40 @@ export function renameFile(studyId, store, folderId, fileId, name, modifiedBy) {
     return { ok: false, store, error: "This file no longer exists." };
   }
 
+  // Mandatory E-Signature: renames never persist without a completed
+  // signature.
+  if (!hasSignature(signature)) {
+    return {
+      ok: false,
+      store,
+      error: "E-Signature is required before a file can be renamed.",
+    };
+  }
+
   const check = validateFileName(store, folderId, name, { excludeId: fileId });
   if (!check.valid) return { ok: false, store, error: check.error };
 
   const now = new Date().toISOString();
+  const actor = signature?.printedName || modifiedBy || "Unknown user";
   const renamed = {
     ...target,
     name: String(name).trim(),
     modifiedAt: now,
-    modifiedBy: modifiedBy || target.modifiedBy || "Unknown user",
+    modifiedBy: actor,
     auditTrail: [
       ...(Array.isArray(target.auditTrail) ? target.auditTrail : []),
       {
-        date: now,
-        user: modifiedBy || "Unknown user",
+        date: signature?.signedAt || now,
+        user: actor,
         action: "Renamed",
-        remarks: `Renamed from "${target.name}" to "${String(name).trim()}"`,
+        remarks: `${signatureSummary(signature, "Renamed")} — from "${target.name}" to "${String(name).trim()}"`,
       },
     ],
+    signatures: [
+      ...(Array.isArray(target.signatures) ? target.signatures : []),
+      signature,
+    ],
+    lastSignature: signature,
   };
 
   const working = {
@@ -811,12 +854,22 @@ export function renameFile(studyId, store, folderId, fileId, name, modifiedBy) {
 }
 
 /** Delete a file from its folder (requirement 4). */
-export function deleteFile(studyId, store, folderId, fileId) {
+export function deleteFile(studyId, store, folderId, fileId, signature = null) {
   const files = listFiles(store, folderId);
   const target = files.find((file) => file.id === fileId);
 
   if (!target) {
     return { ok: false, store, error: "This file no longer exists." };
+  }
+
+  // Mandatory E-Signature: deletions never persist without a completed
+  // signature (the UI shows one combined confirm-and-sign modal).
+  if (!hasSignature(signature)) {
+    return {
+      ok: false,
+      store,
+      error: "E-Signature is required before a file can be deleted.",
+    };
   }
 
   const working = {
@@ -826,6 +879,20 @@ export function deleteFile(studyId, store, folderId, fileId) {
 
   const saved = saveFileStore(studyId, working, "delete", folderId);
   if (!saved.ok) return { ok: false, store, error: saved.error };
+
+  // Durable record of who deleted the file (the record itself is gone from
+  // the working store — this ledger keeps the signed deletion auditable).
+  recordSignatureLedgerEntry(signature, {
+    kind: "file:delete",
+    entityType: "file",
+    entityName: target.name,
+    details: {
+      fileId: target.id,
+      folderId,
+      uploadedBy: target.uploadedBy,
+    },
+    scope: { domain: "subjects", studyId, folderId },
+  });
 
   return { ok: true, store: saved.store, file: target };
 }

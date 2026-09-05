@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import uuid
+from datetime import date, timedelta
 
 from tria_engine.apps.accounts.models import User
 from tria_engine.apps.organizations.models import Organization, Role
@@ -259,3 +260,139 @@ def test_subject_visit_org_isolation(client):
     assert [r["studyId"] for r in subjects] == ["ORG-B-ST"]
     assert len(client.get("/api/site/visits/").json()) == 1
     assert org_b is not None  # org was created (sanity for the fixture)
+
+
+# ===========================================================================
+# Aggregate summary endpoints (dashboard KPIs in API mode)
+#
+# GET /api/site/subjects/summary/ and GET /api/site/visits/summary/ return
+# {"data": {...}} envelopes (Safety-Center convention) so Sponsor/CRO/Site
+# Staff dashboards can read mirror totals instead of counting local stores.
+# ===========================================================================
+
+SUBJECTS_SUMMARY = "/api/site/subjects/summary/"
+VISITS_SUMMARY = "/api/site/visits/summary/"
+
+
+def test_summary_endpoints_require_auth(client):
+    assert client.get(SUBJECTS_SUMMARY).status_code == 401
+    assert client.get(VISITS_SUMMARY).status_code == 401
+
+
+def test_subject_summary_canonical_counts_and_study_filter(client):
+    """Totals bucket into the six canonical statuses (legacy "Screening" /
+    "Randomized" tokens normalized like the frontend) and narrow by studyId."""
+    _as_admin(client)
+    _sync(
+        client,
+        SUBJECTS_SYNC,
+        [
+            _subject("TNX-SUM-A", "S-01", status="Screened"),
+            _subject("TNX-SUM-A", "S-02", status="Enrolled"),
+            _subject("TNX-SUM-A", "S-03", status="Ongoing"),
+            _subject("TNX-SUM-A", "S-04", status="Withdrawn"),
+            _subject("TNX-SUM-A", "S-05", status="Screening"),  # legacy -> Screened
+            _subject("TNX-SUM-A", "S-06", status="Randomized"),  # legacy -> Enrolled
+            _subject("TNX-SUM-B", "S-01", status="Completed"),
+        ],
+    )
+
+    # Unique study codes keep the totals hermetic even though this module's
+    # earlier admin tests share the "Test Org" database.
+    data = client.get(SUBJECTS_SUMMARY, params={"studyId": "TNX-SUM-A"}).json()["data"]
+    assert data["total"] == 6
+    assert data["byStatus"] == {
+        "Screened": 2,
+        "Enrolled": 2,
+        "Ongoing": 1,
+        "Completed": 0,
+        "Withdrawn": 1,
+        "Dropout": 0,
+    }
+    # Enrolled-stage KPIs = Enrolled + Ongoing + Completed (isEnrolledSubjectStatus).
+    assert data["enrolled"] == 3
+
+    # studyId filter narrows to the other study; the shape stays zero-padded.
+    only_b = client.get(SUBJECTS_SUMMARY, params={"studyId": "TNX-SUM-B"}).json()["data"]
+    assert only_b["total"] == 1
+    assert only_b["byStatus"]["Completed"] == 1 and only_b["enrolled"] == 1
+
+    empty = client.get(SUBJECTS_SUMMARY, params={"studyId": "TNX-NOPE"}).json()["data"]
+    assert empty["total"] == 0
+    assert empty["byStatus"] == {s: 0 for s in ("Screened", "Enrolled", "Ongoing", "Completed", "Withdrawn", "Dropout")}
+
+
+def test_visit_summary_counts_and_window(client):
+    """Visits total by status; `upcoming` counts dated, still-active rows in
+    the next-`window` days (completed/cancelled/missed and undated never)."""
+    _as_admin(client)
+    today = date.today().isoformat()
+    d = lambda offset: (date.today() + timedelta(days=offset)).isoformat()
+    _sync(
+        client,
+        VISITS_SYNC,
+        [
+            _visit("TNX-VSUM", "S-01", "Screening", date=today, status="Scheduled"),
+            _visit("TNX-VSUM", "S-01", "Visit 1", date=d(3), status="Scheduled"),
+            _visit("TNX-VSUM", "S-02", "Screening", date=today, status="Completed"),
+            _visit("TNX-VSUM", "S-02", "Visit 1", date=d(40), status="Scheduled"),
+            _visit("TNX-VSUM", "S-02", "Visit 2", date="", status="Scheduled"),
+            _visit("TNX-VSUM", "S-03", "Screening", date=today, status="Cancelled"),
+            _visit("TNX-VSUM", "S-03", "Visit 1", date=d(-1), status="Completed"),
+        ],
+    )
+
+    # Unique study code keeps the counts hermetic (see subject summary test).
+    data = client.get(VISITS_SUMMARY, params={"studyId": "TNX-VSUM"}).json()["data"]
+    assert data["total"] == 7
+    assert data["byStatus"] == {"Scheduled": 4, "Completed": 2, "Cancelled": 1}
+    assert data["scheduled"] == 4
+    assert data["completed"] == 2
+    # Upcoming: today Scheduled + d(3) Scheduled (+40 and undated are outside;
+    # Completed/Cancelled are inactive regardless of date).
+    assert data["upcoming"] == 2
+
+    # Narrow window excludes the d(3) row; an unknown study is an empty envelope.
+    one_day = client.get(VISITS_SUMMARY, params={"studyId": "TNX-VSUM", "window": 1}).json()["data"]
+    assert one_day["upcoming"] == 1
+    other = client.get(VISITS_SUMMARY, params={"studyId": "TNX-VSUM-OTHER"}).json()["data"]
+    assert other["total"] == 0 and other["upcoming"] == 0
+
+
+def test_summary_reads_are_org_scoped_and_readonly_roles_can_read(client):
+    """A read-only role (CRO/Sponsor) can read the aggregate envelopes but
+    only ever sees its own organization's mirror rows (same scope as lists)."""
+    _org("SumOrgA")
+    _org("SumOrgB")
+    sponsor_a = _seed_user("Sponsor", "SumOrgA")
+    sponsor_b = _seed_user("Sponsor", "SumOrgB")
+    cro_a = _seed_user("CRO", "SumOrgA")
+
+    today = date.today().isoformat()
+    _login(client, sponsor_a)
+    _sync(
+        client,
+        SUBJECTS_SYNC,
+        [
+            _subject("SUM-ST", "S-1", status="Enrolled"),
+            _subject("SUM-ST", "S-2", status="Screened"),
+        ],
+    )
+    _sync(client, VISITS_SYNC, [_visit("SUM-ST", "S-1", "Visit 1", date=today, status="Scheduled")])
+
+    _login(client, sponsor_b)
+    _sync(client, SUBJECTS_SYNC, [_subject("OTHER-ST", "S-1", status="Completed")])
+    _sync(client, VISITS_SYNC, [_visit("OTHER-ST", "S-1", "Visit 1", date=today, status="Scheduled")])
+
+    # CRO (read-only on subjects/visits writes per the matrix) reads Org A only.
+    _login(client, cro_a)
+    subjects = client.get(SUBJECTS_SUMMARY).json()["data"]
+    assert subjects["total"] == 2
+    assert subjects["byStatus"]["Enrolled"] == 1 and subjects["byStatus"]["Screened"] == 1
+    assert subjects["byStatus"]["Completed"] == 0  # Org B's row never leaks
+    visits = client.get(VISITS_SUMMARY).json()["data"]
+    assert visits["total"] == 1 and visits["byStatus"].get("Scheduled") == 1
+
+    # studyId filter never leaks across orgs either.
+    other = client.get(SUBJECTS_SUMMARY, params={"studyId": "OTHER-ST"}).json()["data"]
+    assert other["total"] == 0
