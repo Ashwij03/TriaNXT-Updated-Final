@@ -24,10 +24,11 @@ import DragDropUpload from "./DragDropUpload";
 import SubjectFileTable from "./SubjectFileTable";
 import FilePreviewModal from "./FilePreviewModal";
 import RenameFileModal from "./RenameFileModal";
-import DeleteFileDialog from "./DeleteFileDialog";
 import CreateFolderModal from "./CreateFolderModal";
 import MoveFileDialog from "./MoveFileDialog";
 import PermissionsModal from "./PermissionsModal";
+import ESignatureModal from "../ESignatureModal";
+import { recordSignatureLedgerEntry } from "../../services/actionSignatureService";
 import FolderStatsBar from "./FolderStatsBar";
 import FileFilterBar from "./FileFilterBar";
 import PaginationFooter from "./PaginationFooter";
@@ -140,6 +141,10 @@ function SubjectFileManager({
   const [creatingFolder, setCreatingFolder] = useState(false);
   /* Phase 7: true while the async folder read is in flight (see note below). */
   const [loadingFiles, setLoadingFiles] = useState(false);
+  /* Mandatory E-Signature gate — { mode, entityType, entityName, actionLabel,
+      onSigned }. While set the shared E-Signature modal is shown and the
+      requested upload/edit/delete is not committed until the user signs. */
+  const [signing, setSigning] = useState(null);
 
   const folderId = selectedFolder?.id || null;
 
@@ -393,15 +398,36 @@ function SubjectFileManager({
      HANDLERS
   ============================================================== */
 
+  /** Open the mandatory E-Signature step before an action commits. */
+  const openSignature = (request) => setSigning(request);
+
+  /** Signature-ledger scope for subject-file mutations. */
+  const signatureScope = {
+    domain: "subjects",
+    studyId,
+    folderId,
+  };
+
+  const signEntity = (kind, entityType, entityName, signature, details = {}) => {
+    recordSignatureLedgerEntry(signature, {
+      kind,
+      entityType,
+      entityName,
+      details,
+      scope: signatureScope,
+    });
+  };
+
   /** Requirement 1 + 8: persist files through FileService + report feedback. */
   const persistFiles = useCallback(
-    async (filesArray) => {
+    async (filesArray, signature = null) => {
       const result = await FileService.uploadFiles(
         studyId,
         store,
         folderId,
         filesArray,
         currentUser,
+        signature,
       );
 
       if (!result.ok) {
@@ -496,14 +522,23 @@ function SubjectFileManager({
   const handleSaveStaged = useCallback(async () => {
     if (!stagedUpload || stagedUpload.progress < 100 || savingStaged) return;
 
-    setSavingStaged(true);
-    try {
-      const result = await persistFiles([stagedUpload.file]);
-      if (result?.ok) setStagedUpload(null);
-    } finally {
-      setSavingStaged(false);
-    }
-  }, [stagedUpload, savingStaged, persistFiles]);
+    // Mandatory E-Signature BEFORE the file is persisted.
+    openSignature({
+      mode: "upload",
+      entityType: "file",
+      entityName: stagedUpload.file?.name || "file upload",
+      actionLabel: `Upload "${stagedUpload.file?.name || "file"}" to "${folderName}".`,
+      onSigned: async (signature) => {
+        setSavingStaged(true);
+        try {
+          const result = await persistFiles([stagedUpload.file], signature);
+          if (result?.ok) setStagedUpload(null);
+        } finally {
+          setSavingStaged(false);
+        }
+      },
+    });
+  }, [stagedUpload, savingStaged, persistFiles, folderName]);
 
   /**
    * Requirement 1 + 8: upload entry point.
@@ -531,14 +566,28 @@ function SubjectFileManager({
         return;
       }
 
-      setUploading(true);
-      try {
-        await persistFiles(filesArray);
-      } finally {
-        setUploading(false);
-      }
+      // Bulk upload — ONE mandatory E-Signature authorizes the whole batch.
+      const sample = filesArray
+        .slice(0, 2)
+        .map((file: any) => file?.name || "")
+        .filter(Boolean)
+        .join(", ");
+      openSignature({
+        mode: "upload",
+        entityType: "file",
+        entityName: `${filesArray.length} files${sample ? ` — ${sample}${filesArray.length > 2 ? " …" : ""}` : ""}`,
+        actionLabel: `Upload ${filesArray.length} file(s) to "${folderName}".`,
+        onSigned: async (signature) => {
+          setUploading(true);
+          try {
+            await persistFiles(filesArray, signature);
+          } finally {
+            setUploading(false);
+          }
+        },
+      });
     },
-    [readOnly, folderId, persistFiles, startStagedUpload],
+    [readOnly, folderId, persistFiles, startStagedUpload, folderName],
   );
 
   /**
@@ -664,26 +713,38 @@ function SubjectFileManager({
 
   const submitCreateFolder = (name) => {
     if (readOnly) return;
-    const result = FolderTreeService.createFolder(
-      studyId,
-      tree,
-      folderId,
-      name,
-    );
+    const trimmed = String(name || "").trim();
 
-    if (!result.ok) {
-      setSubmitError(result.error);
-      return;
-    }
+    // Mandatory E-Signature BEFORE the folder is created.
+    openSignature({
+      mode: "create",
+      entityType: "folder",
+      entityName: trimmed,
+      actionLabel: `Create folder "${trimmed}" inside "${folderName}".`,
+      onSigned: async (signature) => {
+        const result = FolderTreeService.createFolder(
+          studyId,
+          tree,
+          folderId,
+          trimmed,
+        );
 
-    // The service persists and emits a SUBJECT_FOLDER_TREE_EVENT, which
-    // useSubjectWorkspace picks up and refreshes the tree prop flowing
-    // back into this component. No local setTree needed.
-    setCreatingFolder(false);
-    setSubmitError("");
-    setFeedback({
-      tone: "success",
-      message: `Folder "${result.node.name}" created in "${folderName}".`,
+        if (!result.ok) {
+          setSubmitError(result.error);
+          return;
+        }
+
+        // The service persists and emits a SUBJECT_FOLDER_TREE_EVENT, which
+        // useSubjectWorkspace picks up and refreshes the tree prop flowing
+        // back into this component. No local setTree needed.
+        signEntity("folder:create", "folder", trimmed, signature, { folderId });
+        setCreatingFolder(false);
+        setSubmitError("");
+        setFeedback({
+          tone: "success",
+          message: `Folder "${result.node.name}" created in "${folderName}".`,
+        });
+      },
     });
   };
 
@@ -729,8 +790,36 @@ function SubjectFileManager({
         return;
       }
 
-      if (action === "view" || action === "rename" || action === "delete") {
+      if (action === "view" || action === "rename") {
         setDialog({ mode: action === "view" ? "preview" : action, file });
+        return;
+      }
+
+      if (action === "delete") {
+        // ONE combined modal: permanent-deletion warning + typed DELETE +
+        // mandatory E-Signature (no separate "are you sure" dialog).
+        openSignature({
+          mode: "delete",
+          entityType: "file",
+          entityName: file.name,
+          actionLabel: "This permanently deletes the file from this folder.",
+          onSigned: async (signature) => {
+            const result = FileService.deleteFile(
+              studyId,
+              store,
+              folderId,
+              file.id,
+              signature,
+            );
+            if (!result.ok) {
+              setFeedback({ tone: "error", message: result.error });
+              return;
+            }
+            setStore(result.store);
+            setFeedback({ tone: "success", message: `"${file.name}" deleted.` });
+            closeDialog();
+          },
+        });
         return;
       }
 
@@ -800,45 +889,39 @@ function SubjectFileManager({
       return;
     }
 
-    const result = FileService.renameFile(
-      studyId,
-      store,
-      folderId,
-      dialog.file.id,
-      name,
-      currentUser,
-    );
+    const targetName = String(name || "").trim();
+    const originalName = dialog.file?.name || "this file";
 
-    if (!result.ok) {
-      setSubmitError(result.error);
-      return;
-    }
+    // Mandatory E-Signature BEFORE the rename is committed.
+    openSignature({
+      mode: "edit",
+      entityType: "file",
+      entityName: targetName,
+      actionLabel: `Rename "${originalName}" to "${targetName}".`,
+      onSigned: async (signature) => {
+        const result = FileService.renameFile(
+          studyId,
+          store,
+          folderId,
+          dialog.file.id,
+          targetName,
+          currentUser,
+          signature,
+        );
 
-    setStore(result.store);
-    setFeedback({
-      tone: "success",
-      message: `Renamed to "${result.file.name}".`,
+        if (!result.ok) {
+          setSubmitError(result.error);
+          return;
+        }
+
+        setStore(result.store);
+        setFeedback({
+          tone: "success",
+          message: `Renamed to "${result.file.name}".`,
+        });
+        closeDialog();
+      },
     });
-    closeDialog();
-  };
-
-  const submitDelete = () => {
-    if (readOnly || folderNode?.locked) {
-      setSubmitError("This folder is view-only. Files cannot be deleted.");
-      return;
-    }
-
-    const target = dialog.file;
-    const result = FileService.deleteFile(studyId, store, folderId, target.id);
-
-    if (!result.ok) {
-      setSubmitError(result.error);
-      return;
-    }
-
-    setStore(result.store);
-    setFeedback({ tone: "success", message: `"${target.name}" deleted.` });
-    closeDialog();
   };
 
   /* ==============================================================
@@ -1266,7 +1349,30 @@ function SubjectFileManager({
               onDownload={() => handleDownload(dialog.file)}
               onDelete={() => {
                 if (readOnly || folderNode?.locked) return;
-                setDialog({ mode: "delete", file: dialog.file });
+                // ONE combined modal: warning + typed DELETE + E-Signature.
+                const previewFile = dialog.file;
+                openSignature({
+                  mode: "delete",
+                  entityType: "file",
+                  entityName: previewFile?.name || "this file",
+                  actionLabel: "This permanently deletes the file from this folder.",
+                  onSigned: async (signature) => {
+                    const result = FileService.deleteFile(
+                      studyId,
+                      store,
+                      folderId,
+                      previewFile.id,
+                      signature,
+                    );
+                    if (!result.ok) {
+                      setFeedback({ tone: "error", message: result.error });
+                      return;
+                    }
+                    setStore(result.store);
+                    setFeedback({ tone: "success", message: `"${previewFile.name}" deleted.` });
+                    closeDialog();
+                  },
+                });
               }}
               canApprove={canApproveDocs}
               onApprove={() => handleApprove(dialog.file)}
@@ -1284,16 +1390,6 @@ function SubjectFileManager({
           validate={validateRename}
           submitError={submitError}
           onSubmit={submitRename}
-          onClose={closeDialog}
-        />
-      )}
-
-      {dialog?.mode === "delete" && (
-        <DeleteFileDialog
-          file={dialog.file}
-          folderName={folderName}
-          submitError={submitError}
-          onConfirm={submitDelete}
           onClose={closeDialog}
         />
       )}
@@ -1374,6 +1470,25 @@ function SubjectFileManager({
           }}
         />
       )}
+
+      {/* Mandatory E-Signature gate — no file/folder upload, edit or delete
+          is committed until the acting user completes the signature. */}
+      <ESignatureModal
+        open={Boolean(signing)}
+        mode={signing?.mode}
+        entityType={signing?.entityType || "file"}
+        entityName={signing?.entityName}
+        actionLabel={signing?.actionLabel}
+        scope={signatureScope}
+        onClose={() => setSigning(null)}
+        onSigned={async (signature) => {
+          const pending = signing;
+          setSigning(null);
+          if (pending?.onSigned) {
+            await pending.onSigned(signature);
+          }
+        }}
+      />
     </section>
   );
 }

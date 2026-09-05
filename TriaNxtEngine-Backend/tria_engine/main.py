@@ -30,6 +30,9 @@ from pathlib import Path
 
 from .apps.accounts.router import router as accounts_router
 from .apps.ctms.router import router as ctms_router
+# eISF Regulatory Document Repository (Part 11 signatures + Universal
+# Access Guard on study-scoped document endpoints).
+from .apps.eisf.router import router as eisf_router
 from .apps.ctms.router_ai import router as ai_review_router
 from .apps.ctms.router_monitoring import router as monitoring_router
 from .apps.ctms.router_monitoring import sites_router as organizations_router
@@ -112,6 +115,9 @@ async def swagger_yaml_alias():
 # ---------------------------------------------------------------------------
 app.include_router(health_router)
 app.include_router(accounts_router)
+# eISF Regulatory Document Repository — /api/eisf (documents, Part 11
+# electronic signatures, watermark verification).
+app.include_router(eisf_router)
 # Site CTMS gap modules (M18-M23) — additive; mounted under /api/site.
 app.include_router(ctms_router)
 # Safety / Monitoring-Access / AI-Review surfaces (root-level prefixes, the
