@@ -100,8 +100,18 @@ def create_record(db: Session, model, user, code: str, data: dict) -> dict:
     return dict(data)
 
 
-def save_record(db: Session, user, row, data: dict) -> dict:
-    enforce_for_model(user, type(row), "update")
+def save_record(db: Session, user, row, data: dict, *, enforce_model: bool = True) -> dict:
+    """Persist updated JSON on an existing row.
+
+    By default the row's model-level `update` permission is enforced so
+    routers that write through this helper are protected without extra
+    checks. Callers that already enforced a MORE SPECIFIC action at the
+    endpoint (e.g. ``capa/signoff``, whose allowed roles differ from the
+    blanket ``update`` set) pass ``enforce_model=False`` to avoid a second,
+    contradictory gate.
+    """
+    if enforce_model:
+        enforce_for_model(user, type(row), "update")
     study_id, site_id = record_codes(data)
     assert_write_scope(user, study_id, site_id)
     row.data = data
@@ -290,6 +300,46 @@ def audit(db: Session, user, action: str, *, details: dict | None = None, ip=Non
         description=description,
         signature_meaning=f"{action} — electronic signature recorded",
     )
+
+
+def record_audit_event(
+    db: Session,
+    user,
+    action: str,
+    *,
+    entity_type: str = "",
+    entity_id: str = "",
+    before_snapshot=None,
+    after_snapshot=None,
+    study_id: str | None = None,
+    site_id: str | None = None,
+    ip=None,
+) -> dict | None:
+    """Append a Phase-2 immutable (hash-chained) audit event.
+
+    Governance mutations (deviations, CAPA, risk actions, compliance config)
+    record here so the Audit Trail page shows real before/after snapshots
+    with tamper protection. Imported lazily to keep the router dependency
+    acyclic (router_audit_events imports this module's helpers).
+    """
+    from .router_audit_events import append_audit_event
+
+    try:
+        return append_audit_event(
+            db,
+            organization_id=getattr(user, "organization_id", None),
+            user=user,
+            ip=ip,
+            action=action,
+            entity_type=entity_type,
+            entity_id=entity_id,
+            before_snapshot=before_snapshot,
+            after_snapshot=after_snapshot,
+            study_id=study_id,
+            site_id=site_id,
+        )
+    except Exception:  # pragma: no cover - never break the primary write
+        return None
 
 
 # ---------------------------------------------------------------------------

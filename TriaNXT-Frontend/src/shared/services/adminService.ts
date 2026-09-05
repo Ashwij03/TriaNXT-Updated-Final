@@ -1,6 +1,7 @@
 import { readJson } from "../utils/storageHelpers";
 import { getAllSubjects } from "./subjectService";
 import { DEFAULT_ADMIN_CONFIG } from "../config/defaultAdmin";
+import { DEMO_USERS, DEMO_USER_PASSWORD } from "../config/demoUsers";
 // UPDATED: Central admin data service — localStorage-backed, fully dynamic (no default/seed data)
 
 import { getStudies, getRecentActivityLogs, getStudyByCode } from "./studyService";
@@ -206,6 +207,74 @@ function seedDefaultAdminAccount() {
   writeJson("users", nextUsers);
 }
 
+// CTMS governance evaluation accounts (admin/staff/cro/pi/sponsor @demo.local):
+// the same five accounts the backend seeds into its database. The frontend
+// logs in against the local directory and then mirrors the credentials to
+// the FastAPI backend (establishBackendSession), so these directory records
+// must exist with the identical email + plaintext password. Additive and
+// idempotent: missing accounts are appended, existing ones are kept in sync
+// (password/role/approval), and every other registered user is untouched.
+function seedDemoDirectoryUsers() {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const users = readJson("users", []);
+  let changed = false;
+  const nextUsers = users.map((user) => {
+    const demo = DEMO_USERS.find((d) => d.email === user.email);
+    if (!demo) {
+      return user;
+    }
+    const needsSync =
+      user.password !== DEMO_USER_PASSWORD ||
+      user.role !== demo.role ||
+      user.approvalStatus !== "Approved" ||
+      user.accountStatus !== "Active";
+    if (!needsSync) {
+      return user;
+    }
+    changed = true;
+    return {
+      ...user,
+      email: demo.email,
+      password: DEMO_USER_PASSWORD,
+      name: user.name || demo.name,
+      username: demo.username,
+      role: demo.role,
+      approvalStatus: "Approved",
+      accountStatus: "Active",
+    };
+  });
+
+  for (const demo of DEMO_USERS) {
+    if (!nextUsers.some((user) => user.email === demo.email)) {
+      changed = true;
+      nextUsers.push({
+        id: Date.now() + nextUsers.length,
+        email: demo.email,
+        password: DEMO_USER_PASSWORD,
+        name: demo.name,
+        username: demo.username,
+        organizationName: "Demo Organization",
+        orgType: "",
+        role: demo.role,
+        assignedSite: "",
+        approvalStatus: "Approved",
+        accountStatus: "Active",
+        permissions: demo.role === "Admin" ? ["*"] : [],
+        requestedPermissions: [],
+        permissionRequestDate: null,
+        lastPermissionUpdate: null,
+      });
+    }
+  }
+
+  if (changed) {
+    writeJson("users", nextUsers);
+  }
+}
+
 // UPDATED: No more default/seed data of any kind. This now only performs the
 // one-time legacy key migration so existing real data keeps working; it no
 // longer manufactures sites, comments, schedules, reports, training logs,
@@ -218,6 +287,7 @@ function seedDefaultAdminAccount() {
 export function initializeAdminData() {
   migrateLegacyQueriesStorage();
   seedDefaultAdminAccount();
+  seedDemoDirectoryUsers();
 }
 
 export function getUsers() {

@@ -144,3 +144,80 @@ class CtmsVisit(_CtmsRecord, Base):
     """
 
     __tablename__ = "ctms_visit"
+
+
+# --- Compliance configuration ----------------------------------------------
+class CtmsComplianceConfig(_CtmsRecord, Base):
+    """Per-organization compliance scoring configuration.
+
+    The ``code`` column holds a fixed key like 'default' for the org's
+    primary config.  The ``data`` JSON column stores the scoring weights
+    and thresholds that feed the deterministic compliance-score formula.
+    """
+
+    __tablename__ = "ctms_complianceconfig"
+
+
+# --- Protocol Deviations ---------------------------------------------------
+class CtmsDeviation(_CtmsRecord, Base):
+    """Protocol deviation records.
+
+    Severity is Minor / Major / Critical.  ``data`` holds the full record
+    (description, root cause analysis, linked study/site/subject, status).
+    """
+
+    __tablename__ = "ctms_deviation"
+
+
+# --- CAPA (Corrective and Preventive Action) ------------------------------
+class CtmsCapa(_CtmsRecord, Base):
+    """CAPA records linked to one or more deviations.
+
+    Lifecycle: open -> in-progress -> resolved -> verified -> closed.
+    ``data`` holds assignment, actions, resolution, sign-off metadata.
+    """
+
+    __tablename__ = "ctms_capa"
+
+
+# --- Audit Events (immutable append-only) -----------------------------------
+class CtmsAuditEvent(_CtmsRecord, Base):
+    """Immutable, append-only audit events.
+
+    Records capture user_id, IP, action, entity_type, entity_id,
+    before/after snapshots, and a tamper-hash for integrity verification.
+    The table must never be updated or deleted through any API.
+    """
+
+    __tablename__ = "ctms_auditevent"
+
+
+# --- Risk Rules & Scores ---------------------------------------------------
+class CtmsRiskRule(_CtmsRecord, Base):
+    """Configurable deterministic risk rules.
+
+    ``data`` stores rule type, thresholds, weights, and look-back windows.
+    Example rule types: enrollment_velocity_drop, visit_backlog, cert_expiry.
+    """
+
+    __tablename__ = "ctms_riskrule"
+
+
+class CtmsRiskScore(_CtmsRecord, Base):
+    """Computed risk scores per site/study.
+
+    ``data`` stores the overall score, level, contributing factors, and
+    the timestamp of the last evaluation.
+    """
+
+    __tablename__ = "ctms_riskscore"
+
+
+class CtmsRiskEvent(_CtmsRecord, Base):
+    """Risk event/alert history.
+
+    ``data`` captures which rule fired, the site/study, the alert
+    timestamp, and any associated action items.
+    """
+
+    __tablename__ = "ctms_riskevent"
