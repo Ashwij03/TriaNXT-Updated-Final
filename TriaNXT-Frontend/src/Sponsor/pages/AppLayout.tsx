@@ -14,6 +14,11 @@ import {
   MdSettings,
   MdCardGiftcard,
   MdCreditCard,
+  MdVerifiedUser,
+  MdHistory,
+  MdReportProblem,
+  MdTaskAlt,
+  MdInsights,
 } from "react-icons/md";
 import "../../shared/components/dashboard/shared/DashboardLayout.css";
 import "../styles/AppLayout.css";
@@ -34,6 +39,11 @@ const MENU_ITEMS = [
   { name: "Recruitment", path: "/recruitment", icon: MdGroups },
   { name: "Risk Management", path: "/risk-management", icon: MdWarning },
   { name: "Reports", path: "/reports", icon: MdAssessment },
+  { name: "Compliance Dashboard", path: "/compliance", icon: MdVerifiedUser },
+  { name: "Audit Trail", path: "/audit", icon: MdHistory },
+  { name: "Deviations", path: "/issues", icon: MdReportProblem },
+  { name: "CAPA", path: "/capa", icon: MdTaskAlt },
+  { name: "Risk Engine", path: "/risks", icon: MdInsights },
   { name: "Notifications", path: "/notifications", icon: MdNotifications },
   { name: "Settings", path: "/settings", icon: MdSettings },
   { name: "Referral Program", path: "/referral", icon: MdCardGiftcard },

@@ -15,6 +15,9 @@ import {
   FaTimes,
   FaGift,
   FaCreditCard,
+  FaHistory,
+  FaExclamationTriangle,
+  FaClipboardCheck,
 } from "react-icons/fa";
 import "../styles/CRODashboard.css";
 import "./CRODashboard.js";
@@ -45,6 +48,10 @@ const MAIN_ITEMS = [
   { to: "/cro-settings", icon: FaCog, label: "Settings" },
   { to: "/cro-referral", icon: FaGift, label: "Referral Program" },
   { to: "/my-license", icon: FaCreditCard, label: "My License" },
+  { to: "/audit", icon: FaHistory, label: "Audit Trail" },
+  { to: "/issues", icon: FaExclamationTriangle, label: "Deviations" },
+  { to: "/capa", icon: FaClipboardCheck, label: "CAPA" },
+  { to: "/risks", icon: FaChartLine, label: "Risk Engine" },
 ];
 
 function SidebarItem({ to, icon: Icon, label, onNavigate }: any) {

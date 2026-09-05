@@ -645,6 +645,14 @@ export function canAccessRoute(path, user = getCurrentUser()) {
     "/access-request": Object.values(ROLES),
     "/amendments": Object.values(ROLES),
     "/completedvisit": Object.values(ROLES),
+    // ===== START: Governance module route access (Phases 1-4) =====
+    "/compliance": [ROLES.ADMIN, ROLES.SPONSOR],
+    "/audit": [ROLES.ADMIN, ROLES.SPONSOR, ROLES.CRO],
+    "/issues": Object.values(ROLES),
+    "/capa": Object.values(ROLES),
+    "/risks": [ROLES.ADMIN, ROLES.SPONSOR, ROLES.CRO],
+    // ===== END: Governance module route access (Phases 1-4) =====
+
     "/eisf": Object.values(ROLES),
     "/ereg-comments": Object.values(ROLES),
     "/file-details": Object.values(ROLES),
