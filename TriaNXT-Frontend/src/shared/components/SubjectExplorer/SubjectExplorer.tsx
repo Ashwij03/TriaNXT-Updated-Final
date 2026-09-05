@@ -108,6 +108,9 @@ function SubjectExplorer({
      the tree node but skips metadata (matching its previous behaviour). */
   studyId = "",
   readOnly = false,
+  /* Task 4: optional badge node (e.g. the subject consent pill) rendered
+     by the sidebar header when the workspace has a subject in scope. */
+  sidebarBadge = null,
 }: any) {
   /* ---------- folder tree (persisted) ---------- */
   // Bug 4 fix: when tree is passed from parent (via useSubjectWorkspace),
@@ -710,6 +713,7 @@ function SubjectExplorer({
         onExpandAll={handleExpandAll}
         onCollapseAll={handleCollapseAll}
         onTitleClick={onNavigateToAllSubjects}
+        badge={sidebarBadge}
       />
 
       {/* Update 6: root-level "Add Subject" action - not tied to any node,

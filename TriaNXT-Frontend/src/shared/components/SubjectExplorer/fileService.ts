@@ -131,6 +131,10 @@ function normalizeFile(file, folderId) {
     // records keep who approved and when (Subject File Manager approve flow).
     ...(file.approvedBy ? { approvedBy: file.approvedBy } : {}),
     ...(file.approvedAt ? { approvedAt: file.approvedAt } : {}),
+    // Cross-surface sync marker (subject ICF reconciliation with the
+    // document hub): survives the round-trip so a mirrored record is
+    // recognized on later reloads instead of being re-imported as new.
+    ...(file.hubIcfKey ? { hubIcfKey: file.hubIcfKey } : {}),
   };
 }
 
@@ -797,6 +801,108 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
 // single implementation for real byte-progress, never a timer.
 export { readFileWithProgress } from "../../utils/fileReadProgress";
 
+/**
+ * Bulk-upload file METADATA for a folder tree rebuild (bulk folder upload).
+ *
+ * One store write for the whole batch (unlike `uploadFiles`, which persists
+ * once per file) so a ~500-file folder drop never thrashes localStorage.
+ * Records are stored as metadata without inline bytes - the same policy
+ * `uploadFiles` already applies to any file over `MAX_INLINE_CONTENT_BYTES`
+ * and the same trade-off the document managers make for bulk folder
+ * imports. Callers can slice large batches and call this repeatedly; each
+ * call persists exactly once and emits one update event.
+ *
+ * @param {string}  studyId    study-scoped file store
+ * @param {object}  store      current file store
+ * @param {Array}   entries    [{ folderId, file }] - already validated by
+ *                             the planner, but validated again here so the
+ *                             store contract can never be bypassed
+ * @param {string}  uploadedBy display name for the audit fields
+ * @returns {{ ok, store, added: File[], rejected: [{name, error}] }}
+ */
+export function createBulkFileRecords(studyId, store, entries, uploadedBy) {
+  const incoming = Array.isArray(entries) ? entries : [];
+
+  if (incoming.length === 0) {
+    return { ok: false, store, added: [], rejected: [] };
+  }
+
+  // Preserve per-folder lists so duplicate checks see the whole batch.
+  const working = { ...store };
+  const added = [];
+  const rejected = [];
+
+  incoming.forEach(({ folderId, file }) => {
+    if (!folderId) {
+      rejected.push({ name: file?.name || "Unknown file", error: "No target folder." });
+      return;
+    }
+    if (!file) return;
+
+    const candidate = validateUploadCandidate(file);
+    if (!candidate.valid) {
+      rejected.push({ name: file.name || "Unknown file", error: candidate.error });
+      return;
+    }
+
+    const folderFiles = listFiles(working, folderId);
+    const duplicate = folderFiles.some(
+      (existing) =>
+        existing.name.trim().toLowerCase() === file.name.trim().toLowerCase()
+    );
+
+    if (duplicate) {
+      rejected.push({
+        name: file.name,
+        error: `A file named "${file.name}" already exists in this folder.`,
+      });
+      return;
+    }
+
+    const now = new Date().toISOString();
+    const record = normalizeFile(
+      {
+        id: createId(),
+        folderId,
+        name: file.name.trim(),
+        size: file.size,
+        uploadedAt: now,
+        modifiedAt: file.lastModified
+          ? new Date(file.lastModified).toISOString()
+          : now,
+        uploadedBy: uploadedBy || "Unknown user",
+        modifiedBy: uploadedBy || "Unknown user",
+        status: "Pending Review",
+        hasContent: false,
+        auditTrail: [
+          {
+            date: now,
+            user: uploadedBy || "Unknown user",
+            action: "Uploaded",
+            remarks: `File uploaded: ${file.name.trim()}`,
+          },
+        ],
+      },
+      folderId
+    );
+
+    working[folderId] = [record, ...(working[folderId] || [])];
+    added.push(record);
+  });
+
+  if (added.length === 0) {
+    return { ok: false, store, added: [], rejected };
+  }
+
+  const saved = saveFileStore(studyId, working, "bulk-upload", null);
+
+  if (!saved.ok) {
+    return { ok: false, store, added: [], rejected, error: saved.error };
+  }
+
+  return { ok: true, store: saved.store, added, rejected };
+}
+
 /** Rename a file inside its folder (requirement 4). */
 export function renameFile(studyId, store, folderId, fileId, name, modifiedBy, signature = null) {
   const files = listFiles(store, folderId);
@@ -1198,6 +1304,7 @@ const FileService = {
   validateFileName,
   validateUploadCandidate,
   uploadFiles,
+  createBulkFileRecords,
   renameFile,
   deleteFile,
   approveFile,
