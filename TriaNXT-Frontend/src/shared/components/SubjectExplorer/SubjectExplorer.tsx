@@ -6,8 +6,9 @@ import SubjectSearch from "./SubjectSearch";
 import SubjectTreeNode from "./SubjectTreeNode";
 import CreateFolderModal from "./CreateFolderModal";
 import RenameFolderModal from "./RenameFolderModal";
-import DeleteFolderDialog from "./DeleteFolderDialog";
 import SubjectFormModal from "./SubjectFormModal";
+import ESignatureModal from "../ESignatureModal";
+import { recordSignatureLedgerEntry } from "../../services/actionSignatureService";
 import DeleteSubjectDialog from "./DeleteSubjectDialog";
 import SubjectRecordsService from "./subjectRecordsService";
 import { saveSubject } from "../../services/subjectService";
@@ -158,6 +159,8 @@ function SubjectExplorer({
 
   /* ---------- CRUD dialog + feedback state ---------- */
   const [dialog, setDialog] = useState(NO_DIALOG);
+  /* Mandatory E-Signature gate for folder create/rename/delete. */
+  const [signing, setSigning] = useState(null);
   const [submitError, setSubmitError] = useState("");
   const [toast, setToast] = useState(null); // { tone, message }
 
@@ -322,11 +325,21 @@ function SubjectExplorer({
       }
 
       if (action === "delete") {
-        setDialog(
-          node.type === "subject"
-            ? { mode: "delete-subject", node }
-            : { mode: "delete", node },
-        );
+        if (node.type === "subject") {
+          setDialog({ mode: "delete-subject", node });
+          return;
+        }
+        // Folder deletion — ONE combined modal (danger banner + typed
+        // DELETE + mandatory E-Signature). No separate confirm dialog.
+        openSignature({
+          mode: "delete",
+          entityType: "folder",
+          entityName: node.name,
+          actionLabel: "This permanently deletes the folder and everything inside it.",
+          onSigned: async (signature) => {
+            runDeleteFolder(node, signature);
+          },
+        });
       }
     },
     [tree, readOnly],
@@ -343,6 +356,19 @@ function SubjectExplorer({
     setDialog(NO_DIALOG);
     setSubmitError("");
   }, []);
+
+  /** Mandatory E-Signature gate — folder mutations run only after signing. */
+  const openSignature = (request) => setSigning(request);
+
+  const signFolder = (kind, entityName, signature, details = {}) => {
+    recordSignatureLedgerEntry(signature, {
+      kind,
+      entityType: "folder",
+      entityName,
+      details,
+      scope: { domain: "subjects-folders", studyId },
+    });
+  };
 
   /* ---------- derived dialog context ---------- */
   const dialogParentId =
@@ -389,8 +415,7 @@ function SubjectExplorer({
   );
 
   /* ---------- CRUD: create ---------- */
-  const submitCreate = (name) => {
-    const parentId = dialog.parentId;
+  const commitCreateFolder = (parentId, name, signature) => {
     const result = FolderTreeService.createFolder(
       studyId,
       tree,
@@ -415,6 +440,7 @@ function SubjectExplorer({
       setExpandedIds((prev) => Array.from(new Set<any>([...prev, ...reveal])));
     }
 
+    signFolder("folder:create", name, signature, { parentId });
     setSelectedNode(result.node);
     if (typeof onSelect === "function") onSelect(result.node);
 
@@ -422,12 +448,28 @@ function SubjectExplorer({
     closeDialog();
   };
 
+  const submitCreate = (name) => {
+    const parentId = dialog.parentId;
+    const trimmed = String(name || "").trim();
+
+    // Mandatory E-Signature BEFORE the folder is created.
+    openSignature({
+      mode: "create",
+      entityType: "folder",
+      entityName: trimmed,
+      actionLabel: `Create folder "${trimmed}" here.`,
+      onSigned: async (signature) => {
+        commitCreateFolder(parentId, trimmed, signature);
+      },
+    });
+  };
+
   /* ---------- CRUD: rename ---------- */
-  const submitRename = (name) => {
+  const commitRenameFolder = (nodeId, name, signature) => {
     const result = FolderTreeService.renameFolder(
       studyId,
       tree,
-      dialog.node.id,
+      nodeId,
       name,
     );
 
@@ -446,13 +488,28 @@ function SubjectExplorer({
       onSelect(result.node);
     }
 
+    signFolder("folder:rename", name, signature, { nodeId });
     setToast({ tone: "success", message: `Renamed to "${result.node.name}".` });
     closeDialog();
   };
 
+  const submitRename = (name) => {
+    const trimmed = String(name || "").trim();
+
+    // Mandatory E-Signature BEFORE the rename is committed.
+    openSignature({
+      mode: "edit",
+      entityType: "folder",
+      entityName: trimmed,
+      actionLabel: `Rename folder "${dialog.node?.name}" to "${trimmed}".`,
+      onSigned: async (signature) => {
+        commitRenameFolder(dialog.node.id, trimmed, signature);
+      },
+    });
+  };
+
   /* ---------- CRUD: delete (folder + all children) ---------- */
-  const submitDelete = () => {
-    const target = dialog.node;
+  const runDeleteFolder = (target, signature) => {
     const result = FolderTreeService.deleteFolder(studyId, tree, target.id);
 
     if (!result.ok) {
@@ -473,6 +530,10 @@ function SubjectExplorer({
       if (typeof onSelect === "function") onSelect(null);
     }
 
+    signFolder("folder:delete", target.name, signature, {
+      nodeId: target.id,
+      removedFolders: result.removedIds?.length || 0,
+    });
     setToast({ tone: "success", message: `"${target.name}" deleted.` });
     closeDialog();
   };
@@ -754,17 +815,6 @@ function SubjectExplorer({
         />
       )}
 
-      {dialog?.mode === "delete" && (
-        <DeleteFolderDialog
-          folder={dialog.node}
-          descendantCount={deleteDescendantCount}
-          parentName={dialogParentName}
-          submitError={submitError}
-          onConfirm={submitDelete}
-          onClose={closeDialog}
-        />
-      )}
-
       {/* ================= SUBJECT CRUD DIALOGS (Update 6) =================
           One shared form modal serves both flows: create pre-fills only the
           suggested Subject ID, edit pre-fills every field from the subject's
@@ -808,6 +858,25 @@ function SubjectExplorer({
           onClose={closeDialog}
         />
       )}
+
+      {/* Mandatory E-Signature gate — no folder is created, renamed or
+          deleted until the acting user completes the signature step. */}
+      <ESignatureModal
+        open={Boolean(signing)}
+        mode={signing?.mode}
+        entityType="folder"
+        entityName={signing?.entityName}
+        actionLabel={signing?.actionLabel}
+        scope={{ domain: "subjects-folders", studyId }}
+        onClose={() => setSigning(null)}
+        onSigned={async (signature) => {
+          const pending = signing;
+          setSigning(null);
+          if (pending?.onSigned) {
+            await pending.onSigned(signature);
+          }
+        }}
+      />
     </aside>
   );
 }
