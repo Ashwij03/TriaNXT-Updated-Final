@@ -13,6 +13,568 @@ Traceback (most recent call last):
     )
     ^
 TypeError: upload_document() takes 0 positional arguments but 1 positional argument (and 6 keyword-only arguments) were given
+[2026-09-04 23:36:53,147] ERROR tria_engine.notifications email dispatch failed for user_1788545206187846@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,169] ERROR tria_engine.notifications email dispatch failed for user_1788545206904844@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,171] ERROR tria_engine.notifications email dispatch failed for user_1788545207015932@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,172] ERROR tria_engine.notifications email dispatch failed for user_1788545207765213@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,174] ERROR tria_engine.notifications email dispatch failed for user_1788545207871796@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,175] ERROR tria_engine.notifications email dispatch failed for user_1788545208777646@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,176] ERROR tria_engine.notifications email dispatch failed for user_1788545208906657@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,178] ERROR tria_engine.notifications email dispatch failed for user_1788545209461246@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,180] ERROR tria_engine.notifications email dispatch failed for user_1788545210088157@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,189] ERROR tria_engine.notifications email dispatch failed for user_1788545210198215@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,191] ERROR tria_engine.notifications email dispatch failed for user_1788545211659727@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,193] ERROR tria_engine.notifications email dispatch failed for user_1788545211770863@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,195] ERROR tria_engine.notifications email dispatch failed for user_1788545212135458@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:53,197] ERROR tria_engine.notifications email dispatch failed for user_1788545212245471@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,510] ERROR tria_engine.notifications email dispatch failed for user_1788545206187846@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,511] ERROR tria_engine.notifications email dispatch failed for user_1788545206904844@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,512] ERROR tria_engine.notifications email dispatch failed for user_1788545207015932@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,514] ERROR tria_engine.notifications email dispatch failed for user_1788545207765213@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,515] ERROR tria_engine.notifications email dispatch failed for user_1788545207871796@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,516] ERROR tria_engine.notifications email dispatch failed for user_1788545208777646@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,517] ERROR tria_engine.notifications email dispatch failed for user_1788545208906657@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,518] ERROR tria_engine.notifications email dispatch failed for user_1788545209461246@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,520] ERROR tria_engine.notifications email dispatch failed for user_1788545210088157@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,521] ERROR tria_engine.notifications email dispatch failed for user_1788545210198215@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,523] ERROR tria_engine.notifications email dispatch failed for user_1788545211659727@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,524] ERROR tria_engine.notifications email dispatch failed for user_1788545211770863@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,525] ERROR tria_engine.notifications email dispatch failed for user_1788545212135458@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:54,526] ERROR tria_engine.notifications email dispatch failed for user_1788545213201438@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,919] ERROR tria_engine.notifications email dispatch failed for user_1788545206187846@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,920] ERROR tria_engine.notifications email dispatch failed for user_1788545206904844@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,921] ERROR tria_engine.notifications email dispatch failed for user_1788545207015932@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,922] ERROR tria_engine.notifications email dispatch failed for user_1788545207765213@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,923] ERROR tria_engine.notifications email dispatch failed for user_1788545207871796@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,924] ERROR tria_engine.notifications email dispatch failed for user_1788545208777646@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,926] ERROR tria_engine.notifications email dispatch failed for user_1788545208906657@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,927] ERROR tria_engine.notifications email dispatch failed for user_1788545209461246@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,928] ERROR tria_engine.notifications email dispatch failed for user_1788545210088157@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,930] ERROR tria_engine.notifications email dispatch failed for user_1788545210198215@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,931] ERROR tria_engine.notifications email dispatch failed for user_1788545211659727@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,932] ERROR tria_engine.notifications email dispatch failed for user_1788545211770863@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,933] ERROR tria_engine.notifications email dispatch failed for user_1788545212135458@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,934] ERROR tria_engine.notifications email dispatch failed for user_1788545213201438@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,935] ERROR tria_engine.notifications email dispatch failed for user_1788545214532872@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,936] ERROR tria_engine.notifications email dispatch failed for user_1788545206187846@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,937] ERROR tria_engine.notifications email dispatch failed for user_1788545206904844@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,938] ERROR tria_engine.notifications email dispatch failed for user_1788545207015932@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,939] ERROR tria_engine.notifications email dispatch failed for user_1788545207765213@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,940] ERROR tria_engine.notifications email dispatch failed for user_1788545207871796@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,941] ERROR tria_engine.notifications email dispatch failed for user_1788545208777646@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,942] ERROR tria_engine.notifications email dispatch failed for user_1788545208906657@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,944] ERROR tria_engine.notifications email dispatch failed for user_1788545209461246@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,945] ERROR tria_engine.notifications email dispatch failed for user_1788545210088157@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,946] ERROR tria_engine.notifications email dispatch failed for user_1788545210198215@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,947] ERROR tria_engine.notifications email dispatch failed for user_1788545211659727@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,948] ERROR tria_engine.notifications email dispatch failed for user_1788545211770863@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,949] ERROR tria_engine.notifications email dispatch failed for user_1788545212135458@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,950] ERROR tria_engine.notifications email dispatch failed for user_1788545213201438@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:55,951] ERROR tria_engine.notifications email dispatch failed for user_1788545214532872@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:36:58,115] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 243, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-04 23:36:58,145] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 271, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-04 23:49:20,390] ERROR tria_engine.notifications email dispatch failed for user_1788545958194911@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:49:20,400] ERROR tria_engine.notifications email dispatch failed for user_1788545958315983@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:49:21,668] ERROR tria_engine.notifications email dispatch failed for user_1788545960428923@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:49:22,942] ERROR tria_engine.notifications email dispatch failed for user_1788545961685980@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:49:22,943] ERROR tria_engine.notifications email dispatch failed for user_1788545961685980@example.com (subject=TriaNXT report update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:49:25,232] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-04 23:49:25,241] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-04 23:49:38,978] ERROR tria_engine.notifications email dispatch failed for user_1788545976822324@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:49:38,981] ERROR tria_engine.notifications email dispatch failed for user_1788545976932303@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:50:04,447] ERROR tria_engine.notifications email dispatch failed for user_1788546001806248@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:50:04,450] ERROR tria_engine.notifications email dispatch failed for user_1788546001933961@example.com (subject=TriaNXT subject update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 249, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 90, in send_email_via_smtp
+    import aiosmtplib
+ModuleNotFoundError: No module named 'aiosmtplib'
+[2026-09-04 23:50:29,088] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-04 23:50:29,099] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-04 23:57:43,352] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-04 23:57:43,362] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 00:19:53,777] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 00:19:53,788] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 00:45:38,561] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 00:45:38,573] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 13:36:23,748] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
 [2026-09-04 21:36:58,781] ERROR uvicorn.error Exception in ASGI application
 Traceback (most recent call last):
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
@@ -22,6 +584,745 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_amendment
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_amendments.py", line 60, in amendment_list
+    return guarded(lambda: filter_study(list_records(db, CtmsAmendment, user), studyCode))
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 314, in guarded
+    return ok_response(fn())
+                       ~~^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_amendments.py", line 60, in <lambda>
+    return guarded(lambda: filter_study(list_records(db, CtmsAmendment, user), studyCode))
+                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_amendment
+[SQL: SELECT ctms_amendment.id, ctms_amendment.code, ctms_amendment.organization_id, ctms_amendment.study_id, ctms_amendment.site_id, ctms_amendment.data, ctms_amendment.created_at, ctms_amendment.updated_at 
+FROM ctms_amendment 
+WHERE ctms_amendment.organization_id = ? AND (ctms_amendment.study_id IS NULL OR ctms_amendment.study_id IN (?)) AND (ctms_amendment.site_id IS NULL OR ctms_amendment.site_id IN (?)) ORDER BY ctms_amendment.created_at DESC, ctms_amendment.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 13:36:24,452] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_iplot
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_ip.py", line 55, in ip_lot_list
+    return guarded(lambda: filter_study(list_records(db, CtmsIpLot, user), studyCode))
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 314, in guarded
+    return ok_response(fn())
+                       ~~^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_ip.py", line 55, in <lambda>
+    return guarded(lambda: filter_study(list_records(db, CtmsIpLot, user), studyCode))
+                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_iplot
+[SQL: SELECT ctms_iplot.id, ctms_iplot.code, ctms_iplot.organization_id, ctms_iplot.study_id, ctms_iplot.site_id, ctms_iplot.data, ctms_iplot.created_at, ctms_iplot.updated_at 
+FROM ctms_iplot 
+WHERE ctms_iplot.organization_id = ? AND (ctms_iplot.study_id IS NULL OR ctms_iplot.study_id IN (?)) AND (ctms_iplot.site_id IS NULL OR ctms_iplot.site_id IN (?)) ORDER BY ctms_iplot.created_at DESC, ctms_iplot.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 13:36:24,489] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_irbsubmission
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_irb.py", line 51, in irb_list
+    return guarded(lambda: filter_study(list_records(db, CtmsIrbSubmission, user), studyCode))
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 314, in guarded
+    return ok_response(fn())
+                       ~~^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_irb.py", line 51, in <lambda>
+    return guarded(lambda: filter_study(list_records(db, CtmsIrbSubmission, user), studyCode))
+                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_irbsubmission
+[SQL: SELECT ctms_irbsubmission.id, ctms_irbsubmission.code, ctms_irbsubmission.organization_id, ctms_irbsubmission.study_id, ctms_irbsubmission.site_id, ctms_irbsubmission.data, ctms_irbsubmission.created_at, ctms_irbsubmission.updated_at 
+FROM ctms_irbsubmission 
+WHERE ctms_irbsubmission.organization_id = ? AND (ctms_irbsubmission.study_id IS NULL OR ctms_irbsubmission.study_id IN (?)) AND (ctms_irbsubmission.site_id IS NULL OR ctms_irbsubmission.site_id IN (?)) ORDER BY ctms_irbsubmission.created_at DESC, ctms_irbsubmission.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 13:36:24,516] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_visit
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_visits.py", line 35, in visit_list
+    records = list_records(db, CtmsVisit, user)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_visit
+[SQL: SELECT ctms_visit.id, ctms_visit.code, ctms_visit.organization_id, ctms_visit.study_id, ctms_visit.site_id, ctms_visit.data, ctms_visit.created_at, ctms_visit.updated_at 
+FROM ctms_visit 
+WHERE ctms_visit.organization_id = ? AND (ctms_visit.study_id IS NULL OR ctms_visit.study_id IN (?)) AND (ctms_visit.site_id IS NULL OR ctms_visit.site_id IN (?)) ORDER BY ctms_visit.created_at DESC, ctms_visit.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 13:36:24,530] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
@@ -30,6 +1331,7 @@ sqlite3.OperationalError: no such table: ctms_subject
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 422, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -37,6 +1339,59 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
     return await self.app(scope, receive, send)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -95,6 +1450,13 @@ Traceback (most recent call last):
     ...<3 lines>...
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
     return await run_in_threadpool(dependant.call, **values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -108,6 +1470,17 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_subjects.py", line 35, in subject_list
+    records = list_records(db, CtmsSubject, user)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
     return await future
            ^^^^^^^^^^^^
@@ -128,6 +1501,7 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
     result: Result[Any] = compile_state_cls.orm_execute_statement(
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -138,6 +1512,11 @@ Traceback (most recent call last):
         ^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
     result = conn.execute(
         statement, params or {}, execution_options=execution_options
@@ -148,6 +1527,7 @@ Traceback (most recent call last):
         distilled_parameters,
         execution_options or NO_OPTIONS,
     )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
     return connection._execute_clauseelement(
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -155,12 +1535,14 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
     ret = self._execute_context(
         dialect,
     ...<8 lines>...
         cache_hit=cache_hit,
     )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
     return self._exec_single_context(
            ~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -168,6 +1550,7 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
     self._handle_dbapi_exception(
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -175,6 +1558,9 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
@@ -184,12 +1570,98 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_subject
 [SQL: SELECT ctms_subject.id, ctms_subject.code, ctms_subject.organization_id, ctms_subject.study_id, ctms_subject.site_id, ctms_subject.data, ctms_subject.created_at, ctms_subject.updated_at 
 FROM ctms_subject 
+WHERE ctms_subject.organization_id = ? AND (ctms_subject.study_id IS NULL OR ctms_subject.study_id IN (?)) AND (ctms_subject.site_id IS NULL OR ctms_subject.site_id IN (?)) ORDER BY ctms_subject.created_at DESC, ctms_subject.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 14:27:08,950] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\websockets\websockets_impl.py", line 332, in asgi_send
+    await self.send(data)  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\websockets\legacy\protocol.py", line 618, in send
+    await self.ensure_open()
+  File "C:\Users\kiran\Lib\site-packages\websockets\legacy\protocol.py", line 916, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\starlette\websockets.py", line 86, in send
+    await self._send(message)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 39, in sender
+    await send(message)
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\websockets\websockets_impl.py", line 345, in asgi_send
+    raise ClientDisconnected from exc
+uvicorn.protocols.utils.ClientDisconnected
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\websockets\websockets_impl.py", line 244, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 31, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 80, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1802, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 350, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 184, in app
+    await wrap_app_handling_exceptions(app, session)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 181, in app
+    await func(session)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 796, in app
+    await dependant.call(**solved_result.values)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\chat\router_ws.py", line 105, in chat_ws
+    await websocket.send_json({"type": "connected", "user_id": user.id})
+  File "C:\Users\kiran\Lib\site-packages\starlette\websockets.py", line 176, in send_json
+    await self.send({"type": "websocket.send", "text": text})
+  File "C:\Users\kiran\Lib\site-packages\starlette\websockets.py", line 89, in send
+    raise WebSocketDisconnect(code=1006)
+starlette.websockets.WebSocketDisconnect
+[2026-09-05 19:12:26,662] ERROR uvicorn.error [Errno 10048] error while attempting to bind on address ('127.0.0.1', 8000): [winerror 10048] only one usage of each socket address (protocol/network address/port) is normally permitted
+[2026-09-05 19:23:10,062] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
 WHERE ctms_subject.organization_id = ? ORDER BY ctms_subject.created_at DESC, ctms_subject.id DESC]
 [parameters: (5,)]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
@@ -202,6 +1674,565 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_amendment
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_amendments.py", line 60, in amendment_list
+    return guarded(lambda: filter_study(list_records(db, CtmsAmendment, user), studyCode))
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 314, in guarded
+    return ok_response(fn())
+                       ~~^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_amendments.py", line 60, in <lambda>
+    return guarded(lambda: filter_study(list_records(db, CtmsAmendment, user), studyCode))
+                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_amendment
+[SQL: SELECT ctms_amendment.id, ctms_amendment.code, ctms_amendment.organization_id, ctms_amendment.study_id, ctms_amendment.site_id, ctms_amendment.data, ctms_amendment.created_at, ctms_amendment.updated_at 
+FROM ctms_amendment 
+WHERE ctms_amendment.organization_id = ? AND (ctms_amendment.study_id IS NULL OR ctms_amendment.study_id IN (?)) AND (ctms_amendment.site_id IS NULL OR ctms_amendment.site_id IN (?)) ORDER BY ctms_amendment.created_at DESC, ctms_amendment.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 19:23:10,739] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_iplot
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_ip.py", line 55, in ip_lot_list
+    return guarded(lambda: filter_study(list_records(db, CtmsIpLot, user), studyCode))
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 314, in guarded
+    return ok_response(fn())
+                       ~~^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_ip.py", line 55, in <lambda>
+    return guarded(lambda: filter_study(list_records(db, CtmsIpLot, user), studyCode))
+                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_iplot
+[SQL: SELECT ctms_iplot.id, ctms_iplot.code, ctms_iplot.organization_id, ctms_iplot.study_id, ctms_iplot.site_id, ctms_iplot.data, ctms_iplot.created_at, ctms_iplot.updated_at 
+FROM ctms_iplot 
+WHERE ctms_iplot.organization_id = ? AND (ctms_iplot.study_id IS NULL OR ctms_iplot.study_id IN (?)) AND (ctms_iplot.site_id IS NULL OR ctms_iplot.site_id IN (?)) ORDER BY ctms_iplot.created_at DESC, ctms_iplot.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 19:23:10,778] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_irbsubmission
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_irb.py", line 51, in irb_list
+    return guarded(lambda: filter_study(list_records(db, CtmsIrbSubmission, user), studyCode))
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 314, in guarded
+    return ok_response(fn())
+                       ~~^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_irb.py", line 51, in <lambda>
+    return guarded(lambda: filter_study(list_records(db, CtmsIrbSubmission, user), studyCode))
+                                        ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_irbsubmission
+[SQL: SELECT ctms_irbsubmission.id, ctms_irbsubmission.code, ctms_irbsubmission.organization_id, ctms_irbsubmission.study_id, ctms_irbsubmission.site_id, ctms_irbsubmission.data, ctms_irbsubmission.created_at, ctms_irbsubmission.updated_at 
+FROM ctms_irbsubmission 
+WHERE ctms_irbsubmission.organization_id = ? AND (ctms_irbsubmission.study_id IS NULL OR ctms_irbsubmission.study_id IN (?)) AND (ctms_irbsubmission.site_id IS NULL OR ctms_irbsubmission.site_id IN (?)) ORDER BY ctms_irbsubmission.created_at DESC, ctms_irbsubmission.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 19:23:10,808] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
@@ -210,6 +2241,7 @@ sqlite3.OperationalError: no such table: ctms_visit
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 422, in run_asgi
     result = await app(  # type: ignore[func-returns-value]
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -217,6 +2249,59 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
     return await self.app(scope, receive, send)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -275,6 +2360,13 @@ Traceback (most recent call last):
     ...<3 lines>...
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
     return await run_in_threadpool(dependant.call, **values)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -288,6 +2380,17 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_visits.py", line 35, in visit_list
+    records = list_records(db, CtmsVisit, user)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
     return await future
            ^^^^^^^^^^^^
@@ -308,6 +2411,7 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2271, in _execute_internal
     result: Result[Any] = compile_state_cls.orm_execute_statement(
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -318,6 +2422,11 @@ Traceback (most recent call last):
         ^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
     result = conn.execute(
         statement, params or {}, execution_options=execution_options
@@ -328,6 +2437,7 @@ Traceback (most recent call last):
         distilled_parameters,
         execution_options or NO_OPTIONS,
     )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
     return connection._execute_clauseelement(
            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -335,12 +2445,14 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
     ret = self._execute_context(
         dialect,
     ...<8 lines>...
         cache_hit=cache_hit,
     )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
     return self._exec_single_context(
            ~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -348,6 +2460,7 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
     self._handle_dbapi_exception(
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
@@ -355,6 +2468,9 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
@@ -364,12 +2480,516 @@ Traceback (most recent call last):
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
   File "C:\Users\Welcome\Desktop\TriaNXT-Updated-Final\TriaNxtEngine-Backend\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
     cursor.execute(statement, parameters)
     ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_visit
 [SQL: SELECT ctms_visit.id, ctms_visit.code, ctms_visit.organization_id, ctms_visit.study_id, ctms_visit.site_id, ctms_visit.data, ctms_visit.created_at, ctms_visit.updated_at 
 FROM ctms_visit 
+WHERE ctms_visit.organization_id = ? AND (ctms_visit.study_id IS NULL OR ctms_visit.study_id IN (?)) AND (ctms_visit.site_id IS NULL OR ctms_visit.site_id IN (?)) ORDER BY ctms_visit.created_at DESC, ctms_visit.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 19:23:10,828] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: ctms_subject
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 354, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\router_subjects.py", line 35, in subject_list
+    records = list_records(db, CtmsSubject, user)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\ctms\common.py", line 225, in list_records
+    return [dict(r.data) for r in db.execute(stmt).scalars().all()]
+                                  ~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: ctms_subject
+[SQL: SELECT ctms_subject.id, ctms_subject.code, ctms_subject.organization_id, ctms_subject.study_id, ctms_subject.site_id, ctms_subject.data, ctms_subject.created_at, ctms_subject.updated_at 
+FROM ctms_subject 
+WHERE ctms_subject.organization_id = ? AND (ctms_subject.study_id IS NULL OR ctms_subject.study_id IN (?)) AND (ctms_subject.site_id IS NULL OR ctms_subject.site_id IN (?)) ORDER BY ctms_subject.created_at DESC, ctms_subject.id DESC]
+[parameters: (1, 'TNX-001', 'SITE-01')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2026-09-05 19:40:24,295] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 19:40:24,303] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 19:41:18,572] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 19:41:18,581] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 19:43:52,790] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 19:43:52,803] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 19:48:31,583] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 19:48:31,595] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 19:49:21,284] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 19:49:21,293] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
+[2026-09-05 19:54:27,052] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\websockets\websockets_impl.py", line 332, in asgi_send
+    await self.send(data)  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\websockets\legacy\protocol.py", line 618, in send
+    await self.ensure_open()
+  File "C:\Users\kiran\Lib\site-packages\websockets\legacy\protocol.py", line 916, in ensure_open
+    raise self.connection_closed_exc()
+websockets.exceptions.ConnectionClosedError: no close frame received or sent
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\starlette\websockets.py", line 86, in send
+    await self._send(message)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 39, in sender
+    await send(message)
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\websockets\websockets_impl.py", line 345, in asgi_send
+    raise ClientDisconnected from exc
+uvicorn.protocols.utils.ClientDisconnected
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\websockets\websockets_impl.py", line 244, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 31, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 80, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1802, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 350, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 184, in app
+    await wrap_app_handling_exceptions(app, session)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 181, in app
+    await func(session)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 796, in app
+    await dependant.call(**solved_result.values)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\chat\router_ws.py", line 105, in chat_ws
+    await websocket.send_json({"type": "connected", "user_id": user.id})
+  File "C:\Users\kiran\Lib\site-packages\starlette\websockets.py", line 176, in send_json
+    await self.send({"type": "websocket.send", "text": text})
+  File "C:\Users\kiran\Lib\site-packages\starlette\websockets.py", line 89, in send
+    raise WebSocketDisconnect(code=1006)
+starlette.websockets.WebSocketDisconnect
+[2026-09-05 20:03:49,181] ERROR uvicorn.error Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\protocols\http\httptools_impl.py", line 401, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\applications.py", line 1163, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\applications.py", line 90, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\middleware.py", line 63, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\kiran\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\routing.py", line 481, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\fastapi\dependencies\utils.py", line 676, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\accounts\dependencies.py", line 43, in get_current_user
+    user = _load_session_user(db, request)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\accounts\dependencies.py", line 32, in _load_session_user
+    payload = load_session(db, session_key)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\core\session_store.py", line 51, in load_session
+    row = db.get(DjangoSession, session_key)
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 3693, in get
+    return self._get_impl(
+           ~~~~~~~~~~~~~~^
+        entity,
+        ^^^^^^^
+    ...<7 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 3873, in _get_impl
+    return db_load_fn(
+        self,
+    ...<5 lines>...
+        bind_arguments=bind_arguments,
+    )
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\loading.py", line 694, in load_on_pk_identity
+    session.execute(
+    ~~~~~~~~~~~~~~~^
+        q,
+        ^^
+    ...<2 lines>...
+        bind_arguments=bind_arguments,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2362, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2237, in _execute_internal
+    conn = self._connection_for_bind(bind)
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 2106, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\orm\session.py", line 1189, in _connection_for_bind
+    conn = bind.connect()
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 3278, in connect
+    return self._connection_cls(self)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\engine\base.py", line 3302, in raw_connection
+    return self.pool.connect()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\pool\base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\pool\base.py", line 1263, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "C:\Users\kiran\Lib\site-packages\sqlalchemy\pool\impl.py", line 168, in _do_get
+    raise exc.TimeoutError(
+    ...<4 lines>...
+    )
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/20/3o7r)
+[2026-09-05 20:07:51,328] ERROR tria_engine.notifications notification outbound enqueue failed
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\service.py", line 301, in notify
+    dispatcher.enqueue_outbound(job)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 252, in fake_enqueue
+    raise RuntimeError("queue down")
+RuntimeError: queue down
+[2026-09-05 20:07:51,338] ERROR tria_engine.notifications email dispatch failed for a@example.com (subject=TriaNXT visit update)
+Traceback (most recent call last):
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\apps\notifications\dispatcher.py", line 250, in process_outbound
+    await send_email_via_smtp(**email)
+  File "C:\Users\kiran\Downloads\TriaNXT-Updated-Final\TriaNxtEngine-Backend\tria_engine\tests\test_notifications_api.py", line 280, in failing_send
+    raise ConnectionError("smtp unreachable")
+ConnectionError: smtp unreachable
 WHERE ctms_visit.organization_id = ? ORDER BY ctms_visit.created_at DESC, ctms_visit.id DESC]
 [parameters: (5,)]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
