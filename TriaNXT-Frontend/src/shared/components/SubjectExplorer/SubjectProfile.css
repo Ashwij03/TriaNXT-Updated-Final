@@ -1,0 +1,554 @@
+/* =====================================================================
+   Subject Explorer - Profile tab + consent badge (sxp-*)
+   All rules are class-scoped; nothing global. Colours reuse the app's
+   existing accent vocabulary (#2bb673 ok, #f5a524 warn, #ef5b65 danger,
+   slate muted) so the Profile tab reads like the rest of the workspace.
+   ===================================================================== */
+
+/* ---------- Consent badge ------------------------------------------- */
+.sxp-consent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: #334155;
+  background: #eef2f7;
+  border: 1px solid #dbe2ec;
+}
+
+.sxp-consent-badge--ok {
+  color: #0f7a4d;
+  background: #e7f7ef;
+  border-color: #b7e5cf;
+}
+
+.sxp-consent-badge--warn {
+  color: #8a5a06;
+  background: #fdf3df;
+  border-color: #f2ddb0;
+}
+
+.sxp-consent-badge--danger {
+  color: #a12d36;
+  background: #fdeaea;
+  border-color: #f3c2c6;
+}
+
+.sxp-consent-badge--muted {
+  color: #64748b;
+  background: #f1f5f9;
+  border-color: #dbe3ec;
+}
+
+.sxp-consent-badge-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background: currentColor;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sxp-consent-badge--compact .sxp-consent-badge-detail {
+  display: none;
+}
+
+.sxp-consent-badge-detail {
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* Badge rendered inside the explorer sidebar header (Subjects title row). */
+.sxp-sidebar-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* ---------- Panel layout -------------------------------------------- */
+.sxp-profile-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 1.25rem 1.5rem;
+  min-width: 0;
+}
+
+.sxp-profile-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: flex-start;
+}
+
+.sxp-consent-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-width: 220px;
+}
+
+.sxp-summary-kicker {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7c8ba1;
+}
+
+.sxp-consent-detail {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.sxp-quick-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  flex: 1;
+  min-width: 260px;
+}
+
+.sxp-quick-fact {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  background: #f8fafc;
+  border: 1px solid #e5eaf1;
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  min-width: 84px;
+}
+
+.sxp-quick-fact-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.sxp-quick-fact-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1e293b;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sxp-profile-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.sxp-profile-card {
+  background: #fff;
+  border: 1px solid #e5eaf1;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  min-width: 0;
+}
+
+.sxp-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sxp-card-heading h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.sxp-card-heading > svg {
+  color: #2f80ed;
+}
+
+.sxp-heading-spacer {
+  flex: 1;
+}
+
+/* ---------- Chips ---------------------------------------------------- */
+.sxp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #334155;
+  background: #eef2f7;
+  border: 1px solid #dbe2ec;
+}
+
+.sxp-chip--danger {
+  color: #a12d36;
+  background: #fdeaea;
+  border-color: #f3c2c6;
+}
+
+.sxp-chip--muted {
+  color: #64748b;
+}
+
+.sxp-add-visit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sxp-add-visit-btn:hover {
+  background: #1d4ed8;
+}
+
+.sxp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.82rem;
+  padding: 1.2rem 0.5rem;
+}
+
+.sxp-empty > svg {
+  color: #a5b4c7;
+}
+
+/* ---------- Stage pipeline ------------------------------------------ */
+.sxp-stage-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.sxp-stage-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  border: 1px solid #dbe2ec;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+}
+
+.sxp-stage-chip.is-done {
+  color: #0f7a4d;
+  background: #e7f7ef;
+  border-color: #b7e5cf;
+}
+
+.sxp-stage-chip.is-current {
+  color: #1d4ed8;
+  border-color: #bfd3ff;
+  background: #eef4ff;
+}
+
+/* ---------- Visit table ---------------------------------------------- */
+.sxp-visit-table-wrap {
+  overflow-x: auto;
+}
+
+.sxp-visit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.sxp-visit-table th {
+  text-align: left;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  border-bottom: 1px solid #e5eaf1;
+  padding: 0.35rem 0.5rem;
+  white-space: nowrap;
+}
+
+.sxp-visit-table td {
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.sxp-visit-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.sxp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 999px;
+  padding: 0.12rem 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.sxp-status--ok {
+  color: #0f7a4d;
+  background: #e7f7ef;
+}
+
+.sxp-status--danger {
+  color: #a12d36;
+  background: #fdeaea;
+}
+
+.sxp-status--muted {
+  color: #475569;
+  background: #eef2f7;
+}
+
+.sxp-visit-actions {
+  text-align: right;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.sxp-complete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  border: 1px solid #b7e5cf;
+  background: #e7f7ef;
+  color: #0f7a4d;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.sxp-complete-btn:hover {
+  background: #d3efdf;
+}
+
+/* ---------- Timeline ------------------------------------------------- */
+.sxp-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sxp-timeline-item {
+  position: relative;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0 0 0.9rem 0.25rem;
+}
+
+.sxp-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.sxp-timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0.42rem;
+  top: 1rem;
+  bottom: 0;
+  width: 2px;
+  background: #e2e8f0;
+}
+
+.sxp-timeline-item:last-child::before {
+  display: none;
+}
+
+.sxp-timeline-marker {
+  flex: 0 0 auto;
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-top: 0.14rem;
+  border-radius: 50%;
+  background: #94a3b8;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #dbe2ec;
+  position: relative;
+  z-index: 1;
+}
+
+.sxp-timeline-item--status .sxp-timeline-marker {
+  background: #2f80ed;
+}
+
+.sxp-timeline-item--visit .sxp-timeline-marker {
+  background: #2bb673;
+}
+
+.sxp-timeline-item--consent .sxp-timeline-marker {
+  background: #7c3aed;
+}
+
+.sxp-timeline-item--document .sxp-timeline-marker {
+  background: #94a3b8;
+}
+
+.sxp-timeline-item--danger .sxp-timeline-marker {
+  background: #ef5b65;
+}
+
+.sxp-timeline-body {
+  min-width: 0;
+}
+
+.sxp-timeline-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.sxp-timeline-detail {
+  font-size: 0.76rem;
+  color: #475569;
+  margin-top: 0.05rem;
+}
+
+.sxp-timeline-meta {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: #94a3b8;
+  margin-top: 0.1rem;
+}
+
+/* ---------- Scheduler modal ------------------------------------------ */
+.sxp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.sxp-modal {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25);
+  padding: 1.25rem;
+  width: min(380px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.sxp-modal h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.sxp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.sxp-field span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.sxp-field input {
+  border: 1px solid #d5dde8;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  font-size: 0.85rem;
+  color: #1e293b;
+  background: #fff;
+}
+
+.sxp-field input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.sxp-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.sxp-btn {
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.sxp-btn--ghost {
+  background: #f1f5f9;
+  border-color: #dbe2ec;
+  color: #334155;
+}
+
+.sxp-btn--primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ---------- Responsive ----------------------------------------------- */
+@media (max-width: 1100px) {
+  .sxp-profile-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .sxp-profile-panel {
+    padding: 0.75rem;
+  }
+
+  .sxp-quick-facts {
+    min-width: 0;
+  }
+}

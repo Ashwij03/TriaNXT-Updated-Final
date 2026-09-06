@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import DashboardLayout from "../../components/dashboard/shared/DashboardLayout";
 import { getSubjectsForStudy } from "../../services/subjectService";
+import { isEnrolledSubjectStatus } from "../../utils/normalizeStatus";
 import SubjectAnalyticsSection from "../../components/dashboard/shared/SubjectAnalyticsSection";
 import VisitCalendarSection from "../../components/dashboard/shared/VisitCalendarSection";
 import StudySubjects from "./StudySubjects";
@@ -314,7 +315,13 @@ useEffect(() => {
     const upcomingVisitCount = filteredUpcomingVisits.length;
     const subjectCount = filteredRecentSubjects.length;
     const targetSubjects = Number(currentStudy?.targetSubjects) || 0;
-    const enrolled = Number(currentStudy?.enrolled) || subjectCount;
+    // Live canonical enrollment count for this study's subjects — never the
+    // static `study.enrolled` field, which is a cached record attribute that
+    // subject registration does not bump (the Studies-count fix).
+    const enrolled =
+      filteredRecentSubjects.filter((subject) =>
+        isEnrolledSubjectStatus(subject?.status)
+      ).length || subjectCount;
     const enrollmentRatio =
       targetSubjects > 0 ? enrolled / targetSubjects : null;
     const overdueDocs = Number((overview?.documents as any)?.overdue) || 0;

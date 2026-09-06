@@ -3,6 +3,7 @@
 
 import { getStudies, getRecentActivityLogs } from "./studyService";
 import { getAllSubjects } from "./subjectService";
+import { isEnrolledSubjectStatus } from "../utils/normalizeStatus";
 import {
   getComments,
   getSchedules,
@@ -12,6 +13,45 @@ import {
 import { buildCommentCounts, isOpenComment } from "./commentService";
 import { getUpcomingVisitsWindow } from "./visitScheduleService";
 
+function subjectStudyKeyOf(subject) {
+  return String(subject?.studyId || subject?.studyCode || subject?.study || "").trim();
+}
+
+/**
+ * Live per-study subject totals + canonical enrolled counts, keyed by the
+ * study code (the key the Studies list / dashboards use). "Enrolled" uses
+ * the app's single canonical definition (Enrolled/Ongoing/Completed after
+ * normalizeStatus) — never the stale `study.enrolled` field, which is a
+ * static record attribute that subject registration never bumps.
+ */
+function buildEnrollmentByStudy(studies) {
+  const map = new Map();
+  const accessible = new Set(
+    studies
+      .map((study) => String(study?.code || "").trim())
+      .filter(Boolean)
+  );
+  if (accessible.size === 0) return map;
+
+  let allSubjects = [];
+  try {
+    allSubjects = getAllSubjects() || [];
+  } catch {
+    allSubjects = [];
+  }
+  allSubjects.forEach((subject) => {
+    const studyKey = subjectStudyKeyOf(subject);
+    if (!studyKey || !accessible.has(studyKey)) return;
+    const entry = map.get(studyKey) || { total: 0, enrolled: 0 };
+    entry.total += 1;
+    if (isEnrolledSubjectStatus(subject?.status)) {
+      entry.enrolled += 1;
+    }
+    map.set(studyKey, entry);
+  });
+  return map;
+}
+
 export function getStudiesDashboard() {
   //initializeAdminData();
 
@@ -19,10 +59,9 @@ export function getStudiesDashboard() {
   const comments = getComments();
   const schedules = getSchedules();
   const sites = getSites();
-  const totalSubjects = studies.reduce(
-    (sum, study) => sum + Number(study.enrolled || 0),
-    0
-  );
+  const enrollmentByStudy = buildEnrollmentByStudy(studies);
+  const enrolledForStudy = (study) =>
+    enrollmentByStudy.get(String(study?.code || "").trim())?.enrolled || 0;
   const openComments = comments.filter(isOpenComment);
   // Phase 7 — IMP-4.12: single source for Open/Pending/Resolved/total
   // counts consumed by dashboard widgets, KPI cards, and navigation
@@ -34,7 +73,7 @@ export function getStudiesDashboard() {
   return {
     kpis: {
       studies: studies.length,
-      subjects: totalSubjects,
+      subjects: studies.reduce((sum, study) => sum + enrolledForStudy(study), 0),
       comments: commentCounts.open,
       // Phase 7 — expose the full breakdown so any dashboard consumer
       // that reads getStudiesDashboard() (e.g. useStudiesDashboard)
@@ -53,11 +92,15 @@ export function getStudiesDashboard() {
     // count objects separately.
     commentCounts,
 
+    // Live canonical enrollment counts per study — never the static
+    // `study.enrolled` field (that cached count is not bumped on subject
+    // registration and therefore reads 0/stale). The demo months remain
+    // only for the empty-dataset state, never mixed with real studies.
     enrollmentTrend:
       studies.length > 0
         ? studies.slice(0, 6).map((study, index) => ({
             name: study.code || study.name || `Study ${index + 1}`,
-            value: Number(study.enrolled || index + 4)
+            value: enrolledForStudy(study)
           }))
         : [
             { name: "Jan", value: 12 },
@@ -70,7 +113,7 @@ export function getStudiesDashboard() {
 
     studyDistribution: studies.map((study) => ({
       name: study.name,
-      value: Number(study.enrolled || 0)
+      value: enrolledForStudy(study)
     })),
 
     recentSubjects: (() => {
@@ -145,7 +188,8 @@ export function getStudiesDashboard() {
       studyId: study.code,
       protocol: study.protocol || study.name,
       site: study.site || study.location,
-      subjects: study.enrolled,
+      subjects: enrolledForStudy(study),
+      totalSubjects: enrollmentByStudy.get(String(study.code).trim())?.total || 0,
       status: study.status
     }))
   };

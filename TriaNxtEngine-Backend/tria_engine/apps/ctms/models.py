@@ -221,3 +221,22 @@ class CtmsRiskEvent(_CtmsRecord, Base):
     """
 
     __tablename__ = "ctms_riskevent"
+
+
+# --- Subject status history (Noel — Subject Profile timeline) -----------------
+class CtmsSubjectStatusHistory(_CtmsRecord, Base):
+    """Subject status-transition audit trail — the CTMS ER diagram's
+    `subject_status_history` (status, reason, changed_at, changed_by per
+    subject). This is the ONLY new model added for the Subject Profile
+    timeline: it is deliberately NOT a `status_history` JSON array on
+    CtmsSubject, so subject rows stay byte-faithful mirrors of the frontend.
+
+    Rows are APPENDED (never rewritten) by the frontend subjectService on
+    every status change via POST /subjects/history/sync; each row's `code`
+    is a unique `study::subjectId::h<epoch>` key so the generic bulk-sync
+    upsert never overwrites a previous transition. The ER columns live in
+    `data` ({"subjectId", "status", "reason", "changedBy", "changedAt"}),
+    the same JSON-mirror shape every other ctms_* table uses.
+    """
+
+    __tablename__ = "ctms_subject_status_history"

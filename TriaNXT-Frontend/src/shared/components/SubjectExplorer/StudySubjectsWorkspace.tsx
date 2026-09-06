@@ -35,6 +35,11 @@ import { formatFileSize } from "./fileService";
 import { getCurrentUser } from "../../services/roleService";
 import { canEditSubjectContent } from "../../utils/contentAccess";
 import SubjectComments from "../../pages/subjects/SubjectComments";
+import SubjectProfilePanel from "./SubjectProfilePanel";
+import ConsentStatusBadge, {
+  useSubjectConsentStatus,
+} from "./ConsentStatusBadge";
+import "./SubjectProfile.css";
 
 /* `SelectedFolderBar` renders `.sw-folderbar*`, but those rules live in
    `WorkspaceIntegration.css` (co-located here in the shared SubjectExplorer
@@ -270,6 +275,37 @@ function StudySubjectsWorkspace({ studyId = "", persist = false, readOnly = fals
   const activeSubjectId = selectedFolder
     ? String(selectedFolder.id).split("/")[0]
     : null;
+
+  /* Profile tab (Task 4): the subject whose profile is open. Defaults to
+     the Files view; switching to another subject always lands back on
+     Files so the file tree stays the primary surface. */
+  const [mainTab, setMainTab] = useState<"files" | "profile">("files");
+
+  useEffect(() => {
+    setMainTab("files");
+  }, [activeSubjectId]);
+
+  /* Live subject record for the Profile tab + consent badge - the same
+     `subjectRecords` state this tab already subscribes to, so status edits
+     made in the sidebar/edit dialog re-render the timeline immediately. */
+  const activeRecord = useMemo(
+    () =>
+      subjectRecords.find(
+        (record) =>
+          String(record.id).toLowerCase() ===
+          String(activeSubjectId || "").toLowerCase()
+      ) || null,
+    [activeSubjectId, subjectRecords]
+  );
+
+  /* Consent badge in the sidebar header - single source of truth is
+     `icfConsentService` (see subjectConsentStatus.ts); the hook keeps it
+     live on every consent-store update. */
+  const consentStatus = useSubjectConsentStatus(
+    studyId,
+    activeSubjectId,
+    activeRecord?.site
+  );
 
   /* ---------- Subject metadata dialogs (Edit / Delete) ---------- */
   const [subjectDialog, setSubjectDialog] = useState(null); // { mode, subject }
@@ -511,6 +547,7 @@ function StudySubjectsWorkspace({ studyId = "", persist = false, readOnly = fals
      since its subject context goes away with the selection. */
   const handleBackToSubjects = useCallback(() => {
     setShowComments(false);
+    setMainTab("files");
     clearSelection();
     // Clear the subject query param from the URL so a stale param
     // doesn't force the same subject back open on re-render.
@@ -625,24 +662,72 @@ function StudySubjectsWorkspace({ studyId = "", persist = false, readOnly = fals
             onNavigateToAllSubjects={handleBackToSubjects}
             studyId={studyId}
             readOnly={readOnly}
+            sidebarBadge={
+              <ConsentStatusBadge status={consentStatus} compact />
+            }
           />
         </div>
 
         <div className="ssw-main">
+          {/* Task 4: Files / Profile switcher - only meaningful once a
+              subject is in scope (subject node or anything inside it). */}
+          {activeSubjectId && (
+            <div
+              className="ssw-main-tabs"
+              role="tablist"
+              aria-label="Subject view"
+            >
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mainTab === "files"}
+                className={
+                  mainTab === "files" ? "ssw-tab is-active" : "ssw-tab"
+                }
+                onClick={() => setMainTab("files")}
+              >
+                Files
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={mainTab === "profile"}
+                className={
+                  mainTab === "profile" ? "ssw-tab is-active" : "ssw-tab"
+                }
+                onClick={() => setMainTab("profile")}
+              >
+                Profile
+              </button>
+            </div>
+          )}
           {selectedFolder ? (
-            /* STATE B (Task 1.6): a subject or one of its folders is
-               selected - untouched existing folder bar + file manager. */
-            <>
-              {/* Receives the shared tree from useSubjectWorkspace so it can
-                  never drift out of sync with the explorer sidebar. */}
-              <SubjectFileManager
-                selectedFolder={selectedFolder}
-                onSelectFolder={handleSelect}
-                tree={tree}
+            mainTab === "profile" ? (
+              /* Task 4: timeline + consent + visit checklist for the
+                 owning subject of the current selection. */
+              <SubjectProfilePanel
                 studyId={studyId}
-                readOnly={readOnly}
+                subjectId={activeSubjectId}
+                record={activeRecord}
+                canModify={canModify}
+                tree={tree}
+                fileStore={store}
               />
-            </>
+            ) : (
+              /* STATE B (Task 1.6): a subject or one of its folders is
+                 selected - untouched existing folder bar + file manager. */
+              <>
+                {/* Receives the shared tree from useSubjectWorkspace so it can
+                    never drift out of sync with the explorer sidebar. */}
+                <SubjectFileManager
+                  selectedFolder={selectedFolder}
+                  onSelectFolder={handleSelect}
+                  tree={tree}
+                  studyId={studyId}
+                  readOnly={readOnly}
+                />
+              </>
+            )
           ) : (
             /* STATE A (Task 1.6): nothing selected - the "All Subjects"
                table, built from the same live tree + metadata records used

@@ -21,6 +21,11 @@ function SubjectSidebarHeader({
   onExpandAll,
   onCollapseAll,
   onTitleClick,
+  /* Task 4: optional live badge (consent status pill for the currently
+     selected subject). Rendered in the header so it stays visible on both
+     the Files and the Profile tab. When omitted (no subject in scope, or
+     a standalone mount) the header renders exactly as before. */
+  badge = null,
 }: any) {
   return (
     <div className="sx-header">
@@ -47,6 +52,8 @@ function SubjectSidebarHeader({
           <span className="sx-header-count">{subjectCount}</span>
         </div>
       )}
+
+      {badge ? <span className="sxp-sidebar-badge">{badge}</span> : null}
 
       <button
         type="button"

@@ -17,10 +17,12 @@ import {
   MdTune,
   MdFileDownload,
   MdArrowBack,
+  MdFolderZip,
 } from "react-icons/md";
 
 import FileUploadButton from "./FileUploadButton";
 import DragDropUpload from "./DragDropUpload";
+import SubjectFolderUpload from "../subjects/SubjectFolderUpload";
 import SubjectFileTable from "./SubjectFileTable";
 import FilePreviewModal from "./FilePreviewModal";
 import RenameFileModal from "./RenameFileModal";
@@ -44,6 +46,7 @@ import {
 import { getExtension } from "./fileTypes";
 import { useAuth } from "../../context/AuthContext";
 import { hasPermission } from "../../services/roleService";
+import SubjectIcfSyncService from "../../services/subjectIcfSyncService";
 import PERMISSIONS from "../../constants/permissions";
 import { downloadCsvReport } from "../../utils/exportReport";
 import "./SubjectFiles.css";
@@ -146,6 +149,9 @@ function SubjectFileManager({
       requested upload/edit/delete is not committed until the user signs. */
   const [signing, setSigning] = useState(null);
 
+  /* Bulk folder upload dialog (drop / pick a whole directory tree). */
+  const [showFolderUpload, setShowFolderUpload] = useState(false);
+
   const folderId = selectedFolder?.id || null;
 
   /* ==============================================================
@@ -227,6 +233,63 @@ function SubjectFileManager({
     setCreatingFolder(false);
     setPage(1);
   }, [folderId]);
+
+  /* ---------- cross-surface ICF reconciliation ----------
+     A subject's locked system ICF folder has the deterministic explorer id
+     "<subjectId>/icf". Both directions of the mirror live here:
+       - OPENING the folder pulls any consent documents uploaded on the
+         document hub (folderService store) into this file manager.
+       - UPLOADING / duplicating / moving records in the folder pushes
+         explorer-origin files back to the hub (see the mutation handlers
+         below), so eISF / subject-document surfaces list them too. */
+  const subjectOfIcfFolder = useCallback((candidateId) => {
+    if (!candidateId) return null;
+    const match = String(candidateId).match(/^([^/]+)\/icf$/i);
+    return match ? match[1] : null;
+  }, []);
+
+  const isIcfFolderOpen = useMemo(
+    () => Boolean(subjectOfIcfFolder(folderId)),
+    [folderId, subjectOfIcfFolder],
+  );
+
+  const icfSubjectId = useMemo(
+    () => subjectOfIcfFolder(folderId),
+    [folderId, subjectOfIcfFolder],
+  );
+
+  /* Reconcile the hub mirror for the subject(s) touched by a write: the
+     hub export only writes when the explorer bucket changed, so it is safe
+     to call after any successful mutation. */
+  const mirrorIcfToHub = useCallback(
+    (subjectIds) => {
+      if (!studyId) return;
+      (subjectIds || []).forEach((subjectId) => {
+        if (subjectId) {
+          SubjectIcfSyncService.syncExplorerIcfToHub({ studyId, subjectId });
+        }
+      });
+    },
+    [studyId],
+  );
+
+  useEffect(() => {
+    if (!isIcfFolderOpen || !icfSubjectId || !studyId) return undefined;
+
+    const result = SubjectIcfSyncService.syncHubIcfToExplorer({
+      studyId,
+      subjectId: icfSubjectId,
+    });
+
+    // The sync persisted through FileService (emitting its own change
+    // event), but reload explicitly so this folder's rows are never one
+    // store-read behind the just-imported records.
+    if (result.changed) {
+      setStore(FileService.loadFileStore(studyId));
+    }
+
+    return undefined;
+  }, [isIcfFolderOpen, icfSubjectId, studyId]);
 
   /**
    * Phase 7: drive the table's skeleton from the async read seam.
@@ -441,6 +504,14 @@ function SubjectFileManager({
 
       setStore(result.store);
 
+      // Explorer -> hub mirror: files uploaded directly into a subject's
+      // locked ICF folder are pushed to the document hub's ICF folder so the
+      // eISF / subject-document surfaces list them as well (the two surfaces
+      // use separate localStorage stores - see subjectIcfSyncService).
+      if (icfSubjectId) {
+        mirrorIcfToHub([icfSubjectId]);
+      }
+
       const count = result.added.length;
       const base = `${count} ${count === 1 ? "file" : "files"} uploaded to "${folderName}".`;
 
@@ -459,7 +530,7 @@ function SubjectFileManager({
 
       return result;
     },
-    [studyId, store, folderId, folderName, currentUser],
+    [studyId, store, folderId, folderName, currentUser, icfSubjectId, mirrorIcfToHub],
   );
 
   /**
@@ -835,6 +906,9 @@ function SubjectFileManager({
         } else {
           setStore(result.store);
           setFeedback({ tone: "success", message: `"${result.file.name}" created as a duplicate.` });
+          // A duplicate inside a subject's ICF folder is a new explorer-origin
+          // record the hub mirror should also list.
+          if (icfSubjectId) mirrorIcfToHub([icfSubjectId]);
         }
         return;
       }
@@ -863,6 +937,8 @@ function SubjectFileManager({
       store,
       folderId,
       currentUser,
+      icfSubjectId,
+      mirrorIcfToHub,
     ],
   );
 
@@ -1026,6 +1102,18 @@ function SubjectFileManager({
           </button>
 
           <FileUploadButton onFiles={handleUpload} busy={uploading} />
+
+          {!readOnly && (
+            <button
+              type="button"
+              className="sf-btn sf-btn--ghost"
+              onClick={() => setShowFolderUpload(true)}
+              title="Upload an entire folder (its nested structure is recreated here)"
+            >
+              <MdFolderZip size={16} aria-hidden="true" />
+              <span>Upload Folder</span>
+            </button>
+          )}
         </div>
       </header>
 
@@ -1441,6 +1529,13 @@ function SubjectFileManager({
             }
             setStore(result.store);
             setFeedback({ tone: "success", message: `"${dialog.file.name}" moved successfully.` });
+            // A move into or out of a subject's ICF folder changes what the
+            // hub mirror should contain (additions on entry, prunes on exit).
+            const affectedSubjects = [
+              subjectOfIcfFolder(folderId),
+              subjectOfIcfFolder(targetFolderId),
+            ].filter(Boolean);
+            mirrorIcfToHub(affectedSubjects);
             closeDialog();
           }}
           submitError={submitError}
@@ -1489,6 +1584,20 @@ function SubjectFileManager({
           }
         }}
       />
+
+      {/* Bulk folder upload (drop / pick a directory tree). The selected
+          folder is the target; the planner merges an "ICF" drop into the
+          subject's locked ICF folder rather than creating a second one. */}
+      {showFolderUpload && (
+        <SubjectFolderUpload
+          studyId={studyId}
+          tree={tree}
+          targetFolderId={folderId}
+          targetLabel={folderPath.join(" / ") || folderName}
+          readOnly={readOnly}
+          onClose={() => setShowFolderUpload(false)}
+        />
+      )}
     </section>
   );
 }

@@ -26,6 +26,7 @@ import {
   renameFolder,
   saveDocumentsForFolder,
 } from "../services/folderService";
+import SubjectIcfSyncService from "../services/subjectIcfSyncService";
 import {
   buildFolderZip,
   parseUploadedFolderFiles,
@@ -695,6 +696,25 @@ function DocumentFolderManager({
       );
 
       setDocuments(nextDocuments);
+
+      // Cross-surface reconciliation: upload / replace / rename / approve /
+      // delete all funnel through here. When the write landed in a subject's
+      // ICF folder, mirror the folder into the Subject Explorer's locked ICF
+      // folder so consent forms uploaded on the document hub show up in the
+      // explorer's tree too (the two surfaces use separate localStorage
+      // stores - see subjectIcfSyncService).
+      if (sectionId === "subjects" && subjectId && isSelectedICFFolder) {
+        const studyIdForSync =
+          studyCode || SubjectIcfSyncService.findStudyForSubject(subjectId);
+
+        if (studyIdForSync) {
+          SubjectIcfSyncService.syncHubIcfToExplorer({
+            studyId: studyIdForSync,
+            subjectId,
+          });
+        }
+      }
+
       return true;
     } catch (error) {
       window.alert(
