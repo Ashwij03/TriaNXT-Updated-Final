@@ -26,6 +26,7 @@ from tria_engine.apps.monitoring import models as monitoring_models  # noqa: E40
 from tria_engine.apps.subscriptions import models as subscriptions_models  # noqa: E402,F401
 from tria_engine.apps.reporting import models as reporting_models  # noqa: E402,F401
 from tria_engine.core.session_store import DjangoSession  # noqa: E402,F401
+from tria_engine.apps.ctms import models as ctms_models  # noqa: E402,F401
 
 # Alembic Config object — provides access to alembic.ini values.
 config = context.config

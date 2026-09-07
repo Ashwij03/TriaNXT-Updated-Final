@@ -9,6 +9,10 @@ import Login from "./shared/auth/Login";
 import OperationsComments from "./shared/pages/operations/Comments";
 import ProfilePage from "./shared/pages/profile/ProfilePage";
 import ProtectedRoute from "./shared/auth/ProtectedRoute";
+import GuardedRoute, {
+  StudyRouteGuard,
+} from "./shared/routes/GuardedRoute";
+import Unauthorized from "./shared/pages/Unauthorized";
 import ROLES from "./shared/constants/roles";
 import Register from "./shared/auth/Register";
 import SecurityPage from "./shared/pages/profile/SecurityPage";
@@ -184,6 +188,12 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
 
+      {/* Universal 403 — Forbidden / Not Authorized page (Universal Access
+          Guard destination). Registered under both /unauthorized and
+          /forbidden; rendering never depends on the session. */}
+      <Route path="/unauthorized" element={<Unauthorized />} />
+      <Route path="/forbidden" element={<Unauthorized />} />
+
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/completedvisit" element={<CompletedVisit />} />
@@ -220,12 +230,15 @@ function App() {
         }
       />
 
+      {/* Study-scoped route: guarded by the Universal Study Route Guard —
+          the :id param (study code) must be in the user's assigned-study
+          list / role-visible studies or the user is sent to /unauthorized. */}
       <Route
         path="/study-dashboard/:id"
         element={
-          <ProtectedRoute>
+          <StudyRouteGuard allowedRoles={Object.values(ROLES)}>
             <StudyDashboard />
-          </ProtectedRoute>
+          </StudyRouteGuard>
         }
       />
 

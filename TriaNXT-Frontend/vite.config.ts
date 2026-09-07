@@ -15,9 +15,20 @@ export default defineConfig({
   // API (http://127.0.0.1:8000) — the FastAPI SameSite=Lax session cookie
   // is then dropped on every cross-site XHR and all API calls 401.
   server: {
+<<<<<<< HEAD
     host: true,
     port: 3000,
+=======
+  port: 3000,
+  proxy: {
+    "/api": {
+      target: "http://127.0.0.1:8000",
+      changeOrigin: true,
+      secure: false,
+    },
+>>>>>>> 21a385068dc7656513c2d9315817060984a82b68
   },
+},
   build: {
     outDir: "dist",
   },

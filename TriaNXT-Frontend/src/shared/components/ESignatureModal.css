@@ -1,0 +1,279 @@
+.esig-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:10000;
+    padding:1rem;
+}
+
+.esig-modal{
+    width:40rem;
+    max-width:100%;
+    max-height:92vh;
+    background:#fff;
+    border-radius:0.75rem;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 20px 60px rgba(2,32,46,.35);
+}
+
+.esig-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+    background:linear-gradient(135deg,#0b2f45 0%,#123d57 100%);
+    color:#fff;
+    gap:1rem;
+}
+
+.esig-header h3{
+    margin:0;
+    font-size:var(--tnxt-font-size-lg);
+    letter-spacing:.2px;
+}
+
+.esig-header span{
+    font-size:var(--tnxt-font-size-sm);
+    opacity:.8;
+}
+
+.esig-close{
+    background:transparent;
+    border:none;
+    color:#fff;
+    font-size:1.25rem;
+    cursor:pointer;
+    line-height:1;
+    padding:.25rem .5rem;
+    border-radius:var(--tnxt-radius-sm);
+}
+
+.esig-close:hover{
+    background:rgba(255,255,255,.15);
+}
+
+.esig-body{
+    padding:var(--tnxt-space-2xl);
+    display:grid;
+    gap:var(--tnxt-font-size-base);
+    overflow-y:auto;
+}
+
+.esig-body label{
+    font-size:var(--tnxt-font-size-sm);
+    font-weight:600;
+    color:#0f172a;
+    margin-top:.25rem;
+}
+
+.esig-body input,
+.esig-body select{
+    padding:.65rem .75rem;
+    border:1px solid #cbd5e1;
+    border-radius:var(--tnxt-radius-sm);
+    font-size:var(--tnxt-font-size-base);
+    background:#fff;
+}
+
+.esig-body input:focus,
+.esig-body select:focus{
+    outline:2px solid #0d6efd33;
+    border-color:#0d6efd;
+}
+
+.esig-document-card{
+    display:flex;
+    align-items:center;
+    gap:var(--tnxt-space-md);
+    padding:.9rem 1rem;
+    border:1px solid #dbeafe;
+    border-radius:var(--tnxt-radius-sm);
+    background:#eff6ff;
+}
+
+.esig-document-card .pdf-file-icon{
+    background:#0b2f45;
+}
+
+.esig-modal--delete .esig-document-card{
+    border-color:#fecaca;
+    background:#fef2f2;
+}
+
+.pdf-file-icon{
+    background:#dc2626;
+    color:#fff;
+    font-size:.65rem;
+    font-weight:700;
+    padding:.3rem .5rem;
+    border-radius:.25rem;
+    letter-spacing:.5px;
+    flex-shrink:0;
+}
+
+.esig-document-meta{
+    display:grid;
+    gap:.1rem;
+    min-width:0;
+}
+
+.esig-document-meta strong{
+    font-size:var(--tnxt-font-size-base);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.esig-document-meta span{
+    font-size:var(--tnxt-font-size-sm);
+    color:#475569;
+}
+
+.esig-action-note{
+    margin:0;
+    font-size:var(--tnxt-font-size-sm);
+    color:#334155;
+    background:#f1f5f9;
+    border:1px solid #e2e8f0;
+    border-radius:var(--tnxt-radius-sm);
+    padding:.5rem .75rem;
+}
+
+.esig-danger-banner{
+    display:flex;
+    align-items:flex-start;
+    gap:.75rem;
+    padding:.9rem 1rem;
+    border:1px solid #fecaca;
+    border-radius:var(--tnxt-radius-sm);
+    background:#fef2f2;
+    color:#7f1d1d;
+}
+
+.esig-danger-banner .esig-danger-icon{
+    font-size:1.15rem;
+    line-height:1.3;
+}
+
+.esig-danger-banner div{
+    display:grid;
+    gap:.15rem;
+}
+
+.esig-danger-banner strong{
+    font-size:var(--tnxt-font-size-sm);
+    color:#991b1b;
+}
+
+.esig-danger-banner span{
+    font-size:var(--tnxt-font-size-sm);
+    opacity:.85;
+}
+
+.esig-hint{
+    margin:-.25rem 0 .25rem;
+    font-size:var(--tnxt-font-size-sm);
+    color:#64748b;
+}
+
+.esig-error{
+    padding:.65rem .9rem;
+    border:1px solid #fecaca;
+    border-radius:var(--tnxt-radius-sm);
+    background:#fef2f2;
+    color:#b91c1c;
+    font-size:var(--tnxt-font-size-sm);
+    font-weight:600;
+}
+
+.esig-stamp-note{
+    margin:.25rem 0 0;
+    font-size:var(--tnxt-font-size-sm);
+    color:#475569;
+    background:#f8fafc;
+    border:1px dashed #cbd5e1;
+    border-radius:var(--tnxt-radius-sm);
+    padding:.55rem .75rem;
+}
+
+.esig-footer{
+    padding:var(--tnxt-font-size-xl) var(--tnxt-space-2xl);
+    border-top:1px solid #e2e8f0;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:var(--tnxt-font-size-base);
+}
+
+.esig-primary{
+    background:#0d6efd;
+    color:#fff;
+    border:none;
+    min-width:11rem;
+    height:2.75rem;
+    padding:0 1.25rem;
+    border-radius:var(--tnxt-space-sm);
+    cursor:pointer;
+    font-size:var(--tnxt-font-size-base);
+    font-weight:600;
+}
+
+.esig-primary:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.esig-danger{
+    background:#dc2626;
+    color:#fff;
+    border:none;
+    min-width:11rem;
+    height:2.75rem;
+    padding:0 1.25rem;
+    border-radius:var(--tnxt-space-sm);
+    cursor:pointer;
+    font-size:var(--tnxt-font-size-base);
+    font-weight:600;
+}
+
+.esig-danger:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.esig-secondary{
+    background:#fff;
+    border:1px solid #cbd5e1;
+    min-width:8rem;
+    height:2.75rem;
+    padding:0 1rem;
+    border-radius:var(--tnxt-space-sm);
+    cursor:pointer;
+    font-size:var(--tnxt-font-size-base);
+    font-weight:600;
+    color:#334155;
+}
+
+.esig-secondary:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* Reused by modules that embed signature info in audit/history rows */
+.esig-audit-tag{
+    display:inline-block;
+    font-size:.72rem;
+    font-weight:600;
+    padding:.15rem .45rem;
+    border-radius:.25rem;
+    background:#e0f2fe;
+    color:#075985;
+    margin-left:.35rem;
+    vertical-align:middle;
+    letter-spacing:.2px;
+}

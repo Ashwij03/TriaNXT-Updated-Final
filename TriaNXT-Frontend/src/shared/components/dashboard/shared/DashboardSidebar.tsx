@@ -32,6 +32,9 @@ import {
   FiCpu,
   FiGift,
   FiCreditCard,
+  FiAlertTriangle,
+  FiCheckSquare,
+  FiActivity,
 } from "react-icons/fi";
 import { getRoleExtraMenuItems } from "../../../constants/roleMenus";
 
@@ -181,6 +184,23 @@ function DashboardSidebar({ onNavigate, collapsed = false, compact = false }: an
     effectiveUser?.role === "CRO" ||
     effectiveUser?.role === "Sponsor";
   // ===== END: Monitoring Access role check =====
+
+  // ===== START: Governance modules (Phases 1-4) role checks =====
+  // Mirrors the route-access map in roleService.js — these determine the
+  // sidebar entries only; the backend enforces the same matrix server-side.
+  const canViewCompliance =
+    effectiveUser?.role === "Admin" || effectiveUser?.role === "Sponsor";
+  const canViewAuditTrail =
+    effectiveUser?.role === "Admin" ||
+    effectiveUser?.role === "Sponsor" ||
+    effectiveUser?.role === "CRO";
+  const canViewDeviations = Boolean(effectiveUser?.role);
+  const canViewCapa = Boolean(effectiveUser?.role);
+  const canViewRisks =
+    effectiveUser?.role === "Admin" ||
+    effectiveUser?.role === "Sponsor" ||
+    effectiveUser?.role === "CRO";
+  // ===== END: Governance modules (Phases 1-4) role checks =====
 
   const roleExtraMenuItems = getRoleExtraMenuItems(effectiveUser?.role);
   const visibleStudySections = STUDY_SECTIONS.filter((section) => {
@@ -815,6 +835,58 @@ function DashboardSidebar({ onNavigate, collapsed = false, compact = false }: an
         </div>
       )}
       {/* ===== END: Monitoring Access sidebar link ===== */}
+
+      {/* ===== START: Governance module sidebar links (Phases 1-4) ===== */}
+      {canViewCompliance && (
+        <div
+          className={getLinkClass(pathname === "/compliance")}
+          onClick={() => handleNav("/compliance")}
+        >
+          <FiShield size={16} />
+          <span>Compliance Dashboard</span>
+        </div>
+      )}
+
+      {canViewAuditTrail && (
+        <div
+          className={getLinkClass(pathname === "/audit")}
+          onClick={() => handleNav("/audit")}
+        >
+          <FiFileText size={16} />
+          <span>Audit Trail</span>
+        </div>
+      )}
+
+      {canViewDeviations && (
+        <div
+          className={getLinkClass(pathname === "/issues")}
+          onClick={() => handleNav("/issues")}
+        >
+          <FiAlertTriangle size={16} />
+          <span>Deviations</span>
+        </div>
+      )}
+
+      {canViewCapa && (
+        <div
+          className={getLinkClass(pathname === "/capa")}
+          onClick={() => handleNav("/capa")}
+        >
+          <FiCheckSquare size={16} />
+          <span>CAPA</span>
+        </div>
+      )}
+
+      {canViewRisks && (
+        <div
+          className={getLinkClass(pathname === "/risks")}
+          onClick={() => handleNav("/risks")}
+        >
+          <FiActivity size={16} />
+          <span>Risk Engine</span>
+        </div>
+      )}
+      {/* ===== END: Governance module sidebar links (Phases 1-4) ===== */}
 
       {canManageUsers && (
         <div

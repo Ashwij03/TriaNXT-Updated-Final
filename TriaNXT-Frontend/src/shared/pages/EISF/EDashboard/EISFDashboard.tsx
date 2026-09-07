@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "./EISFDashboard.css";
 import EISFMenuConfig from "../Constants/EISFMenuConfig";
+import ISF_FOLDER_STRUCTURE from "../Constants/isfFolderStructure";
 import EISF_ASSIGNED_MODULES from "../eisfAssignedModuleConfig";
 import {
   EISF_DOCUMENTS_EVENT,
@@ -162,6 +163,29 @@ export default function EISFDashboard({ studyCode }: any = {}) {
     setSelected(moduleId);
   };
 
+  // Standard ISF Regulatory-Repository folders (Protocol, IRB/IEC, ...)
+  // with live document counts across the eISF menu modules they cover.
+  const standardFolderCounts = useMemo(() => {
+    return ISF_FOLDER_STRUCTURE.map((folder) => {
+      let total = 0;
+      (folder.sourceModuleIds || []).forEach((moduleId) => {
+        const module = EISFMenuConfig.find((item) => item.id === moduleId);
+        (module?.children || []).forEach((child) => {
+          total += folderCounts[child.id] || 0;
+        });
+      });
+      return { ...folder, count: total };
+    });
+  }, [folderCounts]);
+
+  const openStandardFolder = (folder) => {
+    const moduleId = folder.sourceModuleIds?.[0] || "1.0";
+    handleModuleChange(moduleId);
+    if (expandedModuleId !== moduleId) {
+      toggleModule(moduleId);
+    }
+  };
+
   const handleSectionChange = (sectionId) => {
     setSelected(sectionId);
   };
@@ -272,6 +296,24 @@ export default function EISFDashboard({ studyCode }: any = {}) {
       </aside>
 
       <main className="eisf-content">
+        {/* Standard ISF Regulatory-Repository folder bar (Architecture
+            Blueprint): Protocol, IRB/IEC, Regulatory, CVs/Licenses, ICF,
+            Financials, Monitoring Reports. */}
+        <div className="isf-folder-strip" role="list" aria-label="Standard ISF folders">
+          {standardFolderCounts.map((folder) => (
+            <button
+              type="button"
+              role="listitem"
+              key={folder.key}
+              className="isf-folder-chip"
+              onClick={() => openStandardFolder(folder)}
+              title={`${folder.label}: ${folder.description}`}>
+              <span className="isf-folder-chip-label">{folder.label}</span>
+              <span className="isf-folder-chip-count">{folder.count}</span>
+            </button>
+          ))}
+        </div>
+
         <CurrentPage
           // enabledVersion re-mounts the module page after a sub-module toggle
           // so it re-reads the stored enable/disable state (no prop-chain or
