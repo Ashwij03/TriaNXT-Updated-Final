@@ -5,7 +5,6 @@ import AdminComments from "../../Admin/pages/Comments";
 import AdminNotifications from "../../Admin/pages/Notifications";
 import AdminRecruitment from "../../Admin/pages/Recruitment";
 import AdminReferral from "../../Admin/pages/Referral";
-import AdminReports from "../../Admin/pages/Reports";
 import AdminSettings from "../../Admin/pages/Settings";
 import AdminSitePerformance from "../../Admin/pages/SitePerformance";
 import CroEnrollment from "../../CRO/pages/CROEnrollment";
@@ -20,7 +19,6 @@ import SponsorQueries from "../../Sponsor/pages/Queries";
 import SponsorSitePerformance from "../../Sponsor/pages/SitePerformance";
 import SponsorRecruitment from "../../Sponsor/pages/Recruitment";
 import SponsorRegulatory from "../../Sponsor/pages/Regulatory";
-import SponsorReports from "../../Sponsor/pages/Reports";
 import SponsorNotifications from "../../Sponsor/pages/Notifications";
 import SponsorSettings from "../../Sponsor/pages/Settings";
 import SponsorReferral from "../../Sponsor/pages/Referral";
@@ -30,12 +28,13 @@ import SponsorSubjects from "../../Sponsor/pages/Subjects";
 import CroSitePerformance from "../../CRO/pages/CROSitePerformance";
 import CroRecruitment from "../../CRO/pages/Recruitment";
 import CroRegulatory from "../../CRO/pages/CRORegulatoryDocuments";
-import CroReports from "../../CRO/pages/CROReports";
 import CroNotifications from "../../CRO/pages/CRONotifications";
 import CroSettings from "../../CRO/pages/CROSettings";
 
 import PISitePerformance from "../../PI/pages/PISitePerformance";
 import PISettings from "../../PI/pages/PISettings";
+
+import ReportCenter from "../pages/reports/ReportCenter";
 
 function pickComponent(roleMap, defaultComponent?) {
   const role = getEffectiveRole();
@@ -115,14 +114,12 @@ export function RoleAwareRegulatory() {
 }
 
 export function RoleAwareReports() {
-  const Component = pickComponent(
-    {
-      [ROLES.SPONSOR]: SponsorReports,
-      [ROLES.CRO]: CroReports
-    },
-    AdminReports
-  );
-  return <Component />;
+  // The new API-backed Report Center (Varsha's scope) is the /reports target
+  // for every role — rows are scoped server-side to the caller's org/study/
+  // site, and the five standard reports export to CSV/Excel/PDF. The legacy
+  // per-role localStorage report trackers remain importable but are no longer
+  // mounted here.
+  return <ReportCenter />;
 }
 
 export function RoleAwareNotifications() {

@@ -1,6 +1,14 @@
 import ROLES from "./roles";
 
 export const ROLE_EXTRA_MENU_ITEMS = {
+  [ROLES.ADMIN]: [
+    { key: "finance", label: "Finance", path: "/finance" },
+    { key: "milestones", label: "Milestones", path: "/milestones" }
+  ],
+  [ROLES.SITE_STAFF]: [
+    { key: "finance", label: "Finance", path: "/finance" },
+    { key: "milestones", label: "Milestones", path: "/milestones" }
+  ],
   [ROLES.SPONSOR]: [
     { key: "screening", label: "Screening", path: "/screening" },
     { key: "enrollment", label: "Enrollment", path: "/enrollment" },
@@ -9,7 +17,9 @@ export const ROLE_EXTRA_MENU_ITEMS = {
     { key: "portfolio", label: "Portfolio", path: "/portfolio" },
     { key: "study-oversight", label: "Study Oversight", path: "/study-oversight" },
     { key: "cro-oversight", label: "CRO Oversight", path: "/cro-oversight" },
-    { key: "risk-management", label: "Risk Management", path: "/risk-management" }
+    { key: "risk-management", label: "Risk Management", path: "/risk-management" },
+    { key: "finance", label: "Finance", path: "/finance" },
+    { key: "milestones", label: "Milestones", path: "/milestones" }
   ],
   [ROLES.PI]: [
     { key: "pi-subjects", label: "PI Subjects", path: "/pi-subjects-dashboard" },
@@ -25,7 +35,9 @@ export const ROLE_EXTRA_MENU_ITEMS = {
     { key: "screening", label: "Screening", path: "/screening" },
     { key: "enrollment", label: "Enrollment", path: "/enrollment" },
     { key: "visits", label: "Visits", path: "/visits" },
-    { key: "queries", label: "Queries", path: "/queries" }
+    { key: "queries", label: "Queries", path: "/queries" },
+    { key: "finance", label: "Finance", path: "/finance" },
+    { key: "milestones", label: "Milestones", path: "/milestones" }
   ]
 };
 

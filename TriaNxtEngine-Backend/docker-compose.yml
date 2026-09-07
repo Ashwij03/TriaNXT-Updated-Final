@@ -31,7 +31,7 @@ services:
       ALLOWED_HOSTS: localhost,127.0.0.1,engine
       CTMS_ENCRYPTION_KEY: ${CTMS_ENCRYPTION_KEY:-dev-only-local-key-change-me}
       DATABASE_URL: postgresql+psycopg2://${DB_USER:-trianxt}:${DB_PASSWORD:-changeme_local_only}@db:5432/${DB_NAME:-trianxt_ctms}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001,http://127.0.0.1:3001}
     ports:
       - "8000:8000"
     # Run migrations (alembic) before gunicorn starts. Overrides the

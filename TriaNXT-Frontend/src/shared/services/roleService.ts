@@ -631,6 +631,27 @@ export function canAccessRoute(path, user = getCurrentUser()) {
       ROLES.CRO,
       ROLES.SPONSOR,
     ],
+    // ===== START: Custom Report Builder / Financials / Milestones routes =====
+    "/reports/builder": [
+      ROLES.ADMIN,
+      ROLES.SITE_STAFF,
+      ROLES.PI,
+      ROLES.CRO,
+      ROLES.SPONSOR,
+    ],
+    "/finance": [
+      ROLES.ADMIN,
+      ROLES.SITE_STAFF,
+      ROLES.CRO,
+      ROLES.SPONSOR,
+    ],
+    "/milestones": [
+      ROLES.ADMIN,
+      ROLES.SITE_STAFF,
+      ROLES.CRO,
+      ROLES.SPONSOR,
+    ],
+    // ===== END: Custom Report Builder / Financials / Milestones routes =====
     "/notifications": Object.values(ROLES),
     "/live-chat": [ROLES.SPONSOR, ROLES.ADMIN],
     "/settings": Object.values(ROLES),

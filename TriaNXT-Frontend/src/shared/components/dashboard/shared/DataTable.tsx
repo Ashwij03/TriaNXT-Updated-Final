@@ -121,6 +121,18 @@ function DataTable({
   const pageEnd = Math.min(currentPage * pageSize, processedData.length);
   const showToolbar = searchable || filterOptions.length > 0;
 
+  // Row keys must be unique within the rendered list. Many tables (e.g. the
+  // standard reports) have no per-row id and fall back to a shared field like
+  // studyId, which made every row share one key — React then duplicates or
+  // omits rows when the table content changes, visibly mixing rows/columns
+  // from a previously viewed report. Appending the row's position guarantees
+  // uniqueness while keeping the key stable across re-renders of the same data.
+  const rowKey = (row: any, index: number) => {
+    const base =
+      row.id || row.subjectId || row.studyId || row.code || row.number || "";
+    return base ? `${base}-${index}` : `row-${index}`;
+  };
+
   return (
 
     <div className={`ctms-table-card${className ? ` ${className}` : ""}`}>
@@ -216,7 +228,7 @@ function DataTable({
 
               visibleData.map((row, index) => (
 
-                <tr key={row.id || row.subjectId || row.studyId || index}>
+                <tr key={rowKey(row, index)}>
 
                   {columns.map((column) => (
 

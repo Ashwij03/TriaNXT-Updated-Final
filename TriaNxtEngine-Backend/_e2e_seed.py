@@ -5,7 +5,12 @@
 #
 #   * Demo users per role (org 5) with known passwords, so the SPA login
 #     directory and the backend-session bootstrap (POST /api/accounts/login/)
-#     both succeed: Sponsor / Site Staff / CRO.
+#     both succeed: Sponsor / Site Staff / CRO — plus the Admin account
+#     (admin1@trianxt.com / Admin@123) that the SPA auto-seeds into its
+#     localStorage directory. Without a matching backend row, the directory
+#     login succeeds but establishBackendSession() gets 401 from
+#     /api/accounts/login/, no session cookie is ever set, and every
+#     API-mode page (Reports, Finance, ...) fails with 401.
 #   * Three AE/SAE cases so the Safety Center KPIs render real data
 #     (1 open SAE + 1 open mild + 1 reconciled -> total 3, open 2).
 #   * Two monitoring-access requests (one pending, one approved covering
@@ -40,8 +45,17 @@ from sqlalchemy import select
 from tria_engine.apps.accounts.models import User
 from tria_engine.apps.ctms.models import CtmsAeCase, CtmsMonitoringRequest, CtmsSubject, CtmsVisit
 from tria_engine.apps.organizations.models import Organization, Role
+from tria_engine.apps.reporting.models import (
+    FinanceBudget,
+    FinanceInvoice,
+    FinanceMilestone,
+    FinancePayout,
+    ReportDeviation,
+    ReportStudyDocument,
+)
 from tria_engine.core.database import SessionLocal
 from tria_engine.core.security import hash_password
+from tria_engine.core.timeutils import utcnow
 
 ORG_ID = 5            # "Safety Demo Org"
 ORG_NAME = "Safety Demo Org"
@@ -76,6 +90,19 @@ DEMO_USERS = [
         "first": "CRO",
         "last": "Demo",
     },
+    # Backend twin of the SPA directory's auto-seeded Admin account
+    # (initializeAdminData() creates admin1@trianxt.com / Admin@123 in
+    # localStorage). is_superuser=True mirrors the RBAC-spec Admin: wildcard
+    # org scope + every module write (incl. payout approval).
+    {
+        "email": "admin1@trianxt.com",
+        "username": "admin1",
+        "password": "Admin@123",
+        "role": "Admin",
+        "first": "System",
+        "last": "Administrator",
+        "superuser": True,
+    },
 ]
 
 
@@ -105,6 +132,7 @@ def ensure_user(db, spec: dict) -> User:
     user = db.execute(
         select(User).where(User.email == spec["email"])
     ).scalar_one_or_none()
+    is_superuser = bool(spec.get("superuser", False))
     if user is None:
         user = User(
             username=spec["username"],
@@ -113,6 +141,7 @@ def ensure_user(db, spec: dict) -> User:
             first_name=spec["first"],
             last_name=spec["last"],
             is_active=True,
+            is_superuser=is_superuser,
             must_change_password=False,
             organization_id=ORG_ID,
             role_id=role.id,
@@ -126,6 +155,7 @@ def ensure_user(db, spec: dict) -> User:
         user.must_change_password = False
         user.organization_id = ORG_ID
         user.role_id = role.id
+        user.is_superuser = is_superuser
         db.flush()
     return user
 
@@ -138,6 +168,12 @@ def ensure_row(db, model, code: str, **fields) -> bool:
     db.add(model(code=code, **fields))
     db.flush()
     return True
+
+
+def exists_row(db, model, code: str) -> bool:
+    """True when a row with `code` already exists (finance tables insert a
+    fully-populated row themselves, so this only probes)."""
+    return db.execute(select(model).where(model.code == code)).scalar_one_or_none() is not None
 
 
 def seed_ae_cases(db, sponsor: User) -> None:
@@ -394,6 +430,264 @@ def seed_subjects_and_visits(db) -> None:
             )
 
 
+def seed_reporting_finance(db, sponsor: User) -> None:
+    """Reporting mirrors (deviations / documents) + budgets, milestones,
+    invoices and payouts so the Report Center and the Financials &
+    Milestones dashboards render real numbers. Converges like the rest of
+    the seed: stable codes are never duplicated on re-runs."""
+    now = utcnow()
+
+    # --- deviations mirror (Protocol Deviation Summary / builder) -------
+    deviations = [
+        {
+            "id": "DEV-E2E-001",
+            "studyId": STUDY_ID,
+            "subjectId": "E2E-DEMO-005",
+            "siteNo": SITE_NO,
+            "siteName": SITE_NAME,
+            "category": "Informed Consent",
+            "severity": "Minor",
+            "status": "Open",
+            "description": "Consent form version not updated before visit.",
+            "identifiedDate": day(-14),
+            "closedDate": None,
+        },
+        {
+            "id": "DEV-E2E-002",
+            "studyId": STUDY_ID,
+            "subjectId": "E2E-DEMO-003",
+            "siteNo": SITE_NO,
+            "siteName": SITE_NAME,
+            "category": "Protocol Procedure",
+            "severity": "Major",
+            "status": "Open",
+            "description": "Vital signs measured outside protocol window.",
+            "identifiedDate": day(-6),
+            "closedDate": None,
+        },
+        {
+            "id": "DEV-E2E-003",
+            "studyId": STUDY_ID,
+            "subjectId": "E2E-DEMO-004",
+            "siteNo": SITE_NO,
+            "siteName": SITE_NAME,
+            "category": "Study Visit",
+            "severity": "Moderate",
+            "status": "Closed",
+            "description": "Missed scheduled assessment; rescheduled.",
+            "identifiedDate": day(-40),
+            "closedDate": day(-35),
+        },
+        {
+            "id": "DEV-E2E-004",
+            "studyId": STUDY_ID,
+            "subjectId": "E2E-DEMO-006",
+            "siteNo": SITE_NO,
+            "siteName": SITE_NAME,
+            "category": "Laboratory",
+            "severity": "Minor",
+            "status": "Closed",
+            "description": "Sample tube mislabelled; corrected at site.",
+            "identifiedDate": day(-22),
+            "closedDate": day(-20),
+        },
+        {
+            "id": "DEV-E2E-005",
+            "studyId": STUDY_ID,
+            "subjectId": "E2E-DEMO-002",
+            "siteNo": SITE_NO,
+            "siteName": SITE_NAME,
+            "category": "Protocol Procedure",
+            "severity": "Major",
+            "status": "Open",
+            "description": "Unblinded staff handled study drug kit.",
+            "identifiedDate": day(-2),
+            "closedDate": None,
+        },
+    ]
+    for deviation in deviations:
+        data = dict(deviation)
+        ensure_row(
+            db,
+            ReportDeviation,
+            deviation["id"],
+            organization_id=ORG_ID,
+            study_id=STUDY_ID,
+            site_id=SITE_NO,
+            data=data,
+        )
+
+    # --- documents mirror (eISF Completeness Index / builder) -----------
+    documents = [
+        ("Regulatory Binder", "Form FDA 1572 / CV", "Uploaded"),
+        ("Regulatory Binder", "IRB Approval Letter", "Uploaded"),
+        ("Regulatory Binder", "Delegation of Authority Log", "Missing"),
+        ("Source Documents", "Signed Informed Consent (S-9002)", "Uploaded"),
+        ("Source Documents", "Signed Informed Consent (S-9011)", "Missing"),
+        ("Lab Documents", "Lab Normal Ranges", "Uploaded"),
+        ("Lab Documents", "Lab Certifications", "Uploaded"),
+        ("Subject Files", "Medical History (E2E-DEMO-001)", "Missing"),
+        ("Monitoring", "Monitoring Visit Log", "Uploaded"),
+        ("Site Training", "Protocol Training Attendance", "Uploaded"),
+    ]
+    for index, (folder, name, status) in enumerate(documents, start=1):
+        doc_id = f"DOC-E2E-{index:03d}"
+        data = {
+            "id": doc_id,
+            "studyId": STUDY_ID,
+            "siteNo": SITE_NO,
+            "siteName": SITE_NAME,
+            "folder": folder,
+            "documentName": name,
+            "status": status,
+            "uploadedDate": (day(-3) if status == "Uploaded" else None),
+        }
+        ensure_row(
+            db,
+            ReportStudyDocument,
+            doc_id,
+            organization_id=ORG_ID,
+            study_id=STUDY_ID,
+            site_id=SITE_NO,
+            data=data,
+        )
+
+    # --- budgets (baseline amounts) --------------------------------------
+    budgets = [
+        {
+            "code": "BGT-E2E-S001",
+            "name": f"{SITE_NAME} — study execution budget",
+            "study_id": STUDY_ID,
+            "site_id": SITE_NO,
+            "site_name": SITE_NAME,
+            "baseline": 125000.0,
+            "period": "Year 1",
+        },
+        {
+            "code": "BGT-E2E-S002",
+            "name": "Regional Demo Site — study execution budget",
+            "study_id": STUDY_ID,
+            "site_id": "002",
+            "site_name": "Regional Demo Site",
+            "baseline": 90000.0,
+            "period": "Year 1",
+        },
+    ]
+    for budget in budgets:
+        if not exists_row(db, FinanceBudget, budget["code"]):
+            db.add(
+                FinanceBudget(
+                    code=budget["code"],
+                    name=budget["name"],
+                    organization_id=ORG_ID,
+                    study_id=budget["study_id"],
+                    site_id=budget["site_id"],
+                    site_name=budget["site_name"],
+                    baseline_amount=budget["baseline"],
+                    period_label=budget["period"],
+                    status="Active",
+                    created_at=now,
+                    updated_at=now,
+                )
+            )
+
+    # --- payouts (drive the actual-spend variance) ------------------------
+    payouts = [
+        # Approved on BGT-E2E-S001 -> part of actual spend
+        {"code": "PAY-E2E-S001-A1", "budget": "BGT-E2E-S001", "amount": 26000.0, "status": "Approved", "reason": "Pass-through grant payment — Q1", "invoice": "INV-E2E-001"},
+        {"code": "PAY-E2E-S001-A2", "budget": "BGT-E2E-S001", "amount": 32400.0, "status": "Approved", "reason": "Subject visit reimbursement batch 2", "invoice": ""},
+        # Pending -> committed (not yet actual spend)
+        {"code": "PAY-E2E-S001-P1", "budget": "BGT-E2E-S001", "amount": 8500.0, "status": "Pending", "reason": "Pending site invoice for lab shipments", "invoice": ""},
+        # Paid on BGT-E2E-S002 -> actual spend
+        {"code": "PAY-E2E-S002-PD1", "budget": "BGT-E2E-S002", "amount": 61200.0, "status": "Paid", "reason": "Site activation + first 20 subjects", "invoice": "INV-E2E-002"},
+    ]
+    for payout in payouts:
+        if not exists_row(db, FinancePayout, payout["code"]):
+            db.add(
+                FinancePayout(
+                    code=payout["code"],
+                    organization_id=ORG_ID,
+                    study_id=STUDY_ID,
+                    site_id=SITE_NO if payout["budget"] == "BGT-E2E-S001" else "002",
+                    budget_code=payout["budget"],
+                    invoice_code=payout["invoice"],
+                    reason=payout["reason"],
+                    amount=payout["amount"],
+                    currency="USD",
+                    status=payout["status"],
+                    requested_by=sponsor.username,
+                    requested_at=now,
+                    decided_by=sponsor.username if payout["status"] != "Pending" else "",
+                    decided_at=now if payout["status"] != "Pending" else None,
+                    created_at=now,
+                    updated_at=now,
+                )
+            )
+
+    # --- invoices ---------------------------------------------------------
+    invoices = [
+        {"code": "INV-E2E-001", "amount": 26000.0, "status": "Issued", "site": SITE_NO, "budget": "BGT-E2E-S001", "description": "Quarterly pass-through payment", "period": "Q1"},
+        {"code": "INV-E2E-002", "amount": 61200.0, "status": "Paid", "site": "002", "budget": "BGT-E2E-S002", "description": "Site activation and enrollment milestone invoice", "period": "Y1"},
+        {"code": "INV-E2E-003", "amount": 8500.0, "status": "Draft", "site": SITE_NO, "budget": "BGT-E2E-S001", "description": "Lab shipment costs — draft", "period": "Q2"},
+    ]
+    for invoice in invoices:
+        if not exists_row(db, FinanceInvoice, invoice["code"]):
+            db.add(
+                FinanceInvoice(
+                    code=invoice["code"],
+                    number=invoice["code"],
+                    organization_id=ORG_ID,
+                    study_id=STUDY_ID,
+                    site_id=invoice["site"],
+                    budget_code=invoice["budget"],
+                    description=invoice["description"],
+                    amount=invoice["amount"],
+                    currency="USD",
+                    status=invoice["status"],
+                    period_label=invoice["period"],
+                    issue_date=date.today() if invoice["status"] in ("Issued", "Paid") else None,
+                    due_date=None,
+                    created_by=sponsor.username,
+                    created_at=now,
+                    updated_at=now,
+                )
+            )
+
+    # --- milestones (weighted contractual milestones) ----------------------
+    milestones = [
+        # study-level milestones (site column NULL)
+        {"code": "MS-E2E-ST1", "name": "Study DB Lock readiness", "site": None, "category": "Contractual", "weight": 40.0, "status": "In Progress", "target": day(90)},
+        {"code": "MS-E2E-ST2", "name": "Final CSR delivery", "site": None, "category": "Contractual", "weight": 60.0, "status": "Not Started", "target": day(240)},
+        # site-001 milestones (complete)
+        {"code": "MS-E2E-S001-1", "name": "Site activation and initiation", "site": SITE_NO, "category": "Contractual", "weight": 25.0, "status": "Completed", "target": day(-45)},
+        {"code": "MS-E2E-S001-2", "name": "First subject enrolled", "site": SITE_NO, "category": "Contractual", "weight": 25.0, "status": "Completed", "target": day(-20)},
+        {"code": "MS-E2E-S001-3", "name": "Enrollment complete (75%)", "site": SITE_NO, "category": "Contractual", "weight": 25.0, "status": "Completed", "target": day(30)},
+        {"code": "MS-E2E-S001-4", "name": "Close-out visit", "site": SITE_NO, "category": "Contractual", "weight": 25.0, "status": "Not Started", "target": day(200)},
+        # site-002 milestones (partial)
+        {"code": "MS-E2E-S002-1", "name": "Site activation and initiation", "site": "002", "category": "Contractual", "weight": 25.0, "status": "Completed", "target": day(-30)},
+        {"code": "MS-E2E-S002-2", "name": "First subject enrolled", "site": "002", "category": "Contractual", "weight": 15.0, "status": "Completed", "target": day(-12)},
+        {"code": "MS-E2E-S002-3", "name": "Enrollment complete (75%)", "site": "002", "category": "Contractual", "weight": 20.0, "status": "In Progress", "target": day(60)},
+        {"code": "MS-E2E-S002-4", "name": "Close-out visit", "site": "002", "category": "Contractual", "weight": 40.0, "status": "Not Started", "target": day(220)},
+    ]
+    for milestone in milestones:
+        if not exists_row(db, FinanceMilestone, milestone["code"]):
+            db.add(
+                FinanceMilestone(
+                    code=milestone["code"],
+                    name=milestone["name"],
+                    organization_id=ORG_ID,
+                    study_id=STUDY_ID,
+                    site_id=milestone["site"],
+                    category=milestone["category"],
+                    weight=milestone["weight"],
+                    target_date=None,
+                    status=milestone["status"],
+                    created_at=now,
+                    updated_at=now,
+                )
+            )
+
+
 def seed() -> None:
     db = SessionLocal()
     try:
@@ -405,6 +699,7 @@ def seed() -> None:
         seed_ae_cases(db, sponsor)
         seed_monitoring_requests(db, sponsor, staff)
         seed_subjects_and_visits(db)
+        seed_reporting_finance(db, sponsor)
 
         db.commit()
 
@@ -412,12 +707,18 @@ def seed() -> None:
         ma_count = db.execute(select(CtmsMonitoringRequest)).scalars().all()
         sub_count = db.execute(select(CtmsSubject)).scalars().all()
         vis_count = db.execute(select(CtmsVisit)).scalars().all()
+        bgt_count = db.execute(select(FinanceBudget)).scalars().all()
+        ms_count = db.execute(select(FinanceMilestone)).scalars().all()
+        dev_count = db.execute(select(ReportDeviation)).scalars().all()
+        doc_count = db.execute(select(ReportStudyDocument)).scalars().all()
         print("OK demo environment provisioned (idempotent, safe to re-run)")
         print(f"   users  : " + ", ".join(
             f"{u['role']}={u['email']} / {u['password']}" for u in DEMO_USERS))
         print(f"   org    : {ORG_ID} {ORG_NAME}  study={STUDY_ID}")
         print(f"   ae_cases={len(ae_count)} monitoring_requests={len(ma_count)}")
         print(f"   subjects={len(sub_count)} visits={len(vis_count)}")
+        print(f"   deviations={len(dev_count)} documents={len(doc_count)}")
+        print(f"   budgets={len(bgt_count)} milestones={len(ms_count)}")
     finally:
         db.close()
 

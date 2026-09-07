@@ -129,6 +129,7 @@ from tria_engine.core.database import Base, engine
 import tria_engine.apps.accounts.models
 import tria_engine.apps.organizations.models
 import tria_engine.apps.ctms.models
+import tria_engine.apps.reporting.models
 Base.metadata.create_all(engine)
 print("ctms tables ensured")
 PY
@@ -158,6 +159,10 @@ demo world and is the single setup entry point:
   `TNX-E2E-02`, plus **21 matching visit schedule rows**
   (Completed/Scheduled/Missed/Cancelled) so the aggregate endpoints below
   return real numbers.
+- **Reporting/Finance demo data** (Varsha's scope): 5 protocol deviations,
+  10 study documents, 2 site budgets, 10 contractual milestones, 3 invoices
+  (Draft/Issued/Paid) and 4 payouts (Pending/Approved ×2/Paid) — feeds the
+  Report Center, Report Builder, Finance and Milestones dashboards.
 - It converges rather than duplicates: on a DB already holding equivalent
   ad-hoc demo rows, totals stay stable.
 
@@ -312,6 +317,27 @@ curl -s -b "$JAR" "http://127.0.0.1:8000/api/site/subjects/summary/?studyId=TNX-
 
 # Visit schedule totals -> {total: 21, scheduled: 5, completed: 14, upcoming: 5}
 curl -s -b "$JAR" "http://127.0.0.1:8000/api/site/visits/summary/?studyId=TNX-E2E-02"
+
+# Report Center: the 5 standard reports + one run (Enrollment Velocity)
+curl -s -b "$JAR" http://127.0.0.1:8000/api/reports/standard
+curl -s -b "$JAR" http://127.0.0.1:8000/api/reports/standard/enrollment-velocity
+
+# Report Builder: catalog + a grouped-count run
+curl -s -b "$JAR" http://127.0.0.1:8000/api/reports/catalog
+curl -s -b "$JAR" -X POST http://127.0.0.1:8000/api/reports/run \
+  -H "Content-Type: application/json" \
+  -d '{"source":"subjects","columns":[],"filters":[],"aggregate":{"type":"count","groupBy":"status"}}'
+
+# Exports (all reports) -> CSV / Excel / PDF, each with company header,
+# date stamp and summary stats
+curl -s -b "$JAR" -o enroll.csv  "http://127.0.0.1:8000/api/reports/standard/enrollment-velocity/export?format=csv"
+curl -s -b "$JAR" -o enroll.xlsx "http://127.0.0.1:8000/api/reports/standard/enrollment-velocity/export?format=xlsx"
+curl -s -b "$JAR" -o enroll.pdf  "http://127.0.0.1:8000/api/reports/standard/enrollment-velocity/export?format=pdf"
+
+# Finance & Milestones: budgets vs actual with explicit variance,
+# invoices, payout approvals, weighted milestone completion
+curl -s -b "$JAR" http://127.0.0.1:8000/api/finance/summary
+curl -s -b "$JAR" http://127.0.0.1:8000/api/milestones
 ```
 
 OpenAPI docs (interactive): http://127.0.0.1:8000/docs
@@ -339,7 +365,7 @@ Relevant for local runs:
 
 ```bash
 # Backend full suite (runs from TriaNxtEngine-Backend, venv active)
-python -m pytest tria_engine/tests -q          # 89 tests, all green (verified)
+python -m pytest tria_engine/tests -q          # 103 tests, all green (verified)
 
 # CRO RBAC live check — hits the RUNNING backend (:8000) as a real CRO user
 # over HTTP and asserts Safety read-only + Monitoring request rights.
@@ -355,7 +381,9 @@ npm run build
 Coverage areas in `tria_engine/tests/`: `test_rbac.py` (role matrix),
 `test_safety_monitoring_ai.py` (Safety + Monitoring + AI Review,
 incl. CRO read-only/request-rights tests), `test_subject_visit_sync.py`
-(sync + the `/summary` aggregate endpoints), `test_scope_filters.py`.
+(sync + the `/summary` aggregate endpoints), `test_scope_filters.py`,
+`test_reports_finance.py` (Report Center / Builder / exports / finance
++ milestones, incl. template RBAC and variance reconciliation).
 
 ---
 
@@ -382,6 +410,14 @@ incl. CRO read-only/request-rights tests), `test_subject_visit_sync.py`
 - `apps/ctms/router_monitoring.py` — `/monitoring/requests*` +
   `/monitoring/access-check/` + `/api/site/organizations`.
 - `apps/ctms/router_ai.py` — AI Review surfaces (`/ai-review/...`).
+- `apps/reporting/` — Varsha's reporting + finance module:
+  `router_reports.py` (`/api/reports/*`: catalog, options, run, standard,
+  exports, templates), `router_finance.py` (`/api/finance/*` +
+  `/api/milestones`), `engine.py` (scoping + aggregations + the five
+  standard reports), `report_generator.py` (stdlib CSV/XLSX/PDF writer),
+  `models.py` (`report_template`, `report_deviation`,
+  `report_study_document`, finance budget/milestone/invoice/payout),
+  `rbac.py` (module-local write matrix; central auth untouched).
 
 **Scripts & tooling**
 - `_e2e_seed.py` — demo setup/seed (§3d). *This is the "setup file" for the
@@ -404,6 +440,12 @@ incl. CRO read-only/request-rights tests), `test_subject_visit_sync.py`
   `localStorage["users"]`).
 - `src/App.tsx` — route table.
 - `src/shared/pages/safety|monitoring|aiReview/` — the API-driven pages.
+- `src/shared/pages/reports/` — Report Center (`/reports`), Custom Report
+  Builder (`/reports/builder`) and the Finance/Milestones dashboard
+  (`/finance`, `/milestones`); all driven by
+  `src/shared/services/api/reportingApi.ts`.
+- `src/shared/constants/roleMenus.ts` + `roleService.ts` `canAccessRoute` —
+  sidebar entries and the route-guard matrix for the new pages.
 - `src/test/setup.ts` — vitest setup (jsdom, testing-library).
 
 ---

@@ -32,6 +32,8 @@ import tria_engine.apps.billing.models  # noqa: E402,F401
 import tria_engine.apps.monitoring.models  # noqa: E402,F401
 import tria_engine.apps.licensing.models  # noqa: E402,F401
 import tria_engine.apps.subscriptions.models  # noqa: E402,F401
+# Reporting & financials tables (Varsha's scope) registered before create_all.
+import tria_engine.apps.reporting.models  # noqa: E402,F401
 from tria_engine.core.session_store import DjangoSession  # noqa: E402,F401
 
 Base.metadata.create_all(engine)

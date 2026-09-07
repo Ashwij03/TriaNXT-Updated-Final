@@ -132,6 +132,13 @@ import RiskInsights from "./shared/pages/aiReview/RiskInsights";
 import EtmfCenter from "./shared/pages/etmf/EtmfCenter";
 // ===== END: Safety / AI Review / eTMF imports =====
 
+// ===== START: Reports / Financials & Milestones imports =====
+import CustomReportBuilder from "./shared/pages/reports/CustomReportBuilder";
+import FinanceDashboard, {
+  MilestonesDashboard,
+} from "./shared/pages/reports/FinanceDashboard";
+// ===== END: Reports / Financials & Milestones imports =====
+
 // ===== START: Dynamic Subscription & Plan Catalog imports =====
 import MyLicense from "./shared/pages/MyLicense";
 import SubscriptionManagement from "./Admin/pages/SubscriptionManagement";
@@ -555,6 +562,33 @@ function App() {
         element={
           <ProtectedRoute>
             <RoleAwareReports />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/reports/builder"
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.SITE_STAFF, ROLES.PI, ROLES.CRO, ROLES.SPONSOR]}>
+            <CustomReportBuilder />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/finance"
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.SITE_STAFF, ROLES.CRO, ROLES.SPONSOR]}>
+            <FinanceDashboard />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/milestones"
+        element={
+          <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.SITE_STAFF, ROLES.CRO, ROLES.SPONSOR]}>
+            <MilestonesDashboard />
           </ProtectedRoute>
         }
       />
