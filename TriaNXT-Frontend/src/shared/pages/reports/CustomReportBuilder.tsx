@@ -103,6 +103,16 @@ function CustomReportBuilder() {
     };
   }, [sourceKey, selectedColumns, filters, aggregate]);
 
+  const loadOptions = useCallback(async (key: string) => {
+    if (!isApiEnabled()) return;
+    try {
+      const res = await reportingApi.getReportOptions(key);
+      setOptions(res?.options || {});
+    } catch {
+      setOptions({});
+    }
+  }, []);
+
   const loadCatalog = useCallback(async () => {
     if (!isApiEnabled()) {
       setLoadingCatalog(false);
@@ -121,28 +131,22 @@ function CustomReportBuilder() {
           (sources[0].columns || []).map((column: any) => column.key),
         );
         setFilters([emptyFilter()]);
+        // Load the distinct value options for the initial source so the
+        // filter Value control offers the valid choices immediately.
+        loadOptions(first);
       }
     } catch (err: any) {
       setError(err?.message || "Failed to load the report catalog.");
     } finally {
       setLoadingCatalog(false);
     }
-  }, [sourceKey]);
+  }, [sourceKey, loadOptions]);
 
   useEffect(() => {
     loadCatalog();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const loadOptions = useCallback(async (key: string) => {
-    if (!isApiEnabled()) return;
-    try {
-      const res = await reportingApi.getReportOptions(key);
-      setOptions(res?.options || {});
-    } catch {
-      setOptions({});
-    }
-  }, []);
 
   const handleSourceChange = (key: string) => {
     setSourceKey(key);
@@ -595,12 +599,30 @@ function CustomReportBuilder() {
                               ))}
                             </datalist>
                           </div>
+                        ) : valueOptions.length > 0 ? (
+                          <select
+                            aria-label="Filter value"
+                            value={
+                              Array.isArray(filter.value)
+                                ? ""
+                                : String(filter.value ?? "")
+                            }
+                            onChange={(e) =>
+                              updateFilter(index, { value: e.target.value })
+                            }
+                          >
+                            <option value="">— choose a value —</option>
+                            {valueOptions.map((value: string) => (
+                              <option key={value} value={value}>
+                                {value}
+                              </option>
+                            ))}
+                          </select>
                         ) : (
                           <>
                             <input
                               aria-label="Filter value"
                               placeholder="Value"
-                              list={datalistId}
                               value={
                                 Array.isArray(filter.value)
                                   ? filter.value.join(" / ")
@@ -610,11 +632,6 @@ function CustomReportBuilder() {
                                 updateFilter(index, { value: e.target.value })
                               }
                             />
-                            <datalist id={datalistId}>
-                              {valueOptions.map((value: string) => (
-                                <option key={value} value={value} />
-                              ))}
-                            </datalist>
                           </>
                         )}
 
