@@ -38,6 +38,14 @@ from .apps.ctms.router_monitoring import router as monitoring_router
 from .apps.ctms.router_monitoring import sites_router as organizations_router
 from .apps.ctms.router_safety import router as safety_router
 from .apps.health.router import router as health_router
+# Varsha's scope: Custom Report Builder / Standard Report Center + Financials
+# & Milestones (additive reporting app; tables come from the `reporting`
+# alembic migration or Base.metadata.create_all).
+from .apps.reporting.router_finance import (
+    finance_router,
+    milestones_router,
+)
+from .apps.reporting.router_reports import router as reports_router
 from .core.config import BASE_DIR, settings
 from .core.database import engine
 from .core.logging_config import configure_logging
@@ -126,6 +134,10 @@ app.include_router(safety_router)
 app.include_router(monitoring_router)
 app.include_router(organizations_router)
 app.include_router(ai_review_router)
+# Reports / Financials & Milestones (Varsha's scope).
+app.include_router(reports_router)
+app.include_router(finance_router)
+app.include_router(milestones_router)
 
 
 # ---------------------------------------------------------------------------

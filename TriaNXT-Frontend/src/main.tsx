@@ -19,6 +19,50 @@ import { initializeUpcomingVisitReminderSynchronization } from "./shared/service
 import { SubscriptionProvider } from "./shared/context/SubscriptionContext";
 // ===== END: Dynamic Subscription & Plan Catalog — pre-fetch provider =====
 
+// ---------------------------------------------------------------------------
+// Dev-only origin alignment guard (SETUP.md §4b).
+//
+// The FastAPI session cookie is HttpOnly + SameSite=Lax. When the SPA is
+// browsed on http://localhost:3000 while VITE_API_URL points at
+// http://127.0.0.1:8000 (or vice versa), "localhost" and "127.0.0.1" are
+// different sites, so the browser silently drops the cookie on every XHR and
+// each API call returns 401 "Authentication credentials were not provided."
+//
+// This guard bounces the tab to the API's loopback alias (same port, path,
+// query and hash) exactly once, so the session cookie is always first-party.
+// It is skipped in tests (VITEST) and never fires for non-loopback hosts.
+// ---------------------------------------------------------------------------
+if (import.meta.env.DEV && !import.meta.env.VITEST) {
+  try {
+    const apiUrl = String(import.meta.env.VITE_API_URL || "");
+    const loopbackAliases = ["127.0.0.1", "localhost"];
+    if (apiUrl) {
+      const apiHost = new URL(apiUrl).hostname;
+      const pageHost = window.location.hostname;
+      if (
+        loopbackAliases.includes(apiHost) &&
+        loopbackAliases.includes(pageHost) &&
+        pageHost !== apiHost
+      ) {
+        const aligned =
+          window.location.protocol +
+          "//" +
+          apiHost +
+          (window.location.port ? ":" + window.location.port : "") +
+          window.location.pathname +
+          window.location.search +
+          window.location.hash;
+        console.info(
+          `[trianxt] Aligning dev origin to ${apiHost} (was ${pageHost}) so the API session cookie stays first-party.`
+        );
+        window.location.replace(aligned);
+      }
+    }
+  } catch {
+    /* never block app boot on the alignment guard */
+  }
+}
+
 // UPDATED: seed admin and studies localStorage data on app startup
 initializeAdminData();
 initializeStudies();

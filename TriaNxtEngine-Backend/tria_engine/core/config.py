@@ -46,7 +46,12 @@ class Settings(BaseSettings):
     ALLOWED_HOSTS: str = "localhost,127.0.0.1"
 
     # --- CORS --------------------------------------------------------------
-    CORS_ALLOWED_ORIGINS: str = "http://localhost:3000,http://127.0.0.1:3000"
+    # Both the CRA-era default (3000) and the next free Vite port (3001,
+    # picked automatically when 3000 is already bound) are allowed in dev.
+    CORS_ALLOWED_ORIGINS: str = (
+        "http://localhost:3000,http://127.0.0.1:3000,"
+        "http://localhost:3001,http://127.0.0.1:3001"
+    )
     CORS_ALLOW_CREDENTIALS: bool = True
 
     # --- Database ----------------------------------------------------------
