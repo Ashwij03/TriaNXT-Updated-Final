@@ -1,0 +1,320 @@
+/* Bulk folder upload modal (SubjectFolderUpload) - scoped under .sfu-* */
+
+.sfu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 24px;
+}
+
+.sfu-modal {
+  width: min(560px, 100%);
+  max-height: min(82vh, 640px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25);
+}
+
+.sfu-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 20px 12px;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.sfu-header-text h3 {
+  margin: 0;
+  font-size: 17px;
+  color: #0f172a;
+}
+
+.sfu-header-text p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.sfu-close {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: inline-flex;
+}
+
+.sfu-close:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.sfu-close:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ---------- dropzone ---------- */
+
+.sfu-dropzone {
+  margin: 18px 20px 6px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 26px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  outline: none;
+}
+
+.sfu-dropzone:hover,
+.sfu-dropzone:focus-visible,
+.sfu-dropzone.is-dragging {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.sfu-dropzone.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sfu-dropzone-icon {
+  color: #2563eb;
+  margin-bottom: 2px;
+}
+
+.sfu-dropzone strong {
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.sfu-dropzone span {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.sfu-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- review ---------- */
+
+.sfu-review,
+.sfu-done {
+  padding: 8px 20px 18px;
+}
+
+.sfu-review-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0 4px;
+}
+
+.sfu-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #475569;
+  background: #f1f5f9;
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+
+.sfu-stat svg {
+  color: #2563eb;
+}
+
+.sfu-stat--icf {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.sfu-stat--icf svg {
+  color: #ea580c;
+}
+
+.sfu-skipped {
+  margin: 10px 0 4px;
+  border: 1px solid #fde68a;
+  background: #fffbeb;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: #78350f;
+}
+
+.sfu-skipped summary {
+  cursor: pointer;
+  padding: 7px 10px;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sfu-skipped summary::-webkit-details-marker {
+  display: none;
+}
+
+.sfu-skipped ul {
+  margin: 0;
+  padding: 0 10px 8px 26px;
+  color: #92400e;
+}
+
+.sfu-skipped li {
+  margin: 2px 0;
+}
+
+.sfu-block-reason,
+.sfu-error {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 8px 0 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.sfu-block-reason {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.sfu-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+/* ---------- progress ---------- */
+
+.sfu-progress {
+  margin: 10px 0 2px;
+}
+
+.sfu-progress-track {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.sfu-progress-fill {
+  height: 100%;
+  background: #2563eb;
+  border-radius: 999px;
+  transition: width 0.15s ease;
+}
+
+.sfu-progress span {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ---------- actions ---------- */
+
+.sfu-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.sfu-actions .sf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sfu-actions .sf-btn--primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.sfu-actions .sf-btn--primary:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.sfu-actions .sf-btn--ghost {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.sfu-actions .sf-btn--ghost:hover:not(:disabled) {
+  background: #e2e8f0;
+}
+
+.sfu-actions .sf-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* ---------- done ---------- */
+
+.sfu-done {
+  text-align: center;
+}
+
+.sfu-done-icon {
+  display: inline-flex;
+  margin: 6px auto 2px;
+}
+
+.sfu-done-icon.is-success {
+  color: #16a34a;
+}
+
+.sfu-done-icon.is-error {
+  color: #dc2626;
+}
+
+.sfu-done h4 {
+  margin: 6px 0 4px;
+  font-size: 16px;
+  color: #0f172a;
+}
+
+.sfu-done p {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.sfu-done .sfu-skipped {
+  text-align: left;
+}
+
+.sfu-done .sfu-actions {
+  justify-content: center;
+}

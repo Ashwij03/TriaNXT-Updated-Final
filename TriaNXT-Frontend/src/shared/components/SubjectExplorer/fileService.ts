@@ -33,6 +33,17 @@ import {
 } from "./fileTypes";
 import { formatDateUTC, formatDateTimeUTC } from "../../utils/dateTime";
 import { getAllSubjects } from "../../services/subjectService";
+import {
+  signatureSummary,
+  recordSignatureLedgerEntry,
+} from "../../services/actionSignatureService";
+
+/** True when the caller supplied a completed E-Signature record. */
+function hasSignature(signature) {
+  return Boolean(
+    signature && signature.signatureStamp && signature.printedName && signature.signedAt,
+  );
+}
 
 /* ==================================================================
    CONSTANTS
@@ -120,6 +131,10 @@ function normalizeFile(file, folderId) {
     // records keep who approved and when (Subject File Manager approve flow).
     ...(file.approvedBy ? { approvedBy: file.approvedBy } : {}),
     ...(file.approvedAt ? { approvedAt: file.approvedAt } : {}),
+    // Cross-surface sync marker (subject ICF reconciliation with the
+    // document hub): survives the round-trip so a mirrored record is
+    // recognized on later reloads instead of being re-imported as new.
+    ...(file.hubIcfKey ? { hubIcfKey: file.hubIcfKey } : {}),
   };
 }
 
@@ -660,8 +675,20 @@ function readFileContent(file) {
  * Resolves with:
  *   { ok, store, added: File[], rejected: [{ name, error }], warning? }
  */
-export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy) {
+export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy, signature = null) {
   const incoming = Array.from(fileList || []) as any[];
+
+  // Mandatory E-Signature: uploads never persist without a completed
+  // signature (the UI always gates through the E-Signature modal first).
+  if (!hasSignature(signature)) {
+    return {
+      ok: false,
+      store,
+      added: [],
+      rejected: [],
+      error: "E-Signature is required before files can be uploaded.",
+    };
+  }
 
   if (!folderId) {
     return {
@@ -686,6 +713,7 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
   const working = { ...store, [folderId]: listFiles(store, folderId) };
   const added = [];
   const rejected = [];
+  const actor = signature?.printedName || uploadedBy || "Unknown user";
 
   for (const raw of incoming as any[]) {
     const candidate = validateUploadCandidate(raw);
@@ -720,18 +748,21 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
         modifiedAt: raw.lastModified
           ? new Date(raw.lastModified).toISOString()
           : now,
-        uploadedBy: uploadedBy || "Unknown user",
+        uploadedBy: actor,
         status: "Pending Review",
         hasContent: Boolean(dataUrl),
         ...(dataUrl ? { dataUrl } : {}),
         auditTrail: [
           {
-            date: now,
-            user: uploadedBy || "Unknown user",
+            date: signature?.signedAt || now,
+            user: actor,
             action: "Uploaded",
-            remarks: `File uploaded: ${raw.name.trim()}`,
+            remarks: `${signatureSummary(signature, "Uploaded")} — ${raw.name.trim()}`,
           },
         ],
+        // The E-Signature that authorized this upload stays on the record.
+        signatures: [signature],
+        lastSignature: signature,
       },
       folderId
     );
@@ -770,8 +801,110 @@ export async function uploadFiles(studyId, store, folderId, fileList, uploadedBy
 // single implementation for real byte-progress, never a timer.
 export { readFileWithProgress } from "../../utils/fileReadProgress";
 
+/**
+ * Bulk-upload file METADATA for a folder tree rebuild (bulk folder upload).
+ *
+ * One store write for the whole batch (unlike `uploadFiles`, which persists
+ * once per file) so a ~500-file folder drop never thrashes localStorage.
+ * Records are stored as metadata without inline bytes - the same policy
+ * `uploadFiles` already applies to any file over `MAX_INLINE_CONTENT_BYTES`
+ * and the same trade-off the document managers make for bulk folder
+ * imports. Callers can slice large batches and call this repeatedly; each
+ * call persists exactly once and emits one update event.
+ *
+ * @param {string}  studyId    study-scoped file store
+ * @param {object}  store      current file store
+ * @param {Array}   entries    [{ folderId, file }] - already validated by
+ *                             the planner, but validated again here so the
+ *                             store contract can never be bypassed
+ * @param {string}  uploadedBy display name for the audit fields
+ * @returns {{ ok, store, added: File[], rejected: [{name, error}] }}
+ */
+export function createBulkFileRecords(studyId, store, entries, uploadedBy) {
+  const incoming = Array.isArray(entries) ? entries : [];
+
+  if (incoming.length === 0) {
+    return { ok: false, store, added: [], rejected: [] };
+  }
+
+  // Preserve per-folder lists so duplicate checks see the whole batch.
+  const working = { ...store };
+  const added = [];
+  const rejected = [];
+
+  incoming.forEach(({ folderId, file }) => {
+    if (!folderId) {
+      rejected.push({ name: file?.name || "Unknown file", error: "No target folder." });
+      return;
+    }
+    if (!file) return;
+
+    const candidate = validateUploadCandidate(file);
+    if (!candidate.valid) {
+      rejected.push({ name: file.name || "Unknown file", error: candidate.error });
+      return;
+    }
+
+    const folderFiles = listFiles(working, folderId);
+    const duplicate = folderFiles.some(
+      (existing) =>
+        existing.name.trim().toLowerCase() === file.name.trim().toLowerCase()
+    );
+
+    if (duplicate) {
+      rejected.push({
+        name: file.name,
+        error: `A file named "${file.name}" already exists in this folder.`,
+      });
+      return;
+    }
+
+    const now = new Date().toISOString();
+    const record = normalizeFile(
+      {
+        id: createId(),
+        folderId,
+        name: file.name.trim(),
+        size: file.size,
+        uploadedAt: now,
+        modifiedAt: file.lastModified
+          ? new Date(file.lastModified).toISOString()
+          : now,
+        uploadedBy: uploadedBy || "Unknown user",
+        modifiedBy: uploadedBy || "Unknown user",
+        status: "Pending Review",
+        hasContent: false,
+        auditTrail: [
+          {
+            date: now,
+            user: uploadedBy || "Unknown user",
+            action: "Uploaded",
+            remarks: `File uploaded: ${file.name.trim()}`,
+          },
+        ],
+      },
+      folderId
+    );
+
+    working[folderId] = [record, ...(working[folderId] || [])];
+    added.push(record);
+  });
+
+  if (added.length === 0) {
+    return { ok: false, store, added: [], rejected };
+  }
+
+  const saved = saveFileStore(studyId, working, "bulk-upload", null);
+
+  if (!saved.ok) {
+    return { ok: false, store, added: [], rejected, error: saved.error };
+  }
+
+  return { ok: true, store: saved.store, added, rejected };
+}
+
 /** Rename a file inside its folder (requirement 4). */
-export function renameFile(studyId, store, folderId, fileId, name, modifiedBy) {
+export function renameFile(studyId, store, folderId, fileId, name, modifiedBy, signature = null) {
   const files = listFiles(store, folderId);
   const target = files.find((file) => file.id === fileId);
 
@@ -779,24 +912,40 @@ export function renameFile(studyId, store, folderId, fileId, name, modifiedBy) {
     return { ok: false, store, error: "This file no longer exists." };
   }
 
+  // Mandatory E-Signature: renames never persist without a completed
+  // signature.
+  if (!hasSignature(signature)) {
+    return {
+      ok: false,
+      store,
+      error: "E-Signature is required before a file can be renamed.",
+    };
+  }
+
   const check = validateFileName(store, folderId, name, { excludeId: fileId });
   if (!check.valid) return { ok: false, store, error: check.error };
 
   const now = new Date().toISOString();
+  const actor = signature?.printedName || modifiedBy || "Unknown user";
   const renamed = {
     ...target,
     name: String(name).trim(),
     modifiedAt: now,
-    modifiedBy: modifiedBy || target.modifiedBy || "Unknown user",
+    modifiedBy: actor,
     auditTrail: [
       ...(Array.isArray(target.auditTrail) ? target.auditTrail : []),
       {
-        date: now,
-        user: modifiedBy || "Unknown user",
+        date: signature?.signedAt || now,
+        user: actor,
         action: "Renamed",
-        remarks: `Renamed from "${target.name}" to "${String(name).trim()}"`,
+        remarks: `${signatureSummary(signature, "Renamed")} — from "${target.name}" to "${String(name).trim()}"`,
       },
     ],
+    signatures: [
+      ...(Array.isArray(target.signatures) ? target.signatures : []),
+      signature,
+    ],
+    lastSignature: signature,
   };
 
   const working = {
@@ -811,12 +960,22 @@ export function renameFile(studyId, store, folderId, fileId, name, modifiedBy) {
 }
 
 /** Delete a file from its folder (requirement 4). */
-export function deleteFile(studyId, store, folderId, fileId) {
+export function deleteFile(studyId, store, folderId, fileId, signature = null) {
   const files = listFiles(store, folderId);
   const target = files.find((file) => file.id === fileId);
 
   if (!target) {
     return { ok: false, store, error: "This file no longer exists." };
+  }
+
+  // Mandatory E-Signature: deletions never persist without a completed
+  // signature (the UI shows one combined confirm-and-sign modal).
+  if (!hasSignature(signature)) {
+    return {
+      ok: false,
+      store,
+      error: "E-Signature is required before a file can be deleted.",
+    };
   }
 
   const working = {
@@ -826,6 +985,20 @@ export function deleteFile(studyId, store, folderId, fileId) {
 
   const saved = saveFileStore(studyId, working, "delete", folderId);
   if (!saved.ok) return { ok: false, store, error: saved.error };
+
+  // Durable record of who deleted the file (the record itself is gone from
+  // the working store — this ledger keeps the signed deletion auditable).
+  recordSignatureLedgerEntry(signature, {
+    kind: "file:delete",
+    entityType: "file",
+    entityName: target.name,
+    details: {
+      fileId: target.id,
+      folderId,
+      uploadedBy: target.uploadedBy,
+    },
+    scope: { domain: "subjects", studyId, folderId },
+  });
 
   return { ok: true, store: saved.store, file: target };
 }
@@ -1131,6 +1304,7 @@ const FileService = {
   validateFileName,
   validateUploadCandidate,
   uploadFiles,
+  createBulkFileRecords,
   renameFile,
   deleteFile,
   approveFile,

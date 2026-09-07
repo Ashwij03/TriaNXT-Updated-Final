@@ -26,6 +26,7 @@ import {
   renameFolder,
   saveDocumentsForFolder,
 } from "../services/folderService";
+import SubjectIcfSyncService from "../services/subjectIcfSyncService";
 import {
   buildFolderZip,
   parseUploadedFolderFiles,
@@ -34,6 +35,8 @@ import {
 } from "../utils/folderZipUtils";
 import FolderOptionsMenu from "./FolderOptionsMenu";
 import FolderTemplateModal from "./FolderTemplateModal";
+import ESignatureModal from "./ESignatureModal";
+import { recordSignatureLedgerEntry } from "../services/actionSignatureService";
 import {
   addCommentRecord,
   canResolveComments,
@@ -383,6 +386,8 @@ function DocumentFolderManager({
   // After a refresh only the metadata record survives, so preview correctly
   // reverts to "stored as metadata only" for anything from a prior session.
   const sessionFileUrlsRef = useRef(new Map());
+  // Multi-file selection held until the E-Signature authorizes the batch.
+  const pendingBulkRef = useRef([]);
 
   useEffect(() => {
     const urlMap = sessionFileUrlsRef.current;
@@ -498,6 +503,11 @@ function DocumentFolderManager({
   const [documents, setDocuments] = useState<any[]>([]);
   const [pendingUpload, setPendingUpload] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  /* Mandatory E-Signature gate — { mode, entityType, entityName,
+      actionLabel, onSigned }. While set, the shared E-Signature modal is
+      shown and NO folder/document mutation is committed until the user
+      completes (or cancels) the signature. */
+  const [signing, setSigning] = useState(null);
   const [dragDocIndex, setDragDocIndex] = useState(null);
   const [dragOverEmpty, setDragOverEmpty] = useState(false);
   const [viewDoc, setViewDoc] = useState(null);
@@ -686,6 +696,25 @@ function DocumentFolderManager({
       );
 
       setDocuments(nextDocuments);
+
+      // Cross-surface reconciliation: upload / replace / rename / approve /
+      // delete all funnel through here. When the write landed in a subject's
+      // ICF folder, mirror the folder into the Subject Explorer's locked ICF
+      // folder so consent forms uploaded on the document hub show up in the
+      // explorer's tree too (the two surfaces use separate localStorage
+      // stores - see subjectIcfSyncService).
+      if (sectionId === "subjects" && subjectId && isSelectedICFFolder) {
+        const studyIdForSync =
+          studyCode || SubjectIcfSyncService.findStudyForSubject(subjectId);
+
+        if (studyIdForSync) {
+          SubjectIcfSyncService.syncHubIcfToExplorer({
+            studyId: studyIdForSync,
+            subjectId,
+          });
+        }
+      }
+
       return true;
     } catch (error) {
       window.alert(
@@ -693,6 +722,61 @@ function DocumentFolderManager({
           "Unable to save this change. Storage limit may have been reached.",
       );
       return false;
+    }
+  };
+
+  /** Signature-ledger scope for every mutation inside this manager. */
+  const signatureScope = {
+    domain: "documents",
+    sectionId,
+    contextKey,
+    studyCode: studyCode || "",
+    subjectId: subjectId || "",
+  };
+
+  /**
+   * Open the mandatory E-Signature step for an upload/edit/delete. The real
+   * mutation (`onSigned`) runs ONLY after the signature completes; closing
+   * the modal without signing aborts the action.
+   */
+  const openSignature = ({ mode, entityType, entityName, actionLabel, onSigned }) => {
+    setSigning({ mode, entityType, entityName, actionLabel, onSigned });
+  };
+
+  const signEntity = (kind, entityType, entityName, signature) => {
+    recordSignatureLedgerEntry(signature, {
+      kind,
+      entityType,
+      entityName,
+      scope: signatureScope,
+    });
+  };
+
+  const commitCreateFolder = (folderId, name, signature) => {
+    const latestTree = getPreparedTree();
+    const rootId = latestTree[0]?.id || "";
+    const parentFolderId = folderId || rootId;
+
+    const created = createFolder(
+      sectionId,
+      contextKey,
+      parentFolderId,
+      name,
+    );
+
+    if (created) {
+      signEntity("folder:create", "folder", name, signature);
+      setExpandedIds(
+        (previousIds) => new Set<any>([...previousIds, parentFolderId]),
+      );
+      refreshTree();
+
+      if (isExplorerLayout || isColumnLayout) {
+        enterFolder(created.id);
+      } else {
+        selectedFolderIdRef.current = created.id;
+        setSelectedFolderId(created.id);
+      }
     }
   };
 
@@ -707,29 +791,22 @@ function DocumentFolderManager({
       return;
     }
 
-    const latestTree = getPreparedTree();
-    const rootId = latestTree[0]?.id || "";
-    const parentFolderId = folderId || rootId;
+    // Mandatory E-Signature BEFORE the folder is created.
+    openSignature({
+      mode: "create",
+      entityType: "folder",
+      entityName: name.trim(),
+      actionLabel: `Create folder "${name.trim()}" inside the current location.`,
+      onSigned: async (signature) => {
+        commitCreateFolder(folderId, name.trim(), signature);
+      },
+    });
+  };
 
-    const created = createFolder(
-      sectionId,
-      contextKey,
-      parentFolderId,
-      name.trim(),
-    );
-
-    if (created) {
-      setExpandedIds(
-        (previousIds) => new Set<any>([...previousIds, parentFolderId]),
-      );
+  const commitRenameFolder = (folderId, name, signature) => {
+    if (renameFolder(sectionId, contextKey, folderId, name)) {
+      signEntity("folder:rename", "folder", name, signature);
       refreshTree();
-
-      if (isExplorerLayout || isColumnLayout) {
-        enterFolder(created.id);
-      } else {
-        selectedFolderIdRef.current = created.id;
-        setSelectedFolderId(created.id);
-      }
     }
   };
 
@@ -750,8 +827,29 @@ function DocumentFolderManager({
       return;
     }
 
-    if (renameFolder(sectionId, contextKey, folderId, name.trim())) {
+    // Mandatory E-Signature BEFORE the rename is committed.
+    openSignature({
+      mode: "edit",
+      entityType: "folder",
+      entityName: name.trim(),
+      actionLabel: `Rename folder "${node.name}" to "${name.trim()}".`,
+      onSigned: async (signature) => {
+        commitRenameFolder(folderId, name.trim(), signature);
+      },
+    });
+  };
+
+  const commitDeleteFolder = (folderId, node, signature) => {
+    const rootId = tree[0]?.id;
+    const deleted = deleteFolder(sectionId, contextKey, folderId);
+
+    if (deleted) {
+      signEntity("folder:delete", "folder", node.name, signature);
+      selectedFolderIdRef.current = rootId;
+      setSelectedFolderId(rootId);
+      setNavigationPath(rootId ? [rootId] : []);
       refreshTree();
+      refreshDocuments();
     }
   };
 
@@ -773,17 +871,17 @@ function DocumentFolderManager({
       return;
     }
 
-    if (window.confirm(`Delete folder "${node.name}" and its documents?`)) {
-      const deleted = deleteFolder(sectionId, contextKey, folderId);
-
-      if (deleted) {
-        selectedFolderIdRef.current = rootId;
-        setSelectedFolderId(rootId);
-        setNavigationPath(rootId ? [rootId] : []);
-        refreshTree();
-        refreshDocuments();
-      }
-    }
+    // Combined permanent-deletion confirmation + mandatory E-Signature in
+    // ONE modal — no separate "are you sure" step.
+    openSignature({
+      mode: "delete",
+      entityType: "folder",
+      entityName: node.name,
+      actionLabel: "This permanently deletes the folder and all documents inside it.",
+      onSigned: async (signature) => {
+        commitDeleteFolder(folderId, node, signature);
+      },
+    });
   };
 
   const handleUploadFolder = (folderId = selectedFolderId) => {
@@ -802,18 +900,30 @@ function DocumentFolderManager({
       return;
     }
 
-    const parsedTree = parseUploadedFolderFiles(fileList);
+    const parsedTree: any = parseUploadedFolderFiles(fileList);
     const structure = uploadedTreeToStructure(parsedTree);
+    const folderName = parsedTree?.name || "uploaded folder";
 
-    await importUploadedFolderStructure(
-      sectionId,
-      contextKey,
-      targetFolderId,
-      structure,
-    );
-
-    refreshTree();
-    enterFolder(targetFolderId);
+    // Mandatory E-Signature BEFORE the folder structure is imported.
+    openSignature({
+      mode: "upload",
+      entityType: "folder",
+      entityName: folderName,
+      actionLabel: `Import the folder structure "${folderName}" (${fileList.length} file${
+        fileList.length === 1 ? "" : "s"
+      }) into the current location.`,
+      onSigned: async (signature) => {
+        await importUploadedFolderStructure(
+          sectionId,
+          contextKey,
+          targetFolderId,
+          structure,
+        );
+        signEntity("folder:upload", "folder", folderName, signature);
+        refreshTree();
+        enterFolder(targetFolderId);
+      },
+    });
   };
 
   const handleDownloadFolder = async (folderId = selectedFolderId) => {
@@ -854,13 +964,16 @@ function DocumentFolderManager({
     );
   };
 
-  const persistBulkFiles = (pdfFiles) => {
+  const persistBulkFiles = (pdfFiles, signature = null) => {
     if (!pdfFiles.length || !selectedFolderId) {
-      return;
+      return false;
     }
+    // Mandatory E-Signature: bulk uploads never persist without a recorded
+    // signature (the caller always gates through the E-Signature modal).
+    if (!signature) return false;
 
     const now = Date.now();
-    const uploader = localStorage.getItem("currentUserName") || "Current User";
+    const uploader = signature?.printedName || localStorage.getItem("currentUserName") || "Current User";
     const role = getEffectiveRole(getCurrentUser());
     const roleLabel = ROLE_LABELS[role] || role;
     const sectionLabel = getSectionLabel(sectionId, title);
@@ -882,7 +995,11 @@ function DocumentFolderManager({
         documentType: "General",
         studyCode: studyCode || "",
         subjectId: subjectId || "",
-        fileUrl: ""
+        fileUrl: "",
+        // The E-Signature that authorized this upload travels with every
+        // record created by the batch.
+        signatures: [signature],
+        lastSignature: signature,
       };
 
       try {
@@ -896,6 +1013,7 @@ function DocumentFolderManager({
 
     const saved = persistDocuments([...documents, ...newDocuments]);
     if (saved) {
+      signEntity("document:upload", "document", `${newDocuments.length} file(s)`, signature);
       newDocuments.forEach((doc) => {
         notifyDocumentAdded({
           ...doc,
@@ -904,10 +1022,11 @@ function DocumentFolderManager({
         });
       });
     }
+    return saved;
   };
 
   const handleFileSelect = async (fileList) => {
-    const filesArray = Array.from(fileList || []);
+    const filesArray: any[] = Array.from(fileList || []) as any[];
 
     if (!filesArray.length) {
       return;
@@ -927,9 +1046,21 @@ function DocumentFolderManager({
     }
 
     // Bulk upload path — multiple PDFs go straight into the existing
-    // document store, reusing persistDocuments.
+    // document store, reusing persistDocuments. ONE mandatory E-Signature
+    // authorizes the whole batch; until it is completed nothing persists.
     if (pdfFiles.length > 1) {
-      persistBulkFiles(pdfFiles);
+      pendingBulkRef.current = pdfFiles;
+      openSignature({
+        mode: "upload",
+        entityType: "file",
+        entityName: `${pdfFiles.length} files${pdfFiles[0]?.name ? ` — ${pdfFiles[0].name} …` : ""}`,
+        actionLabel: `Upload ${pdfFiles.length} PDF file(s) to the selected folder.`,
+        onSigned: async (signature) => {
+          const filesToPersist = pendingBulkRef.current || pdfFiles;
+          pendingBulkRef.current = [];
+          persistBulkFiles(filesToPersist, signature);
+        },
+      });
       return;
     }
 
@@ -1039,28 +1170,33 @@ function DocumentFolderManager({
     return filesPerEntry.flat();
   };
 
-  const handleSaveUpload = async () => {
+  const commitSaveUpload = (signature) => {
     if (!pendingUpload || !selectedFolderId) {
       return;
     }
 
+    const uploader = signature?.printedName || localStorage.getItem("currentUserName") || "Current User";
     const newDocument = {
       id: `doc-${Date.now()}`,
       name: pendingUpload.name || "Untitled Document",
       type: pendingUpload.type || "application/octet-stream",
       size: Number(pendingUpload.size) || 0,
       uploadedAt: new Date().toISOString(),
-      uploadedBy: localStorage.getItem("currentUserName") || "Current User",
+      uploadedBy: uploader,
       status: "Pending Review",
       documentType: pendingUpload.documentType || "General",
       studyCode: studyCode || "",
       subjectId: subjectId || "",
       fileUrl: pendingUpload.fileUrl || "",
+      // The E-Signature that authorized this upload stays on the record.
+      signatures: [signature],
+      lastSignature: signature,
     };
 
     const saved = persistDocuments([...documents, newDocument]);
 
     if (saved) {
+      signEntity("document:upload", "document", newDocument.name, signature);
       // In-memory only — never persisted, so this never risks a quota
       // crash. Lets "View" show the real file for the rest of this
       // session; gone (correctly) after a refresh since the bytes were
@@ -1084,6 +1220,23 @@ function DocumentFolderManager({
     }
   };
 
+  const handleSaveUpload = async () => {
+    if (!pendingUpload || !selectedFolderId) {
+      return;
+    }
+
+    // Mandatory E-Signature BEFORE the upload is persisted.
+    openSignature({
+      mode: "upload",
+      entityType: "document",
+      entityName: pendingUpload.name || "document upload",
+      actionLabel: `Upload "${pendingUpload.name || "document"}" to this folder.`,
+      onSigned: async (signature) => {
+        commitSaveUpload(signature);
+      },
+    });
+  };
+
   const handleRenameDoc = (docId) => {
     if (!canModify) {
       return;
@@ -1101,17 +1254,42 @@ function DocumentFolderManager({
       return;
     }
 
-    persistDocuments(
-      documents.map((item) =>
-        item.id === docId ? { ...item, name: name.trim() } : item,
-      ),
-    );
+    // Mandatory E-Signature BEFORE the rename is committed.
+    openSignature({
+      mode: "edit",
+      entityType: "document",
+      entityName: name.trim(),
+      actionLabel: `Rename "${document.name}" to "${name.trim()}".`,
+      onSigned: async (signature) => {
+        const existingSignatures = Array.isArray(document.signatures)
+          ? document.signatures
+          : [];
+        const saved = persistDocuments(
+          documents.map((item) =>
+            item.id === docId
+              ? {
+                  ...item,
+                  name: name.trim(),
+                  lastSignature: signature,
+                  signatures: [...existingSignatures, signature],
+                }
+              : item,
+          ),
+        );
+        if (saved) {
+          signEntity("document:rename", "document", name.trim(), signature);
+        }
+      },
+    });
   };
 
   const handleReplaceDoc = (docId) => {
     if (!canModify) {
       return;
     }
+
+    const document = documents.find((item) => item.id === docId);
+    if (!document) return;
 
     const input = document.createElement("input");
     input.type = "file";
@@ -1132,25 +1310,42 @@ function DocumentFolderManager({
         return;
       }
 
-      const previousUrl = sessionFileUrlsRef.current.get(docId);
-      if (previousUrl) {
-        URL.revokeObjectURL(previousUrl);
-      }
-      sessionFileUrlsRef.current.set(docId, URL.createObjectURL(file));
+      // Mandatory E-Signature BEFORE the version update is committed.
+      openSignature({
+        mode: "edit",
+        entityType: "document",
+        entityName: file.name,
+        actionLabel: `Replace "${document.name}" with a new version from "${file.name}".`,
+        onSigned: async (signature) => {
+          const previousUrl = sessionFileUrlsRef.current.get(docId);
+          if (previousUrl) {
+            URL.revokeObjectURL(previousUrl);
+          }
+          sessionFileUrlsRef.current.set(docId, URL.createObjectURL(file));
 
-      persistDocuments(
-        documents.map((item) =>
-          item.id === docId
-            ? {
-                ...item,
-                name: file.name,
-                size: file.size,
-                type: file.type,
-                uploadedAt: new Date().toISOString(),
-              }
-            : item,
-        ),
-      );
+          const existingSignatures = Array.isArray(document.signatures)
+            ? document.signatures
+            : [];
+          const saved = persistDocuments(
+            documents.map((item) =>
+              item.id === docId
+                ? {
+                    ...item,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    uploadedAt: new Date().toISOString(),
+                    lastSignature: signature,
+                    signatures: [...existingSignatures, signature],
+                  }
+                : item,
+            ),
+          );
+          if (saved) {
+            signEntity("document:replace", "document", file.name, signature);
+          }
+        },
+      });
     };
 
     input.click();
@@ -1162,18 +1357,32 @@ function DocumentFolderManager({
     }
 
     const document = documents.find((item) => item.id === docId);
+    if (!document) return;
 
-    if (window.confirm("Delete this document?")) {
-      markCommentsDocumentDeleted(docId, document?.name);
+    // Combined permanent-deletion confirmation + mandatory E-Signature in
+    // ONE modal (danger banner + type-DELETE + red "Delete & Sign").
+    openSignature({
+      mode: "delete",
+      entityType: "document",
+      entityName: document.name,
+      actionLabel: "This permanently deletes the document from this folder.",
+      onSigned: async (signature) => {
+        markCommentsDocumentDeleted(docId, document.name);
 
-      const previousUrl = sessionFileUrlsRef.current.get(docId);
-      if (previousUrl) {
-        URL.revokeObjectURL(previousUrl);
-        sessionFileUrlsRef.current.delete(docId);
-      }
+        const previousUrl = sessionFileUrlsRef.current.get(docId);
+        if (previousUrl) {
+          URL.revokeObjectURL(previousUrl);
+          sessionFileUrlsRef.current.delete(docId);
+        }
 
-      persistDocuments(documents.filter((item) => item.id !== docId));
-    }
+        const saved = persistDocuments(
+          documents.filter((item) => item.id !== docId),
+        );
+        if (saved) {
+          signEntity("document:delete", "document", document.name, signature);
+        }
+      },
+    });
   };
 
   const handleDownloadDoc = (doc) => {
@@ -1790,6 +1999,25 @@ function DocumentFolderManager({
           }}
         />
       )}
+
+      {/* Mandatory E-Signature gate — no folder/document upload, edit or
+          delete is committed until the acting user signs. */}
+      <ESignatureModal
+        open={Boolean(signing)}
+        mode={signing?.mode}
+        entityType={signing?.entityType || "document"}
+        entityName={signing?.entityName}
+        actionLabel={signing?.actionLabel}
+        scope={signatureScope}
+        onClose={() => setSigning(null)}
+        onSigned={async (signature) => {
+          const pending = signing;
+          setSigning(null);
+          if (pending?.onSigned) {
+            await pending.onSigned(signature);
+          }
+        }}
+      />
     </div>
   );
 }

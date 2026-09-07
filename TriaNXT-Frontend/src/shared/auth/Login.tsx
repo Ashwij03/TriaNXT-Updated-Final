@@ -22,8 +22,9 @@ function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // 🔥 STRICT EMAIL RULE
-  const emailRegex = /^(?=.*\d)[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // EMAIL RULE — a standard email shape. (No digit lookahead: valid
+  // addresses such as the @demo.local evaluation accounts have no digit.)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // ✅ EMAIL VALIDATION
   const validateUsername = (value) => {

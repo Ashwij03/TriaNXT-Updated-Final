@@ -28,6 +28,9 @@ from tria_engine.apps.accounts.models import User  # noqa: E402
 from tria_engine.apps.organizations.models import Organization, Role  # noqa: E402
 # Site CTMS gap-module tables (registered before create_all).
 import tria_engine.apps.ctms.models  # noqa: E402,F401
+# eISF Regulatory Document Repository tables (documents + Part 11
+# signatures).
+import tria_engine.apps.eisf.models  # noqa: E402,F401
 import tria_engine.apps.billing.models  # noqa: E402,F401
 import tria_engine.apps.monitoring.models  # noqa: E402,F401
 import tria_engine.apps.licensing.models  # noqa: E402,F401

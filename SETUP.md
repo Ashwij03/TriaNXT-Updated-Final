@@ -129,8 +129,9 @@ from tria_engine.core.database import Base, engine
 import tria_engine.apps.accounts.models
 import tria_engine.apps.organizations.models
 import tria_engine.apps.ctms.models
+import tria_engine.apps.eisf.models   # eISF documents + Part 11 signatures
 Base.metadata.create_all(engine)
-print("ctms tables ensured")
+print("ctms + eisf tables ensured")
 PY
 ```
 

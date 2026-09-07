@@ -38,3 +38,7 @@ router.include_router(feasibility_scoring_router)
 router.include_router(subjects_router)
 router.include_router(visits_router)
 router.include_router(sync_router)
+# NOTE: The Phase 1-4 governance routers (compliance, audit, deviations,
+# CAPA, risk) carry root-level /api/* prefixes and are mounted directly in
+# tria_engine/main.py — mounting them here would double-prefix them under
+# /api/site and break the paths src/shared/services/api/ctmsApi.ts calls.

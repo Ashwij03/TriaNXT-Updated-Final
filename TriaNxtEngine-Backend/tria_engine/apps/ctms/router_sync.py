@@ -46,6 +46,7 @@ from .models import (
     CtmsKit,
     CtmsReConsentCampaign,
     CtmsSubject,
+    CtmsSubjectStatusHistory,
     CtmsVendor,
     CtmsVisit,
 )
@@ -55,7 +56,7 @@ from .models import (
 router = APIRouter(tags=["ctms-site-sync"])
 
 
-def _sync_endpoint(model, *, codes_fn=None, code_fn=None):
+def _sync_endpoint(model, *, codes_fn=None, code_fn=None, after_sync=None):
     def _handler(
         body: schemas.SyncBody,
         request: Request,
@@ -65,6 +66,8 @@ def _sync_endpoint(model, *, codes_fn=None, code_fn=None):
         report = bulk_sync_records(
             db, model, user, body.records, codes_fn=codes_fn, code_fn=code_fn
         )
+        if after_sync is not None:
+            after_sync()
         return ok_response(report)
 
     return _handler
@@ -92,6 +95,18 @@ def _subject_code(record):
 def _visit_scope(record):
     study = str(record.get("study") or record.get("studyKey") or "").strip() or None
     return study, None
+
+
+def _subject_history_scope(record):
+    study = str(record.get("studyId") or "").strip() or None
+    return study, None
+
+
+def _subject_history_code(record):
+    study = str(record.get("studyId") or "").strip()
+    ident = str(record.get("subjectId") or record.get("id") or "").strip()
+    stamp = str(record.get("changedAt") or record.get("at") or "")
+    return f"{study}::{ident}::h{stamp}" if study and ident else ""
 
 
 router.add_api_route(
@@ -134,9 +149,21 @@ router.add_api_route(
     "/feasibility-scoring/sync", _sync_endpoint(CtmsFeasibilityScoring), methods=["POST"],
     summary="Bulk-sync per-study feasibility scoring configuration",
 )
+# A subject registration/update is exactly the write that must invalidate
+# the cached per-study enrollment counts (router_subjects) — otherwise the
+# Studies list would keep serving the pre-registration numbers until the
+# TTL expired (Redis hot-cache invalidation; in-process cache when no
+# REDIS_URL is configured).
+from .router_subjects import invalidate_subject_enrollment_counts  # noqa: E402
+
 router.add_api_route(
     "/subjects/sync",
-    _sync_endpoint(CtmsSubject, codes_fn=_subject_scope, code_fn=_subject_code),
+    _sync_endpoint(
+        CtmsSubject,
+        codes_fn=_subject_scope,
+        code_fn=_subject_code,
+        after_sync=invalidate_subject_enrollment_counts,
+    ),
     methods=["POST"],
     summary="Bulk-sync subject records (enrollment/screening mirror)",
 )
@@ -145,4 +172,14 @@ router.add_api_route(
     _sync_endpoint(CtmsVisit, codes_fn=_visit_scope),
     methods=["POST"],
     summary="Bulk-sync per-subject visit schedule rows",
+)
+router.add_api_route(
+    "/subjects/history/sync",
+    _sync_endpoint(
+        CtmsSubjectStatusHistory,
+        codes_fn=_subject_history_scope,
+        code_fn=_subject_history_code,
+    ),
+    methods=["POST"],
+    summary="Bulk-sync subject status-history rows (Subject Profile timeline)",
 )

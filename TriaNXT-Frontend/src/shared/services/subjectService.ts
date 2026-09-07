@@ -30,6 +30,8 @@ import { pullGapRecords, syncGapCollection } from "./gapSync";
 
 /** FastAPI mirror endpoints for the subjectsByStudy store (API mode). */
 export const SUBJECTS_SYNC_ENDPOINT = "/api/site/subjects/sync";
+/** Mirror endpoint for the Subject Profile timeline (ctms_subject_status_history). */
+export const SUBJECTS_HISTORY_SYNC_ENDPOINT = "/api/site/subjects/history/sync";
 export const SUBJECTS_LIST_ENDPOINT = "/api/site/subjects/";
 
 function getStudiesFromStudyService() {
@@ -606,6 +608,7 @@ export function updateSubject(studyId, subjectId, updateData) {
   const index = currentBucket.findIndex(s => s.subjectId === subjectId || s.id === subjectId);
   
   if (index !== -1) {
+    const previousRecord = currentBucket[index];
     currentBucket[index] = {
       ...currentBucket[index],
       ...updateData,
@@ -626,7 +629,29 @@ export function updateSubject(studyId, subjectId, updateData) {
     };
     allByStudy[studyId] = currentBucket;
     writeSubjectsByStudy(allByStudy);
-    return currentBucket[index];
+
+    const mergedRecord = currentBucket[index];
+    const statusBefore = String(previousRecord?.status || "").trim().toLowerCase();
+    const statusAfter = String(mergedRecord?.status || "").trim().toLowerCase();
+
+    // Subject Profile timeline (API mode only): append the status
+    // transition to the backend ctms_subject_status_history mirror so
+    // GET /subjects/{code}/history can serve the authoritative feed.
+    // Fire-and-forget + fail-soft — never blocks the local save and is a
+    // no-op when the backend is not configured.
+    if (statusBefore && statusAfter && statusBefore !== statusAfter) {
+      syncGapCollection(SUBJECTS_HISTORY_SYNC_ENDPOINT, [
+        {
+          studyId,
+          subjectId: String(subjectId),
+          status: mergedRecord.status,
+          reason: String(updateData?.reason || "").trim() || "",
+          changedBy: getActingRole() || mergedRecord.updatedBy || "",
+          changedAt: new Date().toISOString(),
+        },
+      ]);
+    }
+    return mergedRecord;
   }
   return null;
 }

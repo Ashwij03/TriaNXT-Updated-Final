@@ -4,8 +4,7 @@ import "../styles/PISubjectsDashboard.css";
 // Phase 7 — IMP-MOD-2: reuse the standardized Subject Modal styles so the PI
 // Subject create flow matches the shared standardized modal layout, spacing,
 // validation, and button placement.
-import "../../shared/pages/studies/StudySubjects.css";
-import { FaEye, FaFileAlt, FaEllipsisV } from "react-icons/fa";
+import "../../shared/pages/studies/StudySubjects.css";import { FaEye, FaFileAlt, FaEllipsisV, FaExclamationTriangle } from "react-icons/fa";
 import {
   COMPLETED_STUDY_SUBJECT_CREATION_MESSAGE,
   getStudyByCode,
@@ -14,11 +13,49 @@ import {
   createSubject,
 } from "../../shared/services/studyService";
 import { STUDY_STATUS_COMPLETED } from "../../shared/constants/studyStatus";
-import SubjectService from "../../shared/services/subjectService";
+import SubjectService from "../../shared/services/subjectService";import { resolveSiteDisplay } from "../../shared/utils/siteDisplay";
+import { useNavigate } from "react-router-dom";
+import { subscribeConsentIcf } from "../../shared/services/icfConsentService";
+import { getSubjectConsentStatus } from "../../shared/components/SubjectExplorer/subjectConsentStatus";
 
-import { resolveSiteDisplay } from "../../shared/utils/siteDisplay";
+
+function normalizeRowValue(value) {
+  return String(value ?? "").trim();
+}
+
+function rowTodayKey() {
+  const now = new Date();
+  return [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, "0"),
+    String(now.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+/* Compact row alert: count of scheduled-but-past subject visits (same
+   "scheduled in the past = overdue" rule the Profile tab uses). */
+function readSubjectOverdueVisits(subjectId) {
+  if (typeof window === "undefined") return 0;
+  try {
+    const visits = JSON.parse(
+      localStorage.getItem(`subject_${subjectId}_visits`) || "[]",
+    );
+    if (!Array.isArray(visits)) return 0;
+    const today = rowTodayKey();
+    return visits.filter(
+      (visit) =>
+        visit &&
+        normalizeRowValue(visit.status).toLowerCase() === "scheduled" &&
+        visit.plannedDate &&
+        String(visit.plannedDate) < today,
+    ).length;
+  } catch {
+    return 0;
+  }
+}
 
 function PISubjectsDashboard({ onProfileClick }: any) {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [subjectModalError, setSubjectModalError] = useState("");
 
@@ -60,6 +97,21 @@ function PISubjectsDashboard({ onProfileClick }: any) {
     window.addEventListener("subjects-updated", refresh);
     return () => window.removeEventListener("subjects-updated", refresh);
   }, [selectedStudyId]);
+
+  /* Refresh the compact row alerts whenever consent or visit data changes
+     elsewhere, so the list never shows a stale Consent/Overdue flag. */
+  const [listTick, setListTick] = useState(0);
+
+  useEffect(
+    () => subscribeConsentIcf(() => setListTick((value) => value + 1)),
+    [],
+  );
+
+  useEffect(() => {
+    const bump = () => setListTick((value) => value + 1);
+    window.addEventListener("visitSchedulesChange", bump);
+    return () => window.removeEventListener("visitSchedulesChange", bump);
+  }, []);
   const handleAddSubject = (event) => {
     if (event && typeof event.preventDefault === "function") {
       event.preventDefault();
@@ -165,6 +217,37 @@ function PISubjectsDashboard({ onProfileClick }: any) {
     return matchesSearch && matchesStatus;
   });
 
+  /* Per-row alert payloads (consent + overdue visits), derived live from
+     icfConsentService and the subject-visits store. */
+  const rowAlerts = useMemo(
+    () => {
+      const map = {};
+      filteredSubjects.forEach((subject) => {
+        const studyKey = normalizeRowValue(
+          subject.studyId || subject.studyCode || subject.study || "",
+        );
+        let consent = null;
+        if (studyKey && subject.id) {
+          const state = getSubjectConsentStatus(
+            studyKey,
+            subject.id,
+            subject.site,
+          );
+          if (state.key === "pending" || state.key === "re-consent") {
+            consent = state;
+          }
+        }
+        map[subject.id] = {
+          consent,
+          overdueCount: readSubjectOverdueVisits(subject.id),
+        };
+      });
+      return map;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [filteredSubjects, listTick],
+  );
+
   const enrolledCount = subjects.filter((s) => s.status === "Enrolled").length;
 
   const screeningCount = subjects.filter(
@@ -235,9 +318,34 @@ function PISubjectsDashboard({ onProfileClick }: any) {
   const handleProfile = (subject) => {
     localStorage.setItem("selectedSubject", JSON.stringify(subject));
 
+    // Route the row into the Study Subjects workspace (StudyDashboard's
+    // Subjects tab -> Subject Explorer) for this subject's study, where the
+    // new Profile tab (timeline + consent + visit checklist) lives.
+    const studyKey = normalizeRowValue(
+      subject.studyId || subject.studyCode || subject.study || "",
+    );
+    if (studyKey) {
+      navigate(
+        `/study-dashboard/${encodeURIComponent(studyKey)}?tab=Subjects&subject=${encodeURIComponent(subject.id)}`,
+      );
+      return;
+    }
+
+    // Fallback for any older host that passed onProfileClick.
     if (onProfileClick) {
       onProfileClick(subject);
     }
+  };
+
+  /* Row click opens the same Profile view, unless the click landed on an
+     interactive control (View/Profile icons, ellipsis, form fields). */
+  const handleRowOpen = (event, subject) => {
+    if (!event || typeof event.target?.closest !== "function") return;
+    const interactive = event.target.closest(
+      "button, a, input, select, textarea, .action-buttons",
+    );
+    if (interactive) return;
+    handleProfile(subject);
   };
 
   const handleMore = (subject) => {
@@ -346,13 +454,20 @@ function PISubjectsDashboard({ onProfileClick }: any) {
               <th>Status</th>
               <th>Enrollment Date</th>
               <th>Last Visit</th>
+              <th>Alerts</th>
               <th>Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            {filteredSubjects.map((subject) => (
-              <tr key={subject.id}>
+            {filteredSubjects.map((subject) => {
+              const alerts = rowAlerts[subject.id] || null;
+              return (
+              <tr
+                key={subject.id}
+                className="pi-subject-row"
+                onClick={(event) => handleRowOpen(event, subject)}
+              >
                 <td>{subject.id}</td>
                 <td>{subject.initials}</td>
                 <td>{subject.study}</td>
@@ -367,6 +482,27 @@ function PISubjectsDashboard({ onProfileClick }: any) {
                 </td>
                 <td>{subject.enrollmentDate}</td>
                 <td>{subject.lastVisit}</td>
+                <td>
+                  <div className="pi-row-alerts">
+                    {alerts?.consent && (
+                      <span
+                        className="pi-row-alert pi-row-alert--consent"
+                        title={alerts.consent.detail}
+                      >
+                        <FaExclamationTriangle size={10} aria-hidden="true" />
+                        Consent
+                      </span>
+                    )}
+                    {alerts?.overdueCount > 0 && (
+                      <span
+                        className="pi-row-alert pi-row-alert--overdue"
+                        title={`${alerts.overdueCount} scheduled visit(s) past their planned date`}
+                      >
+                        {alerts.overdueCount} Overdue
+                      </span>
+                    )}
+                  </div>
+                </td>
                 <td>
                   <div className="action-buttons">
                     <FaEye
@@ -389,7 +525,8 @@ function PISubjectsDashboard({ onProfileClick }: any) {
                   </div>
                 </td>
               </tr>
-            ))}
+              );
+            })}
           </tbody>
         </table>
       </div>

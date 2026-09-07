@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { DOCUMENT_TYPE_OPTIONS } from "../Constants/documentTypes";
 import { readFileWithProgress } from "../../../utils/fileReadProgress";
+import ESignatureModal from "../../../components/ESignatureModal";
 import "./UploadDocumentModal.css";
 
 /**
@@ -42,6 +43,10 @@ export default function UploadDocumentModal({
      read does the footer switch to Save, which persists the document through
      the existing onUpload service call. { file, progress, done } */
   const [stage, setStage] = useState(null);
+  /* Mandatory E-Signature gate: { entityName, queueSnapshot? } — while set,
+     the E-Signature modal is shown and NOTHING is persisted until the user
+     signs. Cancelling the signature cancels the upload entirely. */
+  const [signing, setSigning] = useState(null);
 
   const folderInputRef = useRef(null);
   const filesInputRef = useRef(null);
@@ -65,6 +70,7 @@ export default function UploadDocumentModal({
       setBatchProgress(0);
       setIsDragging(false);
       setStage(null);
+      setSigning(null);
     }
   }, [open, defaultCategory]);
 
@@ -178,16 +184,18 @@ export default function UploadDocumentModal({
     setBatchProgress(0);
     setError("");
     setStage(null);
+    setSigning(null);
   };
 
-  const submit = async () => {
-    // Multi-file / folder path.
-    if (isMultiMode) {
-      if (!form.category) {
-        setError("Please choose a category before uploading.");
-        return;
-      }
-
+  /**
+   * Perform the REAL upload — only ever reached with a completed
+   * E-Signature (runSignedUpload is wired to the modal's onSigned).
+   * The signature is passed through onUpload so the caller binds it to
+   * every created document record + audit trail.
+   */
+  const runSignedUpload = async (signature) => {
+    // Multi-file / folder path — one E-Signature covers the whole batch.
+    if (queue.length > 0) {
       setError("");
       setIsUploading(true);
       setBatchProgress(0);
@@ -196,8 +204,8 @@ export default function UploadDocumentModal({
       let completed = 0;
 
       // Reuse the existing single-file upload service by calling
-      // `onUpload(form)` once per queued file. This preserves the
-      // existing document store and folder hierarchy.
+      // `onUpload(form, signature)` once per queued file. This preserves
+      // the existing document store and folder hierarchy.
       for (let i = 0; i < queue.length; i += 1) {
         const item = queue[i];
 
@@ -212,14 +220,17 @@ export default function UploadDocumentModal({
         await new Promise((resolve) => setTimeout(resolve, 0));
 
         try {
-          onUpload({
-            documentName: item.relativePath || item.file.name,
-            category: form.category,
-            version: form.version,
-            comments: form.comments,
-            file: item.file,
-            relativePath: item.relativePath
-          });
+          onUpload(
+            {
+              documentName: item.relativePath || item.file.name,
+              category: form.category,
+              version: form.version,
+              comments: form.comments,
+              file: item.file,
+              relativePath: item.relativePath
+            },
+            signature
+          );
 
           setQueue((prev) =>
             prev.map((row) =>
@@ -247,6 +258,38 @@ export default function UploadDocumentModal({
       return;
     }
 
+    // Legacy single-file path.
+    setError("");
+    onUpload(form, signature);
+    resetAll();
+    onClose();
+  };
+
+  /** Open the mandatory E-Signature step — nothing is persisted until the
+      user signs; cancelling the modal cancels the upload. */
+  const openSignatureStep = (entityName) => {
+    setError("");
+    setSigning({ entityName: entityName || "document upload" });
+  };
+
+  const submit = async () => {
+    // Multi-file / folder path.
+    if (isMultiMode) {
+      if (!form.category) {
+        setError("Please choose a category before uploading.");
+        return;
+      }
+
+      // Mandatory E-Signature BEFORE any queued file is persisted.
+      const firstName = queue[0]?.file?.name || queue[0]?.relativePath || "";
+      openSignatureStep(
+        queue.length === 1
+          ? firstName
+          : `${queue.length} files — ${firstName || "folder upload"}${firstName ? " …" : ""}`
+      );
+      return;
+    }
+
     // Legacy single-file path. Upload is now staged like the shared
     // document managers: the chosen file is read for real (progress to
     // 100%), and only then does Save persist it via the existing
@@ -268,10 +311,8 @@ export default function UploadDocumentModal({
         return;
       }
 
-      setError("");
-      onUpload(form);
-      resetAll();
-      onClose();
+      // Mandatory E-Signature before the upload persists.
+      openSignatureStep(form.documentName || form.file.name || "document upload");
       return;
     }
 
@@ -510,7 +551,7 @@ export default function UploadDocumentModal({
             type="button"
             className="save-btn"
             onClick={submit}
-            disabled={isUploading}
+            disabled={isUploading || Boolean(signing)}
           >
             {isMultiMode
               ? `Upload ${queue.length} File${queue.length === 1 ? "" : "s"}`
@@ -522,6 +563,23 @@ export default function UploadDocumentModal({
           </button>
         </div>
       </div>
+
+      {/* Mandatory E-Signature gate — the upload only happens after the
+          user completes the signature step. */}
+      <ESignatureModal
+        open={Boolean(signing)}
+        mode="upload"
+        entityType="document"
+        entityName={signing?.entityName || "document upload"}
+        scope={{ domain: "eisf", category: form.category }}
+        onClose={() => setSigning(null)}
+        onSigned={async (signature) => {
+          const signingSnapshot = signing;
+          setSigning(null);
+          if (!signingSnapshot) return;
+          await runSignedUpload(signature);
+        }}
+      />
     </div>
   );
 }

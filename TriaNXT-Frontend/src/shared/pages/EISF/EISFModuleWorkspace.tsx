@@ -3,6 +3,7 @@ import DashboardCards from "./components/DashboardCards";
 import DocumentTable from "./components/DocumentTable";
 import UploadDocumentModal from "./components/UploadDocumentModal";
 import DocumentViewer from "./components/DocumentViewer";
+import ESignatureModal from "../../components/ESignatureModal";
 import EditDocumentModal from "./components/EditDocumentModal";
 import VersionHistoryModal from "./components/VersionHistoryModal";
 import AuditTrailModal from "./components/AuditTrailModal";
@@ -24,6 +25,7 @@ import { processDocuments } from "./utils/searchUtils";
 import { getSubModuleEnabledMap, setSubModuleEnabled } from "./utils/subModuleStateUtils";
 import { hasPermission } from "../../services/roleService";
 import PERMISSIONS from "../../constants/permissions";
+import { recordSignatureLedgerEntry } from "../../services/actionSignatureService";
 import "./EISFModuleWorkspace.css";
 
 export default function EISFModuleWorkspace({
@@ -72,6 +74,10 @@ export default function EISFModuleWorkspace({
   const [historyOpen, setHistoryOpen] = useState(false);
   const [auditOpen, setAuditOpen] = useState(false);
   const [guidelineOpen, setGuidelineOpen] = useState(false);
+  // Mandatory E-Signature gate: while `pendingSign` is set, the shared
+  // E-Signature modal is shown and the requested upload/edit/delete is
+  // held back until the user completes (or cancels) the signature.
+  const [pendingSign, setPendingSign] = useState(null);
 
   useEffect(() => {
     setDocuments(initializeModuleDocuments(moduleConfig, studyCode, initialDocuments));
@@ -229,11 +235,14 @@ export default function EISFModuleWorkspace({
     setSortDirection("asc");
   };
 
-  const handleUpload = (formData) => {
+  const handleUpload = (formData, signature) => {
     if (!activeSectionEnabled) return;
     // RBAC guard: block upload even if the modal was reachable by some
     // other path — the Upload button itself is also hidden below.
     if (!canUploadDocs) return;
+    // Mandatory E-Signature gate: uploads never persist without a recorded
+    // signature (the Upload modal enforces this before calling onUpload).
+    if (!signature) return;
 
     const incomingName = (
       formData.documentName ||
@@ -286,12 +295,36 @@ export default function EISFModuleWorkspace({
       activeSection,
       moduleConfig,
       studyCode,
-      "Current User"
+      signature?.printedName || "Current User",
+      signature
     );
 
     setDocuments((prev) => [newDocument, ...prev]);
 
+    if (signature) {
+      recordSignatureLedgerEntry(signature, {
+        kind: "document:upload",
+        entityType: "document",
+        entityName: newDocument.documentName || formData.documentName || "",
+        scope: {
+          domain: "eisf",
+          studyCode,
+          moduleId: moduleConfig.id,
+          sectionId: activeSection.id,
+        },
+      });
+    }
+
     setShowUpload(false);
+  };
+
+  /**
+   * Open the mandatory E-Signature step for a document action. The real
+   * mutation (passed as `onSigned`) runs ONLY after the user completes the
+   * signature — cancelling the modal aborts the action.
+   */
+  const openPendingSignature = ({ mode, entityType = "document", entityName, actionLabel, onSigned }) => {
+    setPendingSign({ mode, entityType, entityName, actionLabel, onSigned });
   };
 
   const handleSaveDocument = (updatedDocument) => {
@@ -312,6 +345,7 @@ export default function EISFModuleWorkspace({
 
     const version = String(updatedDocument.version || "").trim();
 
+    // Early duplicate check: no point signing an edit that will be refused.
     const duplicate = documents.some((doc) => {
       if (doc.id === updatedDocument.id) {
         return false;
@@ -351,16 +385,44 @@ export default function EISFModuleWorkspace({
       return;
     }
 
-    setDocuments((prev) =>
-      prev.map((document) =>
-        document.id === updatedDocument.id
-          ? updateDocumentRecord(document, updatedDocument, "Current User")
-          : document
-      )
-    );
+    // Mandatory E-Signature BEFORE the edit is committed.
+    openPendingSignature({
+      mode: "edit",
+      entityType: "document",
+      entityName: updatedDocument.documentName || updatedDocument.name || "document",
+      actionLabel: `Save the metadata changes to "${
+        updatedDocument.documentName || updatedDocument.name || "this document"
+      }" (v${version || updatedDocument.version || "—"}).`,
+      onSigned: async (signature) => {
+        const actor = signature?.printedName || "Current User";
+        setDocuments((prev) =>
+          prev.map((document) =>
+            document.id === updatedDocument.id
+              ? updateDocumentRecord(document, updatedDocument, actor, signature)
+              : document
+          )
+        );
 
-    setEditOpen(false);
-    setSelectedDocument(null);
+        recordSignatureLedgerEntry(signature, {
+          kind: "document:edit",
+          entityType: "document",
+          entityName: updatedDocument.documentName || updatedDocument.name || "",
+          details: {
+            documentId: updatedDocument.id,
+            version: updatedDocument.version,
+          },
+          scope: {
+            domain: "eisf",
+            studyCode,
+            moduleId: moduleConfig.id,
+            sectionId: activeSection.id,
+          },
+        });
+
+        setEditOpen(false);
+        setSelectedDocument(null);
+      },
+    });
   };
 
   const handleDelete = (document) => {
@@ -369,10 +431,42 @@ export default function EISFModuleWorkspace({
     // RBAC guard: block delete even if the action was reachable by some
     // other path — the Delete action itself is also hidden in DocumentTable.
     if (!canDeleteDocs) return;
+    if (!document) return;
 
-    if (window.confirm(`Delete ${document.documentName}?`)) {
-      setDocuments((prev) => prev.filter((item) => item.id !== document.id));
-    }
+    const docName = document.documentName || document.name || "this document";
+
+    // Combined permanent-deletion confirmation + mandatory E-Signature in
+    // ONE modal (danger banner + type-DELETE + red "Delete & Sign").
+    openPendingSignature({
+      mode: "delete",
+      entityType: "document",
+      entityName: docName,
+      actionLabel: "This permanently removes the document from this study module.",
+      onSigned: async (signature) => {
+        recordSignatureLedgerEntry(signature, {
+          kind: "document:delete",
+          entityType: "document",
+          entityName: docName,
+          details: {
+            documentId: document.id,
+            version: document.version,
+            uploadedBy: document.uploadedBy,
+          },
+          scope: {
+            domain: "eisf",
+            studyCode,
+            moduleId: moduleConfig.id,
+            sectionId: activeSection.id,
+          },
+        });
+
+        setDocuments((prev) => prev.filter((item) => item.id !== document.id));
+        // Close the preview panel when the previewed document is deleted.
+        setPreviewDocument((current) =>
+          current?.id === document.id ? null : current
+        );
+      },
+    });
   };
 
   const handleDownload = (document) => {
@@ -632,6 +726,30 @@ export default function EISFModuleWorkspace({
         open={auditOpen && activeSectionEnabled}
         document={selectedDocument}
         onClose={() => closeDocumentModal(setAuditOpen)}
+      />
+
+      {/* Mandatory E-Signature gate — uploads/edit/deletes run only after
+          the acting user completes the signature step. */}
+      <ESignatureModal
+        open={Boolean(pendingSign) && activeSectionEnabled}
+        mode={pendingSign?.mode}
+        entityType={pendingSign?.entityType || "document"}
+        entityName={pendingSign?.entityName}
+        actionLabel={pendingSign?.actionLabel}
+        scope={{
+          domain: "eisf",
+          studyCode,
+          moduleId: moduleConfig.id,
+          sectionId: activeSection?.id,
+        }}
+        onClose={() => setPendingSign(null)}
+        onSigned={async (signature) => {
+          const pending = pendingSign;
+          setPendingSign(null);
+          if (pending?.onSigned) {
+            await pending.onSigned(signature);
+          }
+        }}
       />
 
       <FilingGuidelineModal

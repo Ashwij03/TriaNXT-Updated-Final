@@ -17,17 +17,20 @@ import {
   MdTune,
   MdFileDownload,
   MdArrowBack,
+  MdFolderZip,
 } from "react-icons/md";
 
 import FileUploadButton from "./FileUploadButton";
 import DragDropUpload from "./DragDropUpload";
+import SubjectFolderUpload from "../subjects/SubjectFolderUpload";
 import SubjectFileTable from "./SubjectFileTable";
 import FilePreviewModal from "./FilePreviewModal";
 import RenameFileModal from "./RenameFileModal";
-import DeleteFileDialog from "./DeleteFileDialog";
 import CreateFolderModal from "./CreateFolderModal";
 import MoveFileDialog from "./MoveFileDialog";
 import PermissionsModal from "./PermissionsModal";
+import ESignatureModal from "../ESignatureModal";
+import { recordSignatureLedgerEntry } from "../../services/actionSignatureService";
 import FolderStatsBar from "./FolderStatsBar";
 import FileFilterBar from "./FileFilterBar";
 import PaginationFooter from "./PaginationFooter";
@@ -43,6 +46,7 @@ import {
 import { getExtension } from "./fileTypes";
 import { useAuth } from "../../context/AuthContext";
 import { hasPermission } from "../../services/roleService";
+import SubjectIcfSyncService from "../../services/subjectIcfSyncService";
 import PERMISSIONS from "../../constants/permissions";
 import { downloadCsvReport } from "../../utils/exportReport";
 import "./SubjectFiles.css";
@@ -140,6 +144,13 @@ function SubjectFileManager({
   const [creatingFolder, setCreatingFolder] = useState(false);
   /* Phase 7: true while the async folder read is in flight (see note below). */
   const [loadingFiles, setLoadingFiles] = useState(false);
+  /* Mandatory E-Signature gate — { mode, entityType, entityName, actionLabel,
+      onSigned }. While set the shared E-Signature modal is shown and the
+      requested upload/edit/delete is not committed until the user signs. */
+  const [signing, setSigning] = useState(null);
+
+  /* Bulk folder upload dialog (drop / pick a whole directory tree). */
+  const [showFolderUpload, setShowFolderUpload] = useState(false);
 
   const folderId = selectedFolder?.id || null;
 
@@ -222,6 +233,63 @@ function SubjectFileManager({
     setCreatingFolder(false);
     setPage(1);
   }, [folderId]);
+
+  /* ---------- cross-surface ICF reconciliation ----------
+     A subject's locked system ICF folder has the deterministic explorer id
+     "<subjectId>/icf". Both directions of the mirror live here:
+       - OPENING the folder pulls any consent documents uploaded on the
+         document hub (folderService store) into this file manager.
+       - UPLOADING / duplicating / moving records in the folder pushes
+         explorer-origin files back to the hub (see the mutation handlers
+         below), so eISF / subject-document surfaces list them too. */
+  const subjectOfIcfFolder = useCallback((candidateId) => {
+    if (!candidateId) return null;
+    const match = String(candidateId).match(/^([^/]+)\/icf$/i);
+    return match ? match[1] : null;
+  }, []);
+
+  const isIcfFolderOpen = useMemo(
+    () => Boolean(subjectOfIcfFolder(folderId)),
+    [folderId, subjectOfIcfFolder],
+  );
+
+  const icfSubjectId = useMemo(
+    () => subjectOfIcfFolder(folderId),
+    [folderId, subjectOfIcfFolder],
+  );
+
+  /* Reconcile the hub mirror for the subject(s) touched by a write: the
+     hub export only writes when the explorer bucket changed, so it is safe
+     to call after any successful mutation. */
+  const mirrorIcfToHub = useCallback(
+    (subjectIds) => {
+      if (!studyId) return;
+      (subjectIds || []).forEach((subjectId) => {
+        if (subjectId) {
+          SubjectIcfSyncService.syncExplorerIcfToHub({ studyId, subjectId });
+        }
+      });
+    },
+    [studyId],
+  );
+
+  useEffect(() => {
+    if (!isIcfFolderOpen || !icfSubjectId || !studyId) return undefined;
+
+    const result = SubjectIcfSyncService.syncHubIcfToExplorer({
+      studyId,
+      subjectId: icfSubjectId,
+    });
+
+    // The sync persisted through FileService (emitting its own change
+    // event), but reload explicitly so this folder's rows are never one
+    // store-read behind the just-imported records.
+    if (result.changed) {
+      setStore(FileService.loadFileStore(studyId));
+    }
+
+    return undefined;
+  }, [isIcfFolderOpen, icfSubjectId, studyId]);
 
   /**
    * Phase 7: drive the table's skeleton from the async read seam.
@@ -393,15 +461,36 @@ function SubjectFileManager({
      HANDLERS
   ============================================================== */
 
+  /** Open the mandatory E-Signature step before an action commits. */
+  const openSignature = (request) => setSigning(request);
+
+  /** Signature-ledger scope for subject-file mutations. */
+  const signatureScope = {
+    domain: "subjects",
+    studyId,
+    folderId,
+  };
+
+  const signEntity = (kind, entityType, entityName, signature, details = {}) => {
+    recordSignatureLedgerEntry(signature, {
+      kind,
+      entityType,
+      entityName,
+      details,
+      scope: signatureScope,
+    });
+  };
+
   /** Requirement 1 + 8: persist files through FileService + report feedback. */
   const persistFiles = useCallback(
-    async (filesArray) => {
+    async (filesArray, signature = null) => {
       const result = await FileService.uploadFiles(
         studyId,
         store,
         folderId,
         filesArray,
         currentUser,
+        signature,
       );
 
       if (!result.ok) {
@@ -414,6 +503,14 @@ function SubjectFileManager({
       }
 
       setStore(result.store);
+
+      // Explorer -> hub mirror: files uploaded directly into a subject's
+      // locked ICF folder are pushed to the document hub's ICF folder so the
+      // eISF / subject-document surfaces list them as well (the two surfaces
+      // use separate localStorage stores - see subjectIcfSyncService).
+      if (icfSubjectId) {
+        mirrorIcfToHub([icfSubjectId]);
+      }
 
       const count = result.added.length;
       const base = `${count} ${count === 1 ? "file" : "files"} uploaded to "${folderName}".`;
@@ -433,7 +530,7 @@ function SubjectFileManager({
 
       return result;
     },
-    [studyId, store, folderId, folderName, currentUser],
+    [studyId, store, folderId, folderName, currentUser, icfSubjectId, mirrorIcfToHub],
   );
 
   /**
@@ -496,14 +593,23 @@ function SubjectFileManager({
   const handleSaveStaged = useCallback(async () => {
     if (!stagedUpload || stagedUpload.progress < 100 || savingStaged) return;
 
-    setSavingStaged(true);
-    try {
-      const result = await persistFiles([stagedUpload.file]);
-      if (result?.ok) setStagedUpload(null);
-    } finally {
-      setSavingStaged(false);
-    }
-  }, [stagedUpload, savingStaged, persistFiles]);
+    // Mandatory E-Signature BEFORE the file is persisted.
+    openSignature({
+      mode: "upload",
+      entityType: "file",
+      entityName: stagedUpload.file?.name || "file upload",
+      actionLabel: `Upload "${stagedUpload.file?.name || "file"}" to "${folderName}".`,
+      onSigned: async (signature) => {
+        setSavingStaged(true);
+        try {
+          const result = await persistFiles([stagedUpload.file], signature);
+          if (result?.ok) setStagedUpload(null);
+        } finally {
+          setSavingStaged(false);
+        }
+      },
+    });
+  }, [stagedUpload, savingStaged, persistFiles, folderName]);
 
   /**
    * Requirement 1 + 8: upload entry point.
@@ -531,14 +637,28 @@ function SubjectFileManager({
         return;
       }
 
-      setUploading(true);
-      try {
-        await persistFiles(filesArray);
-      } finally {
-        setUploading(false);
-      }
+      // Bulk upload — ONE mandatory E-Signature authorizes the whole batch.
+      const sample = filesArray
+        .slice(0, 2)
+        .map((file: any) => file?.name || "")
+        .filter(Boolean)
+        .join(", ");
+      openSignature({
+        mode: "upload",
+        entityType: "file",
+        entityName: `${filesArray.length} files${sample ? ` — ${sample}${filesArray.length > 2 ? " …" : ""}` : ""}`,
+        actionLabel: `Upload ${filesArray.length} file(s) to "${folderName}".`,
+        onSigned: async (signature) => {
+          setUploading(true);
+          try {
+            await persistFiles(filesArray, signature);
+          } finally {
+            setUploading(false);
+          }
+        },
+      });
     },
-    [readOnly, folderId, persistFiles, startStagedUpload],
+    [readOnly, folderId, persistFiles, startStagedUpload, folderName],
   );
 
   /**
@@ -664,26 +784,38 @@ function SubjectFileManager({
 
   const submitCreateFolder = (name) => {
     if (readOnly) return;
-    const result = FolderTreeService.createFolder(
-      studyId,
-      tree,
-      folderId,
-      name,
-    );
+    const trimmed = String(name || "").trim();
 
-    if (!result.ok) {
-      setSubmitError(result.error);
-      return;
-    }
+    // Mandatory E-Signature BEFORE the folder is created.
+    openSignature({
+      mode: "create",
+      entityType: "folder",
+      entityName: trimmed,
+      actionLabel: `Create folder "${trimmed}" inside "${folderName}".`,
+      onSigned: async (signature) => {
+        const result = FolderTreeService.createFolder(
+          studyId,
+          tree,
+          folderId,
+          trimmed,
+        );
 
-    // The service persists and emits a SUBJECT_FOLDER_TREE_EVENT, which
-    // useSubjectWorkspace picks up and refreshes the tree prop flowing
-    // back into this component. No local setTree needed.
-    setCreatingFolder(false);
-    setSubmitError("");
-    setFeedback({
-      tone: "success",
-      message: `Folder "${result.node.name}" created in "${folderName}".`,
+        if (!result.ok) {
+          setSubmitError(result.error);
+          return;
+        }
+
+        // The service persists and emits a SUBJECT_FOLDER_TREE_EVENT, which
+        // useSubjectWorkspace picks up and refreshes the tree prop flowing
+        // back into this component. No local setTree needed.
+        signEntity("folder:create", "folder", trimmed, signature, { folderId });
+        setCreatingFolder(false);
+        setSubmitError("");
+        setFeedback({
+          tone: "success",
+          message: `Folder "${result.node.name}" created in "${folderName}".`,
+        });
+      },
     });
   };
 
@@ -729,8 +861,36 @@ function SubjectFileManager({
         return;
       }
 
-      if (action === "view" || action === "rename" || action === "delete") {
+      if (action === "view" || action === "rename") {
         setDialog({ mode: action === "view" ? "preview" : action, file });
+        return;
+      }
+
+      if (action === "delete") {
+        // ONE combined modal: permanent-deletion warning + typed DELETE +
+        // mandatory E-Signature (no separate "are you sure" dialog).
+        openSignature({
+          mode: "delete",
+          entityType: "file",
+          entityName: file.name,
+          actionLabel: "This permanently deletes the file from this folder.",
+          onSigned: async (signature) => {
+            const result = FileService.deleteFile(
+              studyId,
+              store,
+              folderId,
+              file.id,
+              signature,
+            );
+            if (!result.ok) {
+              setFeedback({ tone: "error", message: result.error });
+              return;
+            }
+            setStore(result.store);
+            setFeedback({ tone: "success", message: `"${file.name}" deleted.` });
+            closeDialog();
+          },
+        });
         return;
       }
 
@@ -746,6 +906,9 @@ function SubjectFileManager({
         } else {
           setStore(result.store);
           setFeedback({ tone: "success", message: `"${result.file.name}" created as a duplicate.` });
+          // A duplicate inside a subject's ICF folder is a new explorer-origin
+          // record the hub mirror should also list.
+          if (icfSubjectId) mirrorIcfToHub([icfSubjectId]);
         }
         return;
       }
@@ -774,6 +937,8 @@ function SubjectFileManager({
       store,
       folderId,
       currentUser,
+      icfSubjectId,
+      mirrorIcfToHub,
     ],
   );
 
@@ -800,45 +965,39 @@ function SubjectFileManager({
       return;
     }
 
-    const result = FileService.renameFile(
-      studyId,
-      store,
-      folderId,
-      dialog.file.id,
-      name,
-      currentUser,
-    );
+    const targetName = String(name || "").trim();
+    const originalName = dialog.file?.name || "this file";
 
-    if (!result.ok) {
-      setSubmitError(result.error);
-      return;
-    }
+    // Mandatory E-Signature BEFORE the rename is committed.
+    openSignature({
+      mode: "edit",
+      entityType: "file",
+      entityName: targetName,
+      actionLabel: `Rename "${originalName}" to "${targetName}".`,
+      onSigned: async (signature) => {
+        const result = FileService.renameFile(
+          studyId,
+          store,
+          folderId,
+          dialog.file.id,
+          targetName,
+          currentUser,
+          signature,
+        );
 
-    setStore(result.store);
-    setFeedback({
-      tone: "success",
-      message: `Renamed to "${result.file.name}".`,
+        if (!result.ok) {
+          setSubmitError(result.error);
+          return;
+        }
+
+        setStore(result.store);
+        setFeedback({
+          tone: "success",
+          message: `Renamed to "${result.file.name}".`,
+        });
+        closeDialog();
+      },
     });
-    closeDialog();
-  };
-
-  const submitDelete = () => {
-    if (readOnly || folderNode?.locked) {
-      setSubmitError("This folder is view-only. Files cannot be deleted.");
-      return;
-    }
-
-    const target = dialog.file;
-    const result = FileService.deleteFile(studyId, store, folderId, target.id);
-
-    if (!result.ok) {
-      setSubmitError(result.error);
-      return;
-    }
-
-    setStore(result.store);
-    setFeedback({ tone: "success", message: `"${target.name}" deleted.` });
-    closeDialog();
   };
 
   /* ==============================================================
@@ -943,6 +1102,18 @@ function SubjectFileManager({
           </button>
 
           <FileUploadButton onFiles={handleUpload} busy={uploading} />
+
+          {!readOnly && (
+            <button
+              type="button"
+              className="sf-btn sf-btn--ghost"
+              onClick={() => setShowFolderUpload(true)}
+              title="Upload an entire folder (its nested structure is recreated here)"
+            >
+              <MdFolderZip size={16} aria-hidden="true" />
+              <span>Upload Folder</span>
+            </button>
+          )}
         </div>
       </header>
 
@@ -1266,7 +1437,30 @@ function SubjectFileManager({
               onDownload={() => handleDownload(dialog.file)}
               onDelete={() => {
                 if (readOnly || folderNode?.locked) return;
-                setDialog({ mode: "delete", file: dialog.file });
+                // ONE combined modal: warning + typed DELETE + E-Signature.
+                const previewFile = dialog.file;
+                openSignature({
+                  mode: "delete",
+                  entityType: "file",
+                  entityName: previewFile?.name || "this file",
+                  actionLabel: "This permanently deletes the file from this folder.",
+                  onSigned: async (signature) => {
+                    const result = FileService.deleteFile(
+                      studyId,
+                      store,
+                      folderId,
+                      previewFile.id,
+                      signature,
+                    );
+                    if (!result.ok) {
+                      setFeedback({ tone: "error", message: result.error });
+                      return;
+                    }
+                    setStore(result.store);
+                    setFeedback({ tone: "success", message: `"${previewFile.name}" deleted.` });
+                    closeDialog();
+                  },
+                });
               }}
               canApprove={canApproveDocs}
               onApprove={() => handleApprove(dialog.file)}
@@ -1284,16 +1478,6 @@ function SubjectFileManager({
           validate={validateRename}
           submitError={submitError}
           onSubmit={submitRename}
-          onClose={closeDialog}
-        />
-      )}
-
-      {dialog?.mode === "delete" && (
-        <DeleteFileDialog
-          file={dialog.file}
-          folderName={folderName}
-          submitError={submitError}
-          onConfirm={submitDelete}
           onClose={closeDialog}
         />
       )}
@@ -1345,6 +1529,13 @@ function SubjectFileManager({
             }
             setStore(result.store);
             setFeedback({ tone: "success", message: `"${dialog.file.name}" moved successfully.` });
+            // A move into or out of a subject's ICF folder changes what the
+            // hub mirror should contain (additions on entry, prunes on exit).
+            const affectedSubjects = [
+              subjectOfIcfFolder(folderId),
+              subjectOfIcfFolder(targetFolderId),
+            ].filter(Boolean);
+            mirrorIcfToHub(affectedSubjects);
             closeDialog();
           }}
           submitError={submitError}
@@ -1372,6 +1563,39 @@ function SubjectFileManager({
             setCreatingFolder(false);
             setSubmitError("");
           }}
+        />
+      )}
+
+      {/* Mandatory E-Signature gate — no file/folder upload, edit or delete
+          is committed until the acting user completes the signature. */}
+      <ESignatureModal
+        open={Boolean(signing)}
+        mode={signing?.mode}
+        entityType={signing?.entityType || "file"}
+        entityName={signing?.entityName}
+        actionLabel={signing?.actionLabel}
+        scope={signatureScope}
+        onClose={() => setSigning(null)}
+        onSigned={async (signature) => {
+          const pending = signing;
+          setSigning(null);
+          if (pending?.onSigned) {
+            await pending.onSigned(signature);
+          }
+        }}
+      />
+
+      {/* Bulk folder upload (drop / pick a directory tree). The selected
+          folder is the target; the planner merges an "ICF" drop into the
+          subject's locked ICF folder rather than creating a second one. */}
+      {showFolderUpload && (
+        <SubjectFolderUpload
+          studyId={studyId}
+          tree={tree}
+          targetFolderId={folderId}
+          targetLabel={folderPath.join(" / ") || folderName}
+          readOnly={readOnly}
+          onClose={() => setShowFolderUpload(false)}
         />
       )}
     </section>

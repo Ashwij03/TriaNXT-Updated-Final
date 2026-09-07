@@ -1,8 +1,8 @@
 import { readJson } from "../utils/storageHelpers";
 export const FOLDER_TREE_EVENT = "trianxt-folder-tree-updated";
 export const FOLDER_TEMPLATES_EVENT = "trianxt-folder-templates-updated";
-const FOLDER_TREE_KEY = "trianxtFolderTrees";
-const FOLDER_DOCS_KEY = "trianxtFolderDocuments";
+export const FOLDER_TREE_KEY = "trianxtFolderTrees";
+export const FOLDER_DOCS_KEY = "trianxtFolderDocuments";
 const FOLDER_TEMPLATE_KEY = "trianxtFolderTemplates";
 export const FOLDER_SECTIONS = {
   subjects: "Subjects",
